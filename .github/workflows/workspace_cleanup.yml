@@ -15,7 +15,7 @@ jobs:
     - name: Set Up Python Environment
       uses: actions/setup-python@v5
       with:
-        python-version: '3.9.6' # Matches your exact local active workspace environment
+        python-version: '3.9' # Matches your exact local active workspace environment
 
     - name: Install Dependencies
       run: |
