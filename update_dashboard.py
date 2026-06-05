@@ -30,12 +30,17 @@ def push_metrics_to_readme():
     reported_instructional_expenses = 14200000.00
     distortion_coefficient = (audited_total_loss / reported_instructional_expenses) * 100
     
+    # HCM2 Metrics
+    average_reimbursement_delay_days = 90
+    annual_operational_days = 365
+    daily_burn_rate = audited_title_iv_drawdown / annual_operational_days
+    frozen_cash_reserve_drag = daily_burn_rate * average_reimbursement_delay_days
+    
     drag = (audited_total_loss / narrative_total) * 100
     leak = (audited_magellan_leak / narrative_online) * 100
     
     dashboard_md = f"""
 ### 🚨 LIVE PUBLIC TRUST DISCREPANCY SCORECARD
-
 
 
 | Forensic Parameter | Official State Claim | Audited Reality Ledger | Computed Accountability Risk |
@@ -44,6 +49,7 @@ def push_metrics_to_readme():
 | **Online Extension Lines** | ${narrative_online:,.2f} | ${audited_magellan_leak:,.2f} | **{leak:.2f}% Historical Allocation Leak** |
 | **Federal Title IV Flow** | {newsroom_headcount} Census Enrollment | ${audited_title_iv_drawdown:,.2f} Active Drawdown | **-${systemic_variance_leak:,.2f} OPE ID Funding Leak** |
 | **NCES IPEDS Validation** | Unit ID: 157112 | ${reported_instructional_expenses:,.2f} Inst. Cost | **{distortion_coefficient:.2f}% Reporting Distortion** |
+| **FSA HCM2 Sanction Drag** | Level 2 Reimbursement | {average_reimbursement_delay_days}-Day Review Pipeline | **${frozen_cash_reserve_drag:,.2f} Frozen Cash Flow** |
 
 *Last Synchronized: {claims.get("last_checked", "Recent Check")} | Ledger Security: `SHA-256 Verified Anchor`*
 """
@@ -62,7 +68,7 @@ def push_metrics_to_readme():
         
         with open(README_PATH, 'w') as f:
             f.write(updated_content)
-        print("✅ Frontend GitHub README Dashboard updated with dynamic OPE ID & IPEDS metrics.")
+        print("✅ Frontend GitHub README Dashboard updated with dynamic OPE ID, IPEDS, & HCM2 metrics.")
 
 if __name__ == "__main__":
     push_metrics_to_readme()
