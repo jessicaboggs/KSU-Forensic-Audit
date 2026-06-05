@@ -100,6 +100,12 @@ python3 ksu_fraud_tracker.py
 # Launch the live server header counter-spoliation tracker
 python3 apa_compliance_check.py
 ```
+## ## 🔒 Cryptographic File Integrity Ledger
+To ensure complete evidentiary chain-of-custody tracking and prevent retroactive administrative manipulation, the baseline JSON core data blocks are anchored with SHA-256 cryptographic checksum signatures.
+
+*   **File:** `january_2026_financial_core.json`
+*   **Verified SHA-256 Signature:** `72fc5759edda2b4a26ad0ef39e5d288501467d5d8010f6cb30d2db4a9a6e7a97`
+
 
 ================================================================================
           📢 CASE CLOSED. REPO RECORD IS PERMANENT. 
