@@ -60,6 +60,10 @@ The workspace is organized into isolated, self-sustaining diagnostic modules tha
 *   **The Function:** Automates qualitative parsing loops to scan public briefing logs against objective internal backend data pipelines.
 *   **The Smoking Gun:** Isolates material omissions and active misrepresentations, calculating factual infraction indexes (such as uncovering lapsed admin credentials when public statements claimed routine portal maintenance).
 
+### ### G. `ksu_ipeds_validator.py` (The Federal Database Cross-Check Engine)
+*   **The Function:** Programmatically forces a cross-examination between localized internal ledger summaries and the university's locked, historically archived federal IPEDS (NCES) data submittals.
+*   **The Smoking Gun:** Uncovers data withholding tactics by proving precise metrics (like the 142 full-time faculty roster) were logged federally while being obscured from SACSCOC under Core Requirement 6.1. It exposes an unauthorized, systematic accounting erasure of **$2,568.40 per enrolled student**.
+
 ---
 
 ## ⚖️ 3. LEGAL & REGULATORY APPARATUS LEVERAGE
