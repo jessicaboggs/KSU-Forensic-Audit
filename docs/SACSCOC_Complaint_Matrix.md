@@ -13,6 +13,9 @@
 | :--- | :--- | :--- | :--- | :--- |
 | **Core Requirement 1.1** | Institutional Integrity & Candor | Board minutes doctored (Oct 2010 PDF returns HTML header due to active server-side redirection). | `apa_compliance_check.py` | SACSCOC Compliance Committee |
 | **Standard 13.6** | Administrative & Federal Capability | HCM2 lockout Nov 2024, concealed from governing board via "Strategic Silence" loops. | `ksu_fraud_tracker.py` | DOE FSA + SACSCOC |
+
+| **Standard 14.4** | Representation to the Commission | Multi-month technical directory purges routing 2026 academic plans and curriculum changes to a hard 404 Error page to evade independent legal vetting. | `ksu_evasion_logger.py` | SACSCOC Board of Trustees + State Auditor |
+| **Core Req 1.1** | Institutional Integrity & Candor | Directing statutory restructurings and 30-day tenure layoffs under an unregistered name variant without reciprocal KY admission, triggering cross-border UPL-67 ethics breaches. | `ksu_upl_tracker.py` | Office of Bar Counsel (OBC) + SACSCOC |
 | **Principle of Integrity** | Obligations to the Commission | "Strategic Silence" dance moment; masking expired administrative G5 access credentials as "portal maintenance." | `ksu_lie_counter.py` | SACSCOC Board of Trustees |
 
 ---
