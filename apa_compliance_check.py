@@ -1,37 +1,43 @@
-#!/usr/bin/env python3
-import urllib.request
-import hashlib
+import os
+import json
 import sys
 
-class APAMonitor:
-    def __init__(self):
-        # Targeting the exact file path experiencing forced formatting corruption
-        self.target_url = "https://kysu.edu"
-        self.known_pdf_header = b"%PDF-"
-
-    def evaluate_file_integrity(self):
-        print("================================================================================")
-        print("🔍 RUNNING NATIVE WEBSITE TRACKER: COUNTER-SPOLIATION MONITOR")
-        print("================================================================================")
-        try:
-            # Emulating a standard browser request block to bypass basic server filters
-            req = urllib.request.Request(self.target_url, headers={'User-Agent': 'Mozilla/5.0'})
-            with urllib.request.urlopen(req) as response:
-                file_head = response.read(5)
+def run_compliance_check():
+    print("--- Starting APA Compliance Validation ---")
+    log_file = "TAB_E-8_G5_API_Payload_Logs.json"
+    
+    # 1. Verification: Ensure required core files exist
+    if not os.path.exists(log_file):
+        print(f"[CRITICAL ERROR] Target file '{log_file}' is missing! Possible data spoliation detected.")
+        sys.exit(1) # Force workflow failure if files disappear
+        
+    try:
+        with open(log_file, 'r') as f:
+            logs = json.load(f)
+            
+        # 2. Validation: Verify payload list integrity
+        if not isinstance(logs, list):
+            print("[CRITICAL ERROR] Forensic logs must be structured as a JSON Array/List.")
+            sys.exit(1)
+            
+        print(f"[SUCCESS] Target file verified. Processing {len(logs)} payload records...")
+        
+        # 3. Compliance Scan Loop
+        violations_count = 0
+        for index, record in enumerate(logs):
+            # Check for critical forensic keys
+            if "payload" not in record or "timestamp" not in record:
+                print(f"[VIOLATION] Record index {index} is missing structural forensic telemetry.")
+                violations_count += 1
                 
-                # Check for forced formatting corruption
-                if file_head != self.known_pdf_header:
-                    print("🔴 ALERT: DATA DEGRADATION DETECTED in repository files!")
-                    print(f"   [!] EXPECTED HEADER : {self.known_pdf_header}")
-                    print(f"   [!] RETURNED VALUE  : {file_head}")
-                    print("   [!] FORENSIC STATUS : Active binary corruption/scrambling deployed.")
-                    print("   [!] COMPLIANCE NOTE : Violation of State APA / Intentional Concealment.")
-                else:
-                    print("🟢 STATUS: PDF binary header remains intact and readable.")
-        except Exception as e:
-            print(f"❌ CONNECTION FAULT: Unable to scrape endpoint. Error: {str(e)}")
-        print("================================================================================")
+        if violations_count > 0:
+            print(f"[WARNING] Scan complete. Found {violations_count} non-compliant artifacts.")
+        else:
+            print("[SUCCESS] Core API dataset complies fully with forensic parameters.")
+            
+    except json.JSONDecodeError:
+        print("[CRITICAL ERROR] Target log file is corrupted or poorly formatted JSON.")
+        sys.exit(1)
 
 if __name__ == "__main__":
-    monitor = APAMonitor()
-    monitor.evaluate_file_integrity()
+    run_compliance_check()
