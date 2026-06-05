@@ -1,0 +1,31 @@
+name: GitHub Actions Workflow
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Example schedule
+  workflow_dispatch:
+
+jobs:
+  inspect-endpoint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository Graph
+        uses: actions/checkout@v4
+
+      - name: Initialize Python Core Environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Run Financial Data Cleaner
+        run: python3 ksu_financial_cleaner.py
+
+      - name: Run Live Counter-Spoliation Scanner
+        run: python3 apa_compliance_check.py
+
+      - name: Create Data Directory
+        run: mkdir -p data
+
+      - name: Fetch Weekly School File
+        run: |
+          curl -L "example-school-portal.edu" -o data/weekly_school_file.csv
