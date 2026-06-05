@@ -1,0 +1,18 @@
+{
+  "federal_submission_metadata": {
+    "agency": "NCES / IPEDS Data Feedback System",
+    "unit_id": "Kentucky State University Tracking Portal",
+    "verification_status": "FEDERALLY_LOCKED"
+  },
+  "ipeds_reported_metrics": {
+    "human_resources": {
+      "full_time_instructional_staff": 142,
+      "part_time_instructional_staff": 88,
+      "reporting_status": "SUBMITTED_AND_LOCKED"
+    },
+    "enrollment_and_finance": {
+      "unduplicated_student_headcount": 2200,
+      "total_title_iv_federal_aid_usd": 12500000.00
+    }
+  }
+}
