@@ -45,6 +45,9 @@ def push_metrics_to_readme():
     
     # Map the exact keys required by your multi-line string table formatting
     filing_offset_days = telemetry["timeline_delay_days"]
+    # Force the live calculated script value over the static JSON field
+    filing_offset_days = telemetry["timeline_delay_days"] 
+
     calculated_vacuum_duration_months = telemetry["communication_gap_months"]
     monitored_redirect_hops = 3
     evasion_score = 100.00
