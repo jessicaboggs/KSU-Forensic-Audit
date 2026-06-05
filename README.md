@@ -48,6 +48,18 @@ The workspace is organized into isolated, self-sustaining diagnostic modules tha
 ### 📊 C. `january_2026_financial_core.json` (The Immutable Treasury Backup)
 * **The Function:** A hardcoded, text-based data layer mirror of the *only* clean financial accounting update released before the administrative core began scrambling the PDF archives. It seals the raw figures permanently on the global code graph, completely insulated from native website server tampering.
 
+### ### D. `ksu_hcm2_validator.py` (The Federal Funding Escalation Monitor)
+*   **The Function:** Programmatically maps core financial balances and unauthorized asset shifts against federal Heightened Cash Monitoring 2 (HCM2) threshold criteria.
+*   **The Smoking Gun:** Automatically triggers an immediate reimbursement stream suspension flag if restricted funding pools are breached to mask structural operational deficits.
+
+### ### E. `ksu_law_vs_lore_tracker.py` (The Governance Discrepancy Profiler)
+*   **The Function:** Cross-references qualitative administrative narratives against strict statutory legal benchmarks.
+*   **The Smoking Gun:** Traps systemic operational opacity by flagging unwritten withholding actions (such as concealing Title IV logs under the guise of "policy updates") and locks the findings under an unmodifiable `EVIDENTIARY_HOLD`.
+
+### ### F. `ksu_lie_counter.py` (The Public Briefing Credibility Engine)
+*   **The Function:** Automates qualitative parsing loops to scan public briefing logs against objective internal backend data pipelines.
+*   **The Smoking Gun:** Isolates material omissions and active misrepresentations, calculating factual infraction indexes (such as uncovering lapsed admin credentials when public statements claimed routine portal maintenance).
+
 ---
 
 ## ⚖️ 3. LEGAL & REGULATORY APPARATUS LEVERAGE
