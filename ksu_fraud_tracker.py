@@ -1,69 +1,63 @@
 #!/usr/bin/env python3
-import sys
+import os
 import json
+import sys
 from datetime import datetime
 
-class FederalLockoutParser:
-    def __init__(self):
-        # Automated Federal server lock identifier sequence unmasked from line 7900
-        self.lock_string = "406012355YPY501220241016202410312024110420270930141SH2"
-        self.institution_id = "0100196800"  # KSU Core Identification Data
-        self.diagnostic_log = {}
-
-    def parse_server_lock(self):
-        """Forensically breaks down the hardcoded server core string layers"""
-        server_code  = self.lock_string[9:15]   # Captures "YPY501"
-        ppa_sign_raw = self.lock_string[16:24]  # Shifts past the extra '2' to get "20241016"
-        trigger_raw  = self.lock_string[24:32]  # Captures "20241031"
-        lock_raw     = self.lock_string[32:40]  # Captures "20241104"
-        horizon_raw  = self.lock_string[40:48]  # Captures "20270930"
-        tier_suffix  = self.lock_string[48:]    # Captures "141SH2"
+def run_fraud_analysis():
+    print("--- Initializing KSU Financial Fraud Tracker Engine ---")
+    data_source = "january_2026_financial_core.json"
+    
+    if not os.path.exists(data_source):
+        print(f"[ERROR] Financial data file '{data_source}' not found. Skipping analysis loop.")
+        sys.exit(0)
         
-        self.diagnostic_log = {
-            "Target System Core"       : "U.S. Dept of Education G5 FSA Portal Backend",
-            "Automated Disciplinary ID": server_code,
-            "Executive Signing Event"  : datetime.strptime(ppa_sign_raw, "%Y%m%d").strftime("%B %d, %Y"),
-            "System Trigger Event"     : datetime.strptime(trigger_raw, "%Y%m%d").strftime("%B %d, %Y"),
-            "Hard Lock Deployment"     : datetime.strptime(lock_raw, "%Y%m%d").strftime("%B %d, %Y"),
-            "Hard Release Horizon"     : datetime.strptime(horizon_raw, "%Y%m%d").strftime("%B %d, %Y"),
-            "Active Penalty Tier"      : f"HCM2 Status Stage 2 Lockout ({tier_suffix})"
-        }
-        return self.diagnostic_log
-
-    def verify_executive_custody(self):
-        """Evaluates timeline proximity to isolate direct administrative knowledge"""
-        self.parse_server_lock()
-        print("================================================================================")
-        print("📡 FEDERAL SERVER GRAPH INTERCEPT: FSA CORE DATA STREAM")
-        print("================================================================================")
-        print(f"INSTITUTION REGISTRY REF : {self.institution_id} (Kentucky State University)")
-        print("COMPLIANCE EVALUATION     : SACSCOC Standard 13.6 (Administrative Capability)\n")
-        
-        print("PARSED SERVER LOCK METRICS:")
-        for key, val in self.diagnostic_log.items():
-            print(f"  [+] {key:<28}: {val}")
+    try:
+        with open(data_source, 'r') as f:
+            transactions = json.load(f)
             
-        print("\n" + "-"*80 + "\n")
-        print("🕵️‍♂️ INSPECTOR CHRONOLOGY EVALUATION:")
-        print("  [-] 2024-10-16: Automated system registers preliminary tracking violations.")
-        print("  [-] 2024-11-04: Automated Federal Server Core deploys Hard Lockout string.")
-        print("  [-] 2025-06-26: Administration deploys broad 'Information Items' to Board.")
-        print("  [-] 2025-12-05: Emergency 'Shell Agenda' hides Good Cause Probation Order.")
-        print("  [-] 2026-01-15: Internal treasury default triggers $2.7M restricted raid.")
-        print("\n" + "-"*80 + "\n")
+        print(f"[INFO] Successfully loaded {len(transactions)} transaction items for auditing...")
         
-        print("🔴 ALIBI COLLAPSE DESTRUCTION MATRIX:")
-        print("  [CRIME LOG] The administration attempted to frame the state procurement caps")
-        print("              of Senate Bill 185 (SB 185) as the primary cause of their ")
-        print("              database timeline tracking failure.")
-        print("  [DB TRUTH ] The automated federal server core lock dropped in NOVEMBER 2024,")
-        print("              nearly 17 months BEFORE the Kentucky General Assembly passed ")
-        print("              Senate Bill 185 in 2026. State intervention was the CONSEQUENCE")
-        print("              of the fraud, not the cause.")
-        print("================================================================================")
-        print("📢 VERDICT: EXECUTIVE ESCAPE IMPOSSIBLE. HARD RE-HORIZON EXPIRATION: 2027-09-30.")
-        print("================================================================================")
+        anomalies_detected = 0
+        seen_transactions = {} # Memory hash map to check for velocity/duplicate spacing
+        
+        for idx, tx in enumerate(transactions):
+            amount = tx.get("amount", 0)
+            vendor = tx.get("vendor", "UNKNOWN_VENDOR")
+            timestamp_str = tx.get("timestamp", "")
+            tx_id = tx.get("transaction_id", f"GEN-ID-{idx}")
+            
+            # 1. Flag Large Rounded Sums (Common indicator of missing invoices/shell transfers)
+            if amount >= 5000 and amount % 1000 == 0:
+                print(f"[FLAG - ROUNDED AMOUNT] High-value round sum: ${amount:,} to {vendor} (ID: {tx_id})")
+                anomalies_detected += 1
+                
+            # 2. Flag Off-Hours Activity (System updates or ledger overrides during dead hours)
+            if timestamp_str:
+                try:
+                    # Expecting typical ISO timestamp standard (YYYY-MM-DDTHH:MM:SS)
+                    tx_time = datetime.fromisoformat(timestamp_str.replace("Z", ""))
+                    if tx_time.hour >= 22 or tx_time.hour <= 4:
+                        print(f"[FLAG - TIMING ANOMALY] Suspicious processing hour ({tx_time.strftime('%H:%M:%S')}) for transaction {tx_id}")
+                        anomalies_detected += 1
+                except ValueError:
+                    pass # Skip timestamp formatting anomalies here; handle in structural checks
+                    
+            # 3. Duplicate Transaction Cascades (Splitting invoices into identical pieces to bypass approval ceilings)
+            tx_signature = f"{vendor}_{amount}"
+            if tx_signature in seen_transactions:
+                print(f"[FLAG - SPLIT MATCH] Warning: Duplicate billing velocity pattern matching vendor '{vendor}' for amount ${amount:,}")
+                anomalies_detected += 1
+            else:
+                seen_transactions[tx_signature] = timestamp_str
+
+        print("--------------------------------------------------")
+        print(f"[SCAN COMPLETE] Total anomalous profiles surfaced: {anomalies_detected}")
+        
+    except json.JSONDecodeError:
+        print("[CRITICAL] Financial core dataset corrupted or unreadable. Analysis halted.")
+        sys.exit(1)
 
 if __name__ == "__main__":
-    parser = FederalLockoutParser()
-    parser.verify_executive_custody()
+    run_fraud_analysis()
+
