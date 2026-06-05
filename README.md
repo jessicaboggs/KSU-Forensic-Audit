@@ -33,13 +33,13 @@ This repository hosts the diagnostic scripts and structured data objects documen
 
 ---
 
-## 📡 2. THE REPOSITORY ARTIFACT ARCHITECTURE
+## 2. THE REPOSITORY ARTIFACT ARCHITECTURE
 
 The workspace is organized into isolated, self-sustaining diagnostic modules that can be cloned and run locally on any terminal console:
 
-### 📄 A. `ksu_fraud_tracker.py` (The Timeline Demolition Engine)
-* **The Function:** Slices the hardcoded federal server string (`406012355YPY501220241016202410312024110420270930141SH2`) by exact character indexes to isolate direct executive custody.
-* **The Alibi Blowout:** Mathematically demonstrates that the automated federal server core locked KSU inside an **HCM2 manual reimbursement restriction on November 4, 2024**—seventeen (17) months *before* the Kentucky General Assembly passed the state procurement caps of Senate Bill 185 in 2026. The state intervention was the *consequence* of the mismanagement, not the cause.
+###  `ksu_fraud_tracker.py` (Timeline Verification Module)
+* **The Function:** Parses systemic logging timestamps by exact character indexes to isolate historical administrative transactions.
+* **Chronological Reconciliation:** Validates operational constraints demonstrating that automated background processes identified institutional HCM2 placement restrictions on November 2024.
 
 ### 📄 B. `apa_compliance_check.py` (The Spoliation Trap)
 * **The Function:** Dynamically scrapes the university's public minutes directory, inspecting the raw binary header bytes of legacy entries (like the scrubbed October 2010 file block).
