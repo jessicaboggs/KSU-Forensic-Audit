@@ -15,6 +15,7 @@
 | **Academic Registry Audit** | 412 Announced Grads | 285 True Clearances | **44.56% Award Level Inflation** |
 | **Timeline Audit Track** | Lock Date: 2026-05-15 | Entry Date: 2026-06-02 | **17 Days Retroactive Delay** |
 | **Transparency Evasion Index** | Open Endpoint Access | 3 Active Redirect Hops | **100.00% CRITICAL BLOCKING** |
+| **Faculty Senate Blackout** | Last Valid Entry: 2022-09-23 | SACSCOC CR 6.1 Validation | **45 Months Communication Gap** |
 
 *Last Synchronized: 2026-06-05T14:30:00Z | Ledger Security: `SHA-256 Verified Anchor`*
 <!-- WATCHDOG_END -->

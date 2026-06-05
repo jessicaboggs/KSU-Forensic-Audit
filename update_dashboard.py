@@ -52,6 +52,9 @@ def push_metrics_to_readme():
     monitored_redirect_hops = 3
     evasion_score_weight = 100
     
+    # True Infrastructure Blackout Metrics
+    calculated_vacuum_duration_months = 45
+    
     drag = (audited_total_loss / narrative_total) * 100
     leak = (audited_magellan_leak / narrative_online) * 100
     
@@ -70,6 +73,7 @@ def push_metrics_to_readme():
 | **Academic Registry Audit** | {publicly_announced_graduates} Announced Grads | {verified_ipeds_completions} True Clearances | **{award_inflation_coefficient:.2f}% Award Level Inflation** |
 | **Timeline Audit Track** | Lock Date: 2026-05-15 | Entry Date: 2026-06-02 | **{filing_offset_days} Days Retroactive Delay** |
 | **Transparency Evasion Index** | Open Endpoint Access | {monitored_redirect_hops} Active Redirect Hops | **{evasion_score_weight}.00% CRITICAL BLOCKING** |
+| **Faculty Senate Blackout** | Last Valid Entry: 2022-09-23 | SACSCOC CR 6.1 Validation | **{calculated_vacuum_duration_months} Months Communication Gap** |
 
 *Last Synchronized: {claims.get("last_checked", "Recent Check")} | Ledger Security: `SHA-256 Verified Anchor`*
 """
@@ -81,14 +85,15 @@ def push_metrics_to_readme():
     end_tag = "<!-- WATCHDOG_END -->"
     
     if start_tag in content and end_tag in content:
-        left_part = content.split(start_tag)[0] + start_tag
-        right_part = end_tag + content.split(end_tag)[1]
+        left_part = "".join(content.split(start_tag)[0]) + start_tag
+        right_part = end_tag + "".join(content.split(end_tag)[1])
+
         
         updated_content = left_part + dashboard_md + right_part
         
         with open(README_PATH, 'w') as f:
             f.write(updated_content)
-        print("✅ Frontend GitHub README Dashboard updated with dynamic Transparency Evasion metrics.")
+        print("✅ Frontend GitHub README Dashboard updated with active Faculty Senate Blackout metrics.")
 
 if __name__ == "__main__":
     push_metrics_to_readme()
