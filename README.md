@@ -72,7 +72,7 @@ To run the compliance diagnostics and pull the raw federal server timeline metri
 
 ```bash
 # Clone the pristine forensic audit repository
-git clone https://github.com
+git clone https://github.com/jessicaboggs/KSU-Forensic-Audit
 
 # Navigate directly into the ultimate investigation folder
 cd KSU-Forensic-Audit
@@ -85,5 +85,5 @@ python3 apa_compliance_check.py
 ```
 
 ================================================================================
-          📢 CASE CLOSED. REPO RECORD IS PERMANENT. HEE-HAW!
+          📢 CASE CLOSED. REPO RECORD IS PERMANENT. 
 ================================================================================
