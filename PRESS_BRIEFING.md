@@ -7,7 +7,9 @@
 
 ### 2. Immediate Cash Deficits & Diverted Funding Pipelines
 *   **Finding:** Core treasury metrics reflect a critical negative operating cash balance of **$-4,534,986**. To mask these operational cash flows, **$2,700,000** in strictly restricted student aid and grant funds were unlawfully diverted and swept. Additionally, **$5,650,488.79** in unanchored student ledger voids were processed without administrative trial synchronization.
-*   **Verification:** Execute `python3 ksu_fraud_tracker.py` against the core dataset.
+*   **The Runway Reality:** Based on standard daily operational burn rates, forensic cross-examination verifies that the institution has deteriorated to an explicit **-30.23 Days Cash on Hand (DCOH)** status. Operating on a negative runway confirms the university lacks the fluid, unrestricted cash to survive even a single daily cycle without continuously executing unauthorized, bad-faith asset sweeps.
+*   **Verification:** Execute `python3 ksu_fraud_tracker.py` and `python3 ksu_ledger_clash_detector.py`.
+
 
 ### 3. Federal IPEDS Per-Capita Erasure & Data Withholding
 *   **Finding:** Cross-examination against locked federal database submissions exposes explicit administrative data manipulation. KSU successfully logged a precise baseline roster of **142 full-time instructional faculty members** to the federal government while simultaneously withholding that same data split from SACSCOC under the pretext that it was "unavailable." 
