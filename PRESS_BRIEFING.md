@@ -17,3 +17,9 @@
 ### 4. Federal HCM2 Lockout & API Telemetry Omissions
 *   **Finding:** KSU remains locked out of automated federal funding streams under Heightened Cash Monitoring 2 (HCM2) protocols. Automated scans of the G5 grant administration portal traffic revealed that backend logs are completely dropping required `"payload"` and `"timestamp"` telemetry, completely blinding governance oversight.
 *   **Verification:** Execute `python3 apa_compliance_check.py` and `python3 ksu_hcm2_validator.py`.
+
+### 5. Catastrophic Student Privacy Breach & Federal Data Leak
+*   **Finding:** Forensic screening of localized school update data packages uncovered an active, unencrypted student registry data spill. The raw text payload (`schfile_extract_20260604.txt`) contains unmasked, plain-text student financial transactions, structural funding tracks, and birth date records. 
+*   **The Smoking Gun:** The leaked entries are hard-coded with the institutional prefix **0100196800**, which is KSU's official Federal School Code / OPEID registration code. This proves the university has completely lost administrative and cryptographic control over its data environment during an active terminal Probation for Good Cause window.
+*   **Verification:** Execute `python3 ksu_opeid_leak_tracer.py`.
+
