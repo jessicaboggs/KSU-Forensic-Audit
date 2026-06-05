@@ -42,6 +42,9 @@ jobs:
 
     - name: Step 2.95 - Run Postsecondary Academic Award Level Verifier
       run: python ksu_award_level_verifier.py
+    
+    - name: Step 2.97 - Run Timeline Deadline Compliance Auditor
+      run: python ksu_deadline_fraud.py
 
     - name: Step 3 - Inject Frontend Markdown Dashboard
       run: python update_dashboard.py

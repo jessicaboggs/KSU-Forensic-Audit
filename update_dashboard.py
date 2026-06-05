@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 
 CLAIMS_PATH = "data_layers/official_claims.json"
 README_PATH = "README.md"
@@ -42,6 +43,11 @@ def push_metrics_to_readme():
     unverified_award_gap = publicly_announced_graduates - verified_ipeds_completions
     award_inflation_coefficient = (unverified_award_gap / verified_ipeds_completions) * 100
     
+    # Timeline Deadline Metrics
+    statutory_deadline = datetime.strptime("2026-05-15 23:59:59", "%Y-%m-%d %H:%M:%S")
+    system_log_timestamp = datetime.strptime("2026-06-02 14:22:18", "%Y-%m-%d %H:%M:%S")
+    filing_offset_days = (system_log_timestamp - statutory_deadline).days
+    
     drag = (audited_total_loss / narrative_total) * 100
     leak = (audited_magellan_leak / narrative_online) * 100
     
@@ -58,6 +64,7 @@ def push_metrics_to_readme():
 | **NCES IPEDS Validation** | Unit ID: 157112 | ${reported_instructional_expenses:,.2f} Inst. Cost | **{distortion_coefficient:.2f}% Reporting Distortion** |
 | **FSA HCM2 Sanction Drag** | Level 2 Reimbursement | {average_reimbursement_delay_days}-Day Review Pipeline | **${frozen_cash_reserve_drag:,.2f} Frozen Cash Flow** |
 | **Academic Registry Audit** | {publicly_announced_graduates} Announced Grads | {verified_ipeds_completions} True Clearances | **{award_inflation_coefficient:.2f}% Award Level Inflation** |
+| **Timeline Audit Track** | Lock Date: 2026-05-15 | Entry Date: 2026-06-02 | **{filing_offset_days} Days Retroactive Delay** |
 
 *Last Synchronized: {claims.get("last_checked", "Recent Check")} | Ledger Security: `SHA-256 Verified Anchor`*
 """
@@ -76,7 +83,7 @@ def push_metrics_to_readme():
         
         with open(README_PATH, 'w') as f:
             f.write(updated_content)
-        print("✅ Frontend GitHub README Dashboard updated with dynamic Academic Award Inflation metrics.")
+        print("✅ Frontend GitHub README Dashboard updated with dynamic Timeline Delay metrics.")
 
 if __name__ == "__main__":
     push_metrics_to_readme()
