@@ -22,6 +22,13 @@
       "lockout_horizon_start": "2024-11-04",
       "lockout_horizon_end": "2027-09-30",
       "enforcement_authority": "34 C.F.R. § 668.162(d)(2)"
+    },
+        "system_redirect_traps": {
+      "target_uri": "/api/v1/archives/october_2010_signed_minutes.pdf",
+      "http_status_code": 302,
+      "redirect_destination": "https://youtube.com",
+      "server_signature_flag": "REDIRECT_USED_AS_DATA_MASKING_PROTOCOL",
+      "audit_note": "A regular GET request for critical governance documentation was intentionally met with an external video asset loop to obscure missing file signatures."
     }
   }
 }
