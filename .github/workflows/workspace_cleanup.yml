@@ -38,5 +38,5 @@ jobs:
       run: |
         git config --global user.name "KSU Forensic Watchdog Bot"
         git config --global user.email "watchdog-bot@://github.com"
-        git add README.md
+        git add README.md data_layers/official_claims.json
         git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-Update: Synchronized newsroom claims matrix & scorecard metrics" && git push)
