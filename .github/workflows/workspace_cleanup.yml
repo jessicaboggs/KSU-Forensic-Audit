@@ -2,20 +2,23 @@ name: KSU Forensic Watchdog Pipeline
 
 on:
   schedule:
-        - cron: '0 5 * * *' # Triggers automatically every night at 1:00 AM EST
-  workflow_dispatch: # Keeps a manual trigger button active in your GitHub actions interface
+    - cron: '0 5 * * *' # Triggers automatically every night at 1:00 AM EST
+  workflow_dispatch: # Allows manual trigger button in GitHub UI
 
 jobs:
   run-forensic-pipeline:
     runs-on: ubuntu-latest
-    
-    # ADD THESE TWO LINES EXACTLY HERE (Indented with 4 spaces):
     permissions:
       contents: write
 
     steps:
     - name: Checkout Repository Code
-# ... (Rest of the file stays exactly the same)
+      uses: actions/checkout@v4
+
+    - name: Set Up Python Environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
 
     - name: Install Dependencies
       run: |
