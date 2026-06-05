@@ -8,14 +8,14 @@ on:
 jobs:
   run-forensic-pipeline:
     runs-on: ubuntu-latest
+    
+    # ADD THESE TWO LINES EXACTLY HERE (Indented with 4 spaces):
+    permissions:
+      contents: write
+
     steps:
     - name: Checkout Repository Code
-      uses: actions/checkout@v4
-
-    - name: Set Up Python Environment
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.9' # Matches your exact local active workspace environment
+# ... (Rest of the file stays exactly the same)
 
     - name: Install Dependencies
       run: |
