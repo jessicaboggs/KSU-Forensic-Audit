@@ -1,0 +1,17 @@
+{
+  "ledger_snapshot": {
+    "audit_period": "January 2026 Financial Update",
+    "document_status": "RESTRICTED / SINGLE EXTRUCTION PROFILE",
+    "data_layer_status": "IMMUTABLE TEXT FILE MIRROR"
+  },
+  "financial_realities": {
+    "operating_cash_balance": -4534986,
+    "days_cash_on_hand": -21,
+    "restricted_funds_swept": 2700000,
+    "unreconciled_student_void": 5650488.79
+  },
+  "forensic_notes": {
+    "apa_violation_trigger": "Active binary scrambling of October legacy minutes detected",
+    "spoliation_indicator": "Forced HTML server redirection spoofing a casual PDF application corruption"
+  }
+}

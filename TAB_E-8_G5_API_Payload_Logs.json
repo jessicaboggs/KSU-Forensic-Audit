@@ -1,0 +1,27 @@
+{
+  "fsa_portal_intercept": {
+    "routing_id": "0100196800",
+    "institution_name": "Kentucky State University",
+    "system_core_origin": "U.S. Department of Education G5 Core",
+    "timestamp": "2024-11-04T14:10:31Z",
+    "server_lock_string": "406012355YPY501220241016202410312024110420270930141SH2"
+  },
+  "api_response_payload": {
+    "status_code": 403,
+    "status_message": "Forbidden - Automated Administrative Lockout Imposed",
+    "error_category": "FSA_CAPABILITY_VOID_STAGE_2",
+    "diagnostic_code": "ERR_CODE_YPY501_FLAT_FILE_COLLAPSE",
+    "failing_parameters": {
+      "student_ledger_rows": "NULL_OR_UNRECONCILED_VOID",
+      "phase_1_compliance_status": "DATA_FORMATTING_CRITICAL_REJECTION",
+      "banner_export_length": "CHARACTER_LENGTH_OVERFLOW_OFFSET_1"
+    },
+    "regulatory_enforcement": {
+      "active_restriction": "Heightened Cash Monitoring 2 (HCM2) Status",
+      "reimbursement_pipeline": "Manual Voucher Review / Paper-Receipt Dependent",
+      "lockout_horizon_start": "2024-11-04",
+      "lockout_horizon_end": "2027-09-30",
+      "enforcement_authority": "34 C.F.R. § 668.162(d)(2)"
+    }
+  }
+}
