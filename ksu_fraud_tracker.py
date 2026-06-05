@@ -7,62 +7,45 @@ from datetime import datetime
 def run_fraud_analysis():
     print("--- Initializing KSU Financial Fraud Tracker Engine ---")
     data_source = "january_2026_financial_core.json"
-    
+
     if not os.path.exists(data_source):
         print(f"[ERROR] Financial data file '{data_source}' not found. Skipping analysis loop.")
         sys.exit(0)
-        
+
     try:
         with open(data_source, 'r') as f:
-            transactions = json.load(f)
-            
-        print(f"[INFO] Successfully loaded {len(transactions)} transaction items for auditing...")
+            data = json.load(f)
         
-        anomalies_detected = 0
-        seen_transactions = {} # Memory hash map to check for velocity/duplicate spacing
-
-        for idx, tx in enumerate(transactions):
-            if isinstance(tx, str):
-                tx = json.loads(tx)
-                
-            amount = tx.get("amount", 0)
-            vendor = tx.get("vendor", "UNKNOWN VENDOR")
-            timestamp_str = tx.get("timestamp", "")
-            tx_id = tx.get("transaction_id", f"GEN-ID-{idx}")
-
-
-            
-            # 1. Flag Large Rounded Sums (Common indicator of missing invoices/shell transfers)
-            if amount >= 5000 and amount % 1000 == 0:
-                print(f"[FLAG - ROUNDED AMOUNT] High-value round sum: ${amount:,} to {vendor} (ID: {tx_id})")
-                anomalies_detected += 1
-                
-            # 2. Flag Off-Hours Activity (System updates or ledger overrides during dead hours)
-            if timestamp_str:
-                try:
-                    # Expecting typical ISO timestamp standard (YYYY-MM-DDTHH:MM:SS)
-                    tx_time = datetime.fromisoformat(timestamp_str.replace("Z", ""))
-                    if tx_time.hour >= 22 or tx_time.hour <= 4:
-                        print(f"[FLAG - TIMING ANOMALY] Suspicious processing hour ({tx_time.strftime('%H:%M:%S')}) for transaction {tx_id}")
-                        anomalies_detected += 1
-                except ValueError:
-                    pass # Skip timestamp formatting anomalies here; handle in structural checks
-                    
-            # 3. Duplicate Transaction Cascades (Splitting invoices into identical pieces to bypass approval ceilings)
-            tx_signature = f"{vendor}_{amount}"
-            if tx_signature in seen_transactions:
-                print(f"[FLAG - SPLIT MATCH] Warning: Duplicate billing velocity pattern matching vendor '{vendor}' for amount ${amount:,}")
-                anomalies_detected += 1
-            else:
-                seen_transactions[tx_signature] = timestamp_str
-
-        print("--------------------------------------------------")
-        print(f"[SCAN COMPLETE] Total anomalous profiles surfaced: {anomalies_detected}")
+        print("[INFO] Successfully loaded financial core data summary.")
         
-    except json.JSONDecodeError:
-        print("[CRITICAL] Financial core dataset corrupted or unreadable. Analysis halted.")
-        sys.exit(1)
+        realities = data.get("financial_realities", {})
+        notes = data.get("forensic_notes", {})
+        
+        # 1. Check for swept or diverted funds
+        restricted_swept = realities.get("restricted_funds_swept", 0)
+        if restricted_swept > 0:
+            print(f"[FLAG - HIGH RISK] Restricted funds diverted/swept: ${restricted_swept:,}")
+            
+        # 2. Check for negative cash flow metrics
+        operating_cash = realities.get("operating_cash_balance", 0)
+        if operating_cash < 0:
+            print(f"[FLAG - CRITICAL] Negative operating cash balance: ${operating_cash:,}")
+            
+        # 3. Check for unreconciled/void anomalies
+        unreconciled_void = realities.get("unreconciled_student_void", 0)
+        if unreconciled_void > 0:
+            print(f"[FLAG - AUDIT FAILURE] Unreconciled student voids: ${unreconciled_void:,}")
+            
+        # 4. Check for compliance/spoliation warnings
+        if "apa_violation_trigger" in notes:
+            print(f"[WARNING - APA] {notes['apa_violation_trigger']}")
+        if "spoliation_indicator" in notes:
+            print(f"[WARNING - SPOLIATION] {notes['spoliation_indicator']}")
 
-if __name__ == "__main__":
+    except Exception as e:
+        print(f"[CRITICAL] Error parsing dataset: {str(e)}")
+
+if __name__ == '__main__':
     run_fraud_analysis()
+
 
