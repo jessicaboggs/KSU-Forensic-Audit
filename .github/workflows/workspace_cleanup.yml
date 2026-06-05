@@ -19,7 +19,7 @@ jobs:
         run: |
           echo "Starting aggressive workspace purge..."
           rm -f *.log
-          git clean -ffdx
+          git clean -fdx
           echo "Workspace successfully wiped clean."
 
       - name: Verify Clean Slate
@@ -30,7 +30,7 @@ jobs:
       - name: Commit and Push Cleanup
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@://github.com"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if ! git diff --cached --quiet; then
             git commit -m "chore: automated workspace purge and cleanup"
