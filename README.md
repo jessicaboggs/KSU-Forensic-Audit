@@ -1,21 +1,21 @@
-# 📁 README.md
+# README.md
+
 ---
 tags:
   - Repository-Landing
   - Forensic-Audit-Index
-  - Evidence-Manifesto
+  - Institutional-Compliance
 project_name: THE ULTIMATE KSU FORENSIC AUDIT TRACKER
 status: DEPLOYED / LIVE GLOBAL NODE
 ---
 
-# 🕵️‍♂️ THE ULTIMATE KSU FORENSIC AUDIT TRACKER
-### 🔍 Subtitle: The Immutable Open-Source Ledger of Systemic Asset Cannibalization, Federal Server Lockouts, and Document Spoliation
+# THE ULTIMATE KSU FORENSIC AUDIT TRACKER
+### Subtitle: An Open-Source Registry of Financial Tracking, Federal Reporting Requirements, and Public Document Discrepancies
 
-Welcome to the definitive public repository tracking the administrative and fiscal collapse of Kentucky State University (KSU). While the executive and legal core of the university deployed a multi-year strategy of "Strategic Silence," pre-sanitized boardroom shell agendas, and hardcoded dead hyperlinks to mask structural insolvency, this repository serves as a permanent, decentralized database mirror of the un-scrubbed records.
+This public repository serves as an independent data archive tracking the administrative, financial, and compliance disclosures of Kentucky State University (KSU). It provides open-source forensic scripts, public meeting records, and verification timelines mapping institutional transparency and resource allocations.
 
-This data repository stands structurally immune to university-hosted server censorship, administrative deletes, or bad-faith legal takedown maneuvers. 
+This documentation serves as an immutable reference layer to ensure persistent public access to fiscal audit findings, independent of external platform adjustments or structural modifications.
 
----
 
 ## 🧭 1. CORE COMPLIANCE INFRACTIONS MATRIX
 
