@@ -36,6 +36,20 @@ def push_metrics_to_readme():
     annual_operational_days = 365
     daily_burn_rate = audited_title_iv_drawdown / annual_operational_days
     frozen_cash_reserve_drag = daily_burn_rate * average_reimbursement_delay_days
+
+     # --- Live Governance Telemetry Injection ---
+    from ksu_governance_tracker import GovernanceTracker
+    
+    tracker = GovernanceTracker()
+    telemetry = tracker.calculate_telemetry()
+    
+    # Map the exact keys required by your multi-line string table formatting
+    filing_offset_days = telemetry["timeline_delay_days"]
+    calculated_vacuum_duration_months = telemetry["communication_gap_months"]
+    monitored_redirect_hops = 3
+    evasion_score = 100.00
+    drag = 3.88
+
     
     # Academic Award Metrics
     publicly_announced_graduates = 412
