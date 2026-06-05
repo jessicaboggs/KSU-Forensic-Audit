@@ -1,0 +1,16 @@
+{
+  "accreditation_tracking": {
+    "active_filing": "SACSCOC Third Monitoring Report & Referral Docket",
+    "compliance_status": "CRITICAL / TERMINAL OVERSIGHT WINDOW",
+    "data_mirror_integrity": "UN-SANITIZED EVIDENCE PIPELINE"
+  },
+  "monitoring_infractions": {
+    "standard_13_6_capability": "FAILED - Continued reliance on unanchored ledger voids",
+    "core_requirement_1_1_candor": "FAILED - Active evidence tampering on public minutes directory",
+    "operating_deficit_status": "CRITICAL - General fund treasury operating entirely in the negative"
+  },
+  "regulatory_consequences": {
+    "probationary_extension_status": "FORFEITED - Bad-faith data spoliation voids safe harbor",
+    "commission_board_action": "Immediate, off-cycle institutional charter revocation"
+  }
+}
