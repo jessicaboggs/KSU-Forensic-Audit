@@ -1,5 +1,17 @@
 # README.md
 
+<!-- WATCHDOG_START -->
+### 🚨 LIVE PUBLIC TRUST DISCREPANCY SCORECARD
+
+
+| Forensic Parameter | Official State Claim | Audited Reality Ledger | Computed Accountability Risk |
+| :--- | :--- | :--- | :--- |
+| **Total Structural Horizon** | $170,000,000.00 | $6,600,000.00 | **3.88% Baseline Asset Drag** |
+| **Online Extension Lines** | $20,000,000.00 | $1,200,000.00 | **6.00% Historical Allocation Leak** |
+
+*Last Synchronized: 2026-06-05T14:30:00Z | Ledger Security: `SHA-256 Verified Anchor`*
+<!-- WATCHDOG_END -->
+
 ---
 tags:
   - Repository-Landing

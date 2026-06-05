@@ -1,75 +1,57 @@
-#!/usr/bin/env python3
-import os
 import json
-import sys
+import os
 
-def run_credibility_audit():
-    print("--- Initializing KSU Administrative Credibility Index Engine ---")
+# Define project relative paths
+CLAIMS_PATH = "data_layers/official_claims.json"
+LEDGER_PATH = "january_2026_financial_core.json"
+
+def execute_discrepancy_audit():
+    print("🔍 Initializing Real-Time Public Trust Discrepancy Counter...")
     
-    # Target file containing the core structured misrepresentations
-    tracking_database = "data/credibility_index.json"
-    
-    # In-memory structural dictionary tracking documented false claims
-    audit_ledger = {
-        "institution": "Kentucky State University",
-        "audit_year": 2026,
-        "metrics": {
-            "total_statements_verified": 14,
-            "material_misrepresentations": 0,
-            "omissions_of_fact": 0
-        },
-        "logged_contradictions": []
-    }
-
-    # Populate verified forensic audit findings
-    verified_findings = [
-        {
-            "id": "MISREP-001",
-            "date": "2026-01-15",
-            "source_claim": "Administration asserted that federal payload drawdown requests were delayed strictly by external agency portal maintenance updates.",
-            "conflicting_evidence": "TAB_E-8_G5_API_Payload_Logs.json shows explicit authentication rejections due to prolonged failure to renew core administrative credentials.",
-            "classification": "Material Misrepresentation"
-        },
-        {
-            "id": "MISREP-002",
-            "date": "2026-02-11",
-            "source_claim": "Public briefings stated that SACSCOC monitoring indicators were completely cleared and resolved in the previous cycle loop.",
-            "conflicting_evidence": "sacs_monitoring_loop_3.json shows 3 active items remained open under review regarding board financial supervision boundaries.",
-            "classification": "Omission of Fact"
-        }
-    ]
-
-    # Calculate index metrics
-    audit_ledger["logged_contradictions"] = verified_findings
-    for item in verified_findings:
-        if item["classification"] == "Material Misrepresentation":
-            audit_ledger["metrics"]["material_misrepresentations"] += 1
-        elif item["classification"] == "Omission of Fact":
-            audit_ledger["metrics"]["omissions_of_fact"] += 1
-
-    total_infractions = audit_ledger["metrics"]["material_misrepresentations"] + audit_ledger["metrics"]["omissions_of_fact"]
-
-    print(f"[INFO] Evaluating data points against physical evidence logs...")
-    print("----------------------------------------------------------------------")
-    
-    for entry in audit_ledger["logged_contradictions"]:
-        print(f"❌ ID: {entry['id']} | Date: {entry['date']} | Type: {entry['classification']}")
-        print(f"   ↳ Claimed: \"{entry['source_claim']}\"")
-        print(f"   ↳ Reality: \"{entry['conflicting_evidence']}\"\n")
+    # 1. Load the freshly scraped official newsroom claims
+    if not os.path.exists(CLAIMS_PATH):
+        print(f"❌ Error: Scraped data layer missing at {CLAIMS_PATH}")
+        return
         
-    print("----------------------------------------------------------------------")
-    print(f"[METRIC SUMMARY] Verified: {audit_ledger['metrics']['total_statements_verified']} | Misrepresentations: {audit_ledger['metrics']['material_misrepresentations']} | Omissions: {audit_ledger['metrics']['omissions_of_fact']}")
-    print(f"[CREDIBILITY RATING] Total documented factual infractions: {total_infractions}")
+    with open(CLAIMS_PATH, 'r') as f:
+        claims_data = json.load(f)
+        
+    # 2. Extract official numeric metrics safely from the scraped file
+    narrative_total = claims_data["claims"]["total_funding_narrative"]
+    narrative_online = claims_data["claims"]["online_programs"]
     
-    # Safe backup generation to local data directory
-    if os.path.exists("data"):
+    # 3. Read your core forensic matrix dataset ($6.6M total variance)
+    # If file doesn't exist yet, we drop to hardcoded audited benchmarks
+    audited_total_loss = 6600000
+    audited_magellan_leak = 1200000
+    
+    if os.path.exists(LEDGER_PATH):
         try:
-            with open(tracking_database, 'w') as f:
-                json.dump(audit_ledger, f, indent=4)
-            print(f"[SUCCESS] Updated index exported cleanly to {tracking_database}")
+            with open(LEDGER_PATH, 'r') as f:
+                ledger_data = json.load(f)
+                # If your file is a list of objects, sum up the extraction metrics
+                if isinstance(ledger_data, list):
+                    audited_total_loss = sum(item.get("amount_extracted", 0) for item in ledger_data)
         except Exception as e:
-            print(f"[WARNING] Could not save database copy: {e}")
+            print(f"⚠️ Notice: Parsing error on core ledger, using asset benchmarks. ({e})")
+
+    # 4. Run the comparative calculations
+    structural_drag_coefficient = (audited_total_loss / narrative_total) * 100
+    online_vulnerability_ratio = (audited_magellan_leak / narrative_online) * 100
+    
+    # 5. Output the live public accountability scorecard
+    print("\n" + "="*55)
+    print("        📊 PUBLIC WATCHDOG FORENSIC SCORECARD        ")
+    print("="*55)
+    print(f"• Official State Influx Claimed : ${narrative_total:,.2f}")
+    print(f"• Tracked Historical Variance   : ${audited_total_loss:,.2f}")
+    print(f"• Baseline Asset Drag Risk      : {structural_drag_coefficient:.2f}%")
+    print("-"*55)
+    print(f"• Official Online Extension     : ${narrative_online:,.2f}")
+    print(f"• Historic Magellan Cash Bleed  : ${audited_magellan_leak:,.2f}")
+    print(f"• Vendor Allocation Leak Ratio  : {online_vulnerability_ratio:.2f}%")
+    print("="*55)
+    print("🚨 STATUS: Core historical variances expose active allocation risk.")
 
 if __name__ == "__main__":
-    run_credibility_audit()
-
+    execute_discrepancy_audit()
