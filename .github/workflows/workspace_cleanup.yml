@@ -49,9 +49,7 @@ jobs:
     - name: Step 2.99 - Run Administrative Evasion Transparency Monitor
       run: python ksu_evasion_logger.py
 
-    - name: Step 3 - Inject Frontend Markdown Dashboard
-      run: python update_dashboard.py
-
+      
     - name: Step 3 - Inject Frontend Markdown Dashboard
       run: python update_dashboard.py
 
