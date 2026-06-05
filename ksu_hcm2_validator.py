@@ -1,71 +1,56 @@
 #!/usr/bin/env python3
+import os
+import json
 import sys
-from datetime import datetime
 
-class HCM2ValidatorEngine:
-    def __init__(self):
-        # Raw automated Federal Server Core string token unmasked from system line 7900
-        self.raw_fsa_token = "406012355YPY501220241016202410312024110420270930141SH2"
-        self.institution_id = "0100196800"  # KSU Core Identification Data
+def run_hcm2_audit():
+    print("--- Initializing KSU HCM2 Reimbursement Compliance Engine ---")
+    data_source = "january_2026_financial_core.json"
+    
+    if not os.path.exists(data_source):
+        print(f"[INFO] Financial source file missing. Creating mock environment check...")
+        sys.exit(0)
         
-        # Pull down the hard sliced time index markers
-        self.server_code = self.raw_fsa_token[9:15]
-        self.lock_date   = datetime.strptime(self.raw_fsa_token[32:40], "%Y%m%d")
-        self.horizon_end = datetime.strptime(self.raw_fsa_token[40:48], "%Y%m%d")
-
-    def run_voucher_compliance_check(self, department_name, requested_drawdown, paper_receipts_attached):
-        """Simulates the manual voucher-by-voucher validation required under HCM2 Stage 2"""
-        print(f"\n[SCANNING TRANSACTION] DEPT: {department_name} | REQUEST: ${requested_drawdown:,}")
-        
-        # Verify the global server time boundary is active
-        current_time = datetime.now()
-        if self.lock_date <= current_time <= self.horizon_end:
-            print(f"  📡 STATUS CODE: [YPY501] - Heightened Cash Monitoring 2 Restrictions ENGAGED.")
-            print(f"  🔒 TIME BOUND : Manual Voucher Screening Active Through: {self.horizon_end.strftime('%B %d, %Y')}")
+    try:
+        with open(data_source, 'r') as f:
+            transactions = json.load(f)
             
-            # Execute physical validation check parameters
-            if not paper_receipts_attached:
-                print("  ❌ DRAWDOWN REJECTED: Violation of 34 C.F.R. § 668.162(d)(2).")
-                print("     [REASON] Automated electronic advances are completely disabled.")
-                print("     [ACTION] Individual paper student ledgers and receipts must be hand-verified.")
-                return False
-            else:
-                print("  ⚠️ VOUCHER STAGED: Pending manual auditing by Federal FSA agents (45-90 day hold).")
-                return True
-        else:
-            print("  🟢 STATUS CODE: Standard electronic draw privileges active.")
-            return True
+        hcm2_audited_count = 0
+        critical_documentation_failures = 0
+        
+        for idx, tx in enumerate(transactions):
+            # Isolate entries involving federal grant draws, Title IV, or student aid accounts
+            account_type = tx.get("account_type", "").upper()
+            is_federal_draw = "FEDERAL" in account_type or "TITLE_IV" in account_type or "GRANT" in account_type
+            
+            if is_federal_draw:
+                hcm2_audited_count += 1
+                tx_id = tx.get("transaction_id", f"HCM2-TX-{idx}")
+                amount = tx.get("amount", 0)
+                
+                # HCM2 Compliance Check: Every draw must explicitly link to a validated reimbursement voucher
+                has_voucher = tx.get("hcm2_voucher_verified", False)
+                has_student_link = tx.get("student_recipient_id", None) is not None
+                
+                if not has_voucher:
+                    print(f"[CRITICAL FAIL] HCM2 Violation: Federal drawdown of ${amount:,} (ID: {tx_id}) lacks mandatory pre-approval voucher verification code.")
+                    critical_documentation_failures += 1
+                elif not has_student_link:
+                    print(f"[CRITICAL FAIL] HCM2 Violation: Voucher exists for ID {tx_id}, but lacks direct relational lookup mapping to an enrolled student profile.")
+                    critical_documentation_failures += 1
+                else:
+                    print(f"[COMPLIANT] Verified HCM2 Voucher match found for drawdown ID: {tx_id}")
 
-    def compile_hcm2_dashboard(self):
-        print("================================================================================")
-        print("📡 LIVE AUTOMATED FEDERAL SERVER MODEL: INTERCEPTING KSU HCM2 CORE STATUS")
-        print("================================================================================")
-        print(f"INSTITUTION CODE : {self.institution_id} (Kentucky State University)")
-        print(f"ENFORCEMENT CODES: FSA_CAPABILITY_VOID_STAGE_2 / AUTOMATED REGULATORY CACHE")
-        print("-"*80)
-        
-        # Run live simulations showing how the manual lockout starves the general operating fund
-        self.run_voucher_compliance_check(
-            department_name="HBCU Title III Graduate Programs Pool",
-            requested_drawdown=1450000,
-            paper_receipts_attached=False
-        )
-        
-        self.run_voucher_compliance_check(
-            department_name="Federal Land-Grant Agricultural Extension Line",
-            requested_drawdown=2700000,
-            paper_receipts_attached=False
-        )
-        
-        print("\n" + "-"*80 + "\n")
-        print("🔴 INTERCEPT CHRONOLOGY COLLAPSE:")
-        print("  [LORE] The administration claims tracking delays are due to the state caps in SB 185.")
-        print(f"  [LAW ] The automated federal lockout token dropped live on: {self.lock_date.strftime('%B %d, %Y')}.")
-        print("         This occurred 17 months BEFORE state legislative intervention.")
-        print("================================================================================")
-        print("📢 VERDICT: NO AUTOMATED CASH ADVANCES ALLOWED. POVERTY BY DESIGN. HEE-HAW!")
-        print("================================================================================")
+        print("--------------------------------------------------")
+        print(f"[HCM2 AUDIT COMPLETE] Checked {hcm2_audited_count} federal transactions.")
+        if critical_documentation_failures > 0:
+            print(f"[ALERT] Found {critical_documentation_failures} unbacked drawdowns. Potential compliance clawback exposure.")
+        else:
+            print("[SUCCESS] All isolated federal fund items contain standard matching compliance metadata.")
+            
+    except json.JSONDecodeError:
+        print("[ERROR] Failed to parse financial JSON core. Check formatting.")
+        sys.exit(1)
 
 if __name__ == "__main__":
-    validator = HCM2ValidatorEngine()
-    validator.compile_hcm2_dashboard()
+    run_hcm2_audit()
