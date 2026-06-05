@@ -20,12 +20,17 @@ def run_fraud_analysis():
         
         anomalies_detected = 0
         seen_transactions = {} # Memory hash map to check for velocity/duplicate spacing
-        
+
         for idx, tx in enumerate(transactions):
+            if isinstance(tx, str):
+                tx = json.loads(tx)
+                
             amount = tx.get("amount", 0)
-            vendor = tx.get("vendor", "UNKNOWN_VENDOR")
+            vendor = tx.get("vendor", "UNKNOWN VENDOR")
             timestamp_str = tx.get("timestamp", "")
             tx_id = tx.get("transaction_id", f"GEN-ID-{idx}")
+
+
             
             # 1. Flag Large Rounded Sums (Common indicator of missing invoices/shell transfers)
             if amount >= 5000 and amount % 1000 == 0:
