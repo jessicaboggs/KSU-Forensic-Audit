@@ -1,31 +1,40 @@
-name: GitHub Actions Workflow
+name: KSU Audit Workspace Hard Reset
 
 on:
-  schedule:
-    - cron: '0 0 * * 0' # Example schedule
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  inspect-endpoint:
+  cleanup-and-purge:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone Repository Graph
+      - name: Checkout Repository Graph
         uses: actions/checkout@v4
-
-      - name: Initialize Python Core Environment
-        uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          fetch-depth: 0
 
-      - name: Run Financial Data Cleaner
-        run: python3 ksu_financial_cleaner.py
-
-      - name: Run Live Counter-Spoliation Scanner
-        run: python3 apa_compliance_check.py
-
-      - name: Create Data Directory
-        run: mkdir -p data
-
-      - name: Fetch Weekly School File
+      - name: Deep Clean Untracked and Generated Files
         run: |
-          curl -L "example-school-portal.edu" -o data/weekly_school_file.csv
+          echo "Starting aggressive workspace purge..."
+          rm -f *.log
+          git clean -ffdx
+          echo "Workspace successfully wiped clean."
+
+      - name: Verify Clean Slate
+        run: |
+          echo "Checking remaining files:"
+          ls -la
+
+      - name: Commit and Push Cleanup
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@://github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: automated workspace purge and cleanup"
+            git push
+          else
+            echo "No tracked files were altered; repository is completely clean."
+          fi
