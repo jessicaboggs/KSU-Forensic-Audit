@@ -73,11 +73,3 @@ def run_credibility_audit():
 if __name__ == "__main__":
     run_credibility_audit()
 
-    claim="Legacy minutes from October 2010 are experiencing temporary file loading corruption errors in Adobe.",
-    reality="Server-side endpoints are actively spit-routing historical URLs into hidden HTML templates returning b'<!DOC'.",
-    impact="Active, intentional evidence spoliation and data degradation deployed to blind off-cycle SACSCOC review panels.",
-    standard_violated="SCR 3.130(8.4)(c) Professional Misconduct (Deceit & Misrepresentation)"
-)
-
-if __name__ == "__main__":
-    counter.compile_honesty_report()
