@@ -17,18 +17,19 @@ This public repository serves as an independent data archive tracking the admini
 This documentation serves as an immutable reference layer to ensure persistent public access to fiscal audit findings, independent of external platform adjustments or structural modifications.
 
 
-## 🧭 1. CORE COMPLIANCE INFRACTIONS MATRIX
+## ## 1. CORE COMPLIANCE INFRACTIONS MATRIX
 
-This repository houses the hard program scripts and raw text objects documenting an aggregated **\$6.6 Million system extraction campaign** designed to mask a catastrophic operational general fund treasury deficit of **negative 21 Days Cash on Hand (-\$4,534,986)**:
+This repository hosts the diagnostic scripts and structured data objects documenting an aggregated **\$6.6 Million systemic variance and structural deficit** across institutional asset pools:
 
 
-| File Target | Raided Asset Source | Amount Extracted | Target Destination | Forensic Infraction Code |
+| File Target | Asset Source | Identified Variance | Primary Destination / Impact | Forensic Infraction Code |
 | :--- | :--- | :--- | :--- | :--- |
-| `ksu_fraud_tracker.py` | HBCU Federal Land-Grant Lines (TAB C-12) | **\$2,700,000.00** | General Operating Payroll | **Adverse Audit Opinion** (CliftonLarsonAllen Asset Misappropriation) |
-| `january_2026_financial_core.json` | Digital Textbook Funds (TAB F-3.b) | **\$1,400,000.00** | Unbudgeted Third-Party Vendor Leaks | **Procurement Loophole Breach** (Bypassed mandatory \$1M Board Notification Limit) |
-| `TAB_E-8_G5_API_Payload_Logs.json` | E&G Operating Treasury Pool | **\$1,200,000.00** | Magellan Online Contract Leaks | **Concealed Online System Losses** masked via inflated academic enrollment spin |
-| `Master_Memo_Dossier_Final.md` | Institutional Capital / Facilities Pools | **\$850,000.00** | Hillcrest Presidential Mansion Repairs | **Open Meetings Cover-Up** (Tabling structural inhabitability costs to a private retreat) |
-| `TAB_E-8_Title_III_Clawback_Trace` | Student Activities Fee Fund Balance | **\$450,000.00** | Penalized Athletic Scholarship Underwrite | **Prohibited Athletic Subsidies** to float a sports program operating under active NCAA Probation |
+| `ksu_fraud_tracker.py` | HBCU Federal Land-Grant Lines (TAB C-12) | **\$2,700,000.00** | General Operating Payroll Reallocation | Adverse Audit Opinion (CliftonLarsonAllen) |
+| `january_2026_financial_core.json` | Digital Textbook Funds (TAB F-3.b) | **\$1,400,000.00** | Unbudgeted Third-Party Vendor Disbursements | Procurement Loophole Breach |
+| `TAB_E-8_G5_API_Payload_Logs.json` | E&G Operating Treasury Pool | **\$1,200,000.00** | Magellan Online Contract Deficits | Concealed Online System Losses |
+| `Master_Memo_Dossier_Final.md` | Institutional Capital / Facilities Pools | **\$850,000.00** | Hillcrest Presidential Mansion Outlays | Open Meetings Cover-up |
+| `TAB_E-8_Title_III_Clawback_Trace` | Student Activities Fee Fund Balance | **\$450,000.00** | Penalized Athletic Scholarship Underwrite | Prohibited Athletic Subsidy |
+
 
 ---
 
