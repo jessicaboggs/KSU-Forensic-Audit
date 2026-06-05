@@ -13,6 +13,7 @@
 | **NCES IPEDS Validation** | Unit ID: 157112 | $14,200,000.00 Inst. Cost | **46.48% Reporting Distortion** |
 | **FSA HCM2 Sanction Drag** | Level 2 Reimbursement | 90-Day Review Pipeline | **$1,337,791.07 Frozen Cash Flow** |
 | **Academic Registry Audit** | 412 Announced Grads | 285 True Clearances | **44.56% Award Level Inflation** |
+| **Timeline Audit Track** | Lock Date: 2026-05-15 | Entry Date: 2026-06-02 | **17 Days Retroactive Delay** |
 
 *Last Synchronized: 2026-06-05T14:30:00Z | Ledger Security: `SHA-256 Verified Anchor`*
 <!-- WATCHDOG_END -->
