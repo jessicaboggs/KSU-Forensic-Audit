@@ -5,7 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KSU Forensic Audit Monitor</title>
     <script src="https://tailwindcss.com"></script>
+    <style>
+        /* Fallback rules to force layout layout structure */
+        header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+        }
+        main, .grid-cols-3 {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+            gap: 16px !important;
+        }
+    </style>
 </head>
+
 <body class="bg-[#0f172a] text-slate-200 font-sans antialiased min-h-screen p-6">
     <div class="max-w-7xl mx-auto space-y-6">
         <!-- HEADER SECTION -->
