@@ -47,18 +47,20 @@
             </div>
         </main>
 
-        <!-- Chart Placeholder -->
+        <!-- Discrepancy & Chart Section -->
         <section class="chart-sec">
             <h2 class="section-title">2021 Discrepancy: Reported vs Actual Deficit</h2>
-            <div class="placeholder-box">
-                <p>[ Chart Engine Display Area ]</p>
+            <div id="deficit-chart-container" class="space-y-4">
+                <p style="color: #6b7280; font-size: 14px;">Loading financial comparative charts...</p>
             </div>
         </section>
 
         <!-- Timeline Section -->
         <section class="timeline-sec">
             <h2 class="section-title">Investigative Timeline</h2>
-            <p style="color: #9ca3af; font-size: 14px;">Timeline entries logging forensic milestones will load here...</p>
+            <div id="timeline-feed" class="space-y-4">
+                <p style="color: #9ca3af; font-size: 14px;">Timeline entries logging forensic milestones will load here...</p>
+            </div>
         </section>
 
     </div>
@@ -80,7 +82,7 @@
                     document.getElementById('sync-time').innerText = new Date().toISOString();
                 }
                 
-                // 2. Map Metrics out of the nested public_metrics object layer
+                // 2. Map Metric Cards Layer
                 if (data.public_metrics) {
                     const metrics = data.public_metrics;
                     
@@ -101,6 +103,61 @@
                         document.getElementById('metric-degree-cap').innerText = 
                             metrics.polytechnic_transition.target_degree_sectors + ' Sectors';
                     }
+
+                    // 3. Render Custom HTML/CSS Bar Chart for 2021 Deficits
+                    if (metrics.reported_vs_actual_deficit_2021) {
+                        const chartData = metrics.reported_vs_actual_deficit_2021;
+                        const reported = chartData.reported !== undefined ? chartData.reported : 0;
+                        const actual = chartData.actual_carried_forward !== undefined ? chartData.actual_carried_forward : 0;
+                        
+                        // Calculate percentage weights relative to maximum value for proportional rendering
+                        const maxVal = Math.max(reported, actual, 1);
+                        const reportedPct = (reported / maxVal) * 100;
+                        const actualPct = (actual / maxVal) * 100;
+
+                        document.getElementById('deficit-chart-container').innerHTML = `
+                            <div style="margin-bottom: 16px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px;">
+                                    <span>Reported Deficit</span>
+                                    <span style="font-weight: bold;">$${reported.toLocaleString()}</span>
+                                </div>
+                                <div style="background-color: #374151; height: 24px; border-radius: 4px; width: 100%;">
+                                    <div style="background-color: #9ca3af; width: ${reportedPct}%; height: 100%; border-radius: 4px; transition: width 1s ease-out;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px;">
+                                    <span>Actual Carried Forward Deficit</span>
+                                    <span style="font-weight: bold; color: #f87171;">$${actual.toLocaleString()}</span>
+                                </div>
+                                <div style="background-color: #374151; height: 24px; border-radius: 4px; width: 100%;">
+                                    <div style="background-color: #ef4444; width: ${actualPct}%; height: 100%; border-radius: 4px; transition: width 1s ease-out;"></div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+
+                // 4. Populate Dynamic Media / Investigative Timeline Loops
+                if (data.media_timeline && Array.isArray(data.media_timeline)) {
+                    const feed = document.getElementById('timeline-feed');
+                    feed.innerHTML = ''; // Wipe fallback texts
+                    
+                    data.media_timeline.forEach(event => {
+                        const item = document.createElement('div');
+                        item.style.padding = '12px 0';
+                        item.style.borderBottom = '1px solid #374151';
+                        
+                        item.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                                <strong style="color: #f3f4f6; font-size: 15px;">${event.title || 'Investigative Event'}</strong>
+                                <span style="font-size: 12px; color: #9ca3af; background-color: #374151; padding: 2px 6px; border-radius: 4px;">${event.date || '---'}</span>
+                            </div>
+                            <p style="margin: 0; color: #9ca3af; font-size: 13px;">${event.description || ''}</p>
+                            ${event.source ? `<div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Source: ${event.source}</div>` : ''}
+                        `;
+                        feed.appendChild(item);
+                    });
                 }
                 
             } catch (error) {
