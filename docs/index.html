@@ -50,7 +50,7 @@
         <!-- Discrepancy & Chart Section -->
         <section class="chart-sec">
             <h2 class="section-title">2021 Discrepancy: Reported vs Actual Deficit</h2>
-            <div id="deficit-chart-container" class="space-y-4">
+            <div id="deficit-chart-container" style="display: flex; flex-direction: column; gap: 16px;">
                 <p style="color: #6b7280; font-size: 14px;">Loading financial comparative charts...</p>
             </div>
         </section>
@@ -108,32 +108,36 @@
                     if (metrics.reported_vs_actual_deficit_2021) {
                         const chartData = metrics.reported_vs_actual_deficit_2021;
                         
-                        // Convert negative values to positive absolute numbers for visual bars
-                        const reported = Math.abs(chartData.reported !== undefined ? chartData.reported : 0);
-                        const actual = Math.abs(chartData.actual_carried_forward !== undefined ? chartData.actual_carried_forward : 0);
+                        // Drill directly into the exact nested keys visible in your console logs
+                        const rawReported = chartData.reported !== undefined ? chartData.reported : 0;
+                        const rawActual = chartData.actual_carried_forward !== undefined ? chartData.actual_carried_forward : 0;
+                        
+                        // Absolute positive integers for container bar dimensional scaling calculations
+                        const reportedAbs = Math.abs(rawReported);
+                        const actualAbs = Math.abs(rawActual);
                         
                         // Calculate percentage weights relative to maximum value for proportional rendering
-                        const maxVal = Math.max(reported, actual, 1);
-                        const reportedPct = (reported / maxVal) * 100;
-                        const actualPct = (actual / maxVal) * 100;
+                        const maxVal = Math.max(reportedAbs, actualAbs, 1);
+                        const reportedPct = (reportedAbs / maxVal) * 100;
+                        const actualPct = (actualAbs / maxVal) * 100;
 
                         document.getElementById('deficit-chart-container').innerHTML = `
-                            <div style="margin-bottom: 16px;">
-                                <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px;">
+                            <div style="width: 100%;">
+                                <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px;">
                                     <span>Reported Deficit</span>
-                                    <span style="font-weight: bold;">$${reported.toLocaleString()}</span>
+                                    <span style="font-weight: bold;">$${rawReported.toLocaleString()}</span>
                                 </div>
-                                <div style="background-color: #374151; height: 24px; border-radius: 4px; width: 100%;">
-                                    <div style="background-color: #9ca3af; width: ${reportedPct}%; height: 100%; border-radius: 4px; transition: width 1s ease-out;"></div>
+                                <div style="background-color: #374151; height: 24px; border-radius: 6px; width: 100%; overflow: hidden;">
+                                    <div style="background-color: #9ca3af; width: ${reportedPct}%; height: 100%; border-radius: 6px; transition: width 1s ease-out;"></div>
                                 </div>
                             </div>
-                            <div>
-                                <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px;">
+                            <div style="width: 100%; margin-top: 12px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px;">
                                     <span>Actual Carried Forward Deficit</span>
-                                    <span style="font-weight: bold; color: #f87171;">$${actual.toLocaleString()}</span>
+                                    <span style="font-weight: bold; color: #f87171;">$${rawActual.toLocaleString()}</span>
                                 </div>
-                                <div style="background-color: #374151; height: 24px; border-radius: 4px; width: 100%;">
-                                    <div style="background-color: #ef4444; width: ${actualPct}%; height: 100%; border-radius: 4px; transition: width 1s ease-out;"></div>
+                                <div style="background-color: #374151; height: 24px; border-radius: 6px; width: 100%; overflow: hidden;">
+                                    <div style="background-color: #ef4444; width: ${actualPct}%; height: 100%; border-radius: 6px; transition: width 1s ease-out;"></div>
                                 </div>
                             </div>
                         `;
