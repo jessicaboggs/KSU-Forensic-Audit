@@ -247,12 +247,26 @@
                     document.getElementById('val-titleiv').textContent = formatCurrency(data.ipeds_aid_summary.total_title_iv_aid);
                 }
 
-                if (data.analyst_compliance_flags) {
-                const flags = data.analyst_compliance_flags;
-                if (flags.attestation_status) document.getElementById('val-attestation').textContent = flags.attestation_status.toUpperCase();
-                if (flags.soa_oversight_index) document.getElementById('val-oversight').textContent = flags.soa_oversight_index.toUpperCase();
+                         // Reroute compliance and oversight metrics to correct nested JSON paths
+            if (data.public_metrics) {
+                const pm = data.public_metrics;
+                
+                // 1. Reroute Attestation Status
+                if (pm.compliance_tracking && pm.compliance_tracking.fy_2025_audit) {
+                    const audit = pm.compliance_tracking.fy_2025_audit;
+                    if (audit.status) {
+                        document.getElementById('val-attestation').textContent = audit.status.toUpperCase();
+                    }
+                }
+                
+                // 2. Reroute SOA Oversight Index
+                if (pm.governance_metrics && pm.governance_metrics.student_government_association) {
+                    const sga = pm.governance_metrics.student_government_association;
+                    if (sga.oversight_status) {
+                        document.getElementById('val-oversight').textContent = sga.oversight_status.replace('_', ' ').toUpperCase();
+                    }
+                }
             }
-
 
                 if (data.historical_trends) {
                     // 1. DYNAMIC BAR CHART GENERATION
