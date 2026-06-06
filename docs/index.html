@@ -195,7 +195,12 @@
                     document.getElementById('sync-time').innerText = data.system_status.last_updated;
                 } else {
                     document.getElementById('sync-time').innerText = new Date().toISOString();
-                }
+                }                        // Convert negative tracking values to clean positive absolute integers for the visual table text
+                        const rawDeficit = row.institutional_deficit;
+                        const deficitDisplay = rawDeficit === null ? 'Missing/Void' : 
+                                               rawDeficit === 0 ? '$0' : 
+                                               '$' + Math.abs(Number(rawDeficit)).toLocaleString('en-US');
+
                 
                 // 2. Map Metric Cards Layer
                 if (data.public_metrics) {
