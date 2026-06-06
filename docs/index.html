@@ -231,13 +231,34 @@
             document.body.removeChild(downloaderAnchor);
         }
 
-        function filterEvidenceVault() {
+               function filterEvidenceVault() {
             const query = document.getElementById('evidence-search').value.toLowerCase();
+            
+            // 1. Filter Table Rows Globally
             const rows = document.querySelectorAll('.evidence-row');
             rows.forEach(row => {
                 row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none';
             });
+
+            // 2. Filter System Tracking Cards and Token Sections Automatically
+            const sections = document.querySelectorAll('main > div, section');
+            sections.forEach(section => {
+                if (query === "") {
+                    section.style.opacity = '1';
+                    section.style.filter = 'none';
+                    section.style.border = '1px solid #334155';
+                } else if (section.innerText.toLowerCase().includes(query)) {
+                    section.style.opacity = '1';
+                    section.style.filter = 'drop-shadow(0 0 6px rgba(56, 189, 248, 0.2))';
+                    section.style.border = '1px solid #38bdf8';
+                } else {
+                    section.style.opacity = '0.25';
+                    section.style.filter = 'grayscale(80%)';
+                    section.style.border = '1px solid #334155';
+                }
+            });
         }
+
 
          async function initDashboard() {
             try {
