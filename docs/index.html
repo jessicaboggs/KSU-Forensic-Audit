@@ -283,7 +283,7 @@
             const rawToken = document.getElementById('token-input').value.trim();
             
             // Extract all 8-digit date sequences dynamically (YYYYMMDD)
-            const dateMatches = rawToken.match(/\d{8}/g);
+            const dateMatches = rawToken.match(/20\d{6}/g);
             
             if (!dateMatches || dateMatches.length < 4) {
                 alert("Invalid Token Structure: Could not locate the required 4-part date compliance sequence inside the data packet.");
@@ -291,7 +291,7 @@
             }
 
             // Slice out the institutional OPE ID prefix (everything up to the first date block)
-            const firstDateIndex = rawToken.search(/\d{8}/);
+            const firstDateIndex = rawToken.search(/20\d{6}/);
             const prefix = rawToken.substring(0, firstDateIndex);
 
             const formatDate = (str) => {
