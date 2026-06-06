@@ -98,7 +98,7 @@
                             '$' + Number(metrics.unsupported_procard_spending_annual).toLocaleString('en-US') + '/yr';
                     }
                     
-                    // Match Degree Cap out of polytechnic_transition sub-object
+                    // Match Degree Cap
                     if (metrics.polytechnic_transition && metrics.polytechnic_transition.target_degree_sectors !== undefined) {
                         document.getElementById('metric-degree-cap').innerText = 
                             metrics.polytechnic_transition.target_degree_sectors + ' Sectors';
@@ -108,15 +108,12 @@
                     if (metrics.reported_vs_actual_deficit_2021) {
                         const chartData = metrics.reported_vs_actual_deficit_2021;
                         
-                        // Drill directly into the exact nested keys visible in your console logs
                         const rawReported = chartData.reported !== undefined ? chartData.reported : 0;
                         const rawActual = chartData.actual_carried_forward !== undefined ? chartData.actual_carried_forward : 0;
                         
-                        // Absolute positive integers for container bar dimensional scaling calculations
                         const reportedAbs = Math.abs(rawReported);
                         const actualAbs = Math.abs(rawActual);
                         
-                        // Calculate percentage weights relative to maximum value for proportional rendering
                         const maxVal = Math.max(reportedAbs, actualAbs, 1);
                         const reportedPct = (reportedAbs / maxVal) * 100;
                         const actualPct = (actualAbs / maxVal) * 100;
@@ -128,7 +125,7 @@
                                     <span style="font-weight: bold;">$${rawReported.toLocaleString()}</span>
                                 </div>
                                 <div style="background-color: #374151; height: 24px; border-radius: 6px; width: 100%; overflow: hidden;">
-                                    <div style="background-color: #9ca3af; width: ${reportedPct}%; height: 100%; border-radius: 6px; transition: width 1s ease-out;"></div>
+                                    <div style="background-color: #9ca3af; width: ${reportedPct}%; height: 100%; border-radius: 6px;"></div>
                                 </div>
                             </div>
                             <div style="width: 100%; margin-top: 12px;">
@@ -137,29 +134,30 @@
                                     <span style="font-weight: bold; color: #f87171;">$${rawActual.toLocaleString()}</span>
                                 </div>
                                 <div style="background-color: #374151; height: 24px; border-radius: 6px; width: 100%; overflow: hidden;">
-                                    <div style="background-color: #ef4444; width: ${actualPct}%; height: 100%; border-radius: 6px; transition: width 1s ease-out;"></div>
+                                    <div style="background-color: #ef4444; width: ${actualPct}%; height: 100%; border-radius: 6px;"></div>
                                 </div>
                             </div>
                         `;
                     }
                 }
 
-                // 4. Populate Dynamic Media / Investigative Timeline Loops
+                // 4. Populate Dynamic Media / Investigative Timeline Loops (Fixed Keys)
                 if (data.media_timeline && Array.isArray(data.media_timeline)) {
                     const feed = document.getElementById('timeline-feed');
-                    feed.innerHTML = ''; // Wipe fallback texts
+                    feed.innerHTML = ''; 
                     
                     data.media_timeline.forEach(event => {
                         const item = document.createElement('div');
                         item.style.padding = '12px 0';
                         item.style.borderBottom = '1px solid #374151';
                         
+                        // Updated to match exactly: event.headline and event.summary
                         item.innerHTML = `
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
-                                <strong style="color: #f3f4f6; font-size: 15px;">${event.title || 'Investigative Event'}</strong>
+                                <strong style="color: #f3f4f6; font-size: 15px;">${event.headline || 'Investigative Event'}</strong>
                                 <span style="font-size: 12px; color: #9ca3af; background-color: #374151; padding: 2px 6px; border-radius: 4px;">${event.date || '---'}</span>
                             </div>
-                            <p style="margin: 0; color: #9ca3af; font-size: 13px;">${event.description || ''}</p>
+                            <p style="margin: 0; color: #9ca3af; font-size: 13px;">${event.summary || ''}</p>
                             ${event.source ? `<div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Source: ${event.source}</div>` : ''}
                         `;
                         feed.appendChild(item);
