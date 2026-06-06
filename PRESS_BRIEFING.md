@@ -25,3 +25,26 @@
 *   **The Smoking Gun:** The leaked entries are hard-coded with the institutional prefix **0100196800**, which is KSU's official Federal School Code / OPEID registration code. This proves the university has completely lost administrative and cryptographic control over its data environment during an active terminal Probation for Good Cause window.
 *   **Verification:** Execute `python3 ksu_opeid_leak_tracer.py`.
 
+# 📢 MEDIA BACKGROUND BRIEFING: INTERNAL LEDGER COLLAPSE AT KSU
+
+**CRITICAL TIMELINE:** Infiltration Tracked Prior to June 11 Finance Committee Session
+
+---
+
+### 🚨 THE HEADLINE CONTRASTS EXPOSED
+
+#### 📈 \$0 For Books vs. Full-Time Exempt Corporate Chairs
+While the university’s official federal filings show that **literally 0% of its learning resources budget went to library acquisitions**, the active ADP job board reveals a frantic hiring surge for **three parallel, full-time exempt corporate School Chairpersons** (`12M-610004`). 
+
+The administration has dismantled the music and fine arts programs under the guise of an active **negative 30-day cash crisis**, yet is expanding top-heavy management lines to implement alternative, lower-credit curriculum paths top-down without Faculty Senate approval.
+
+#### 🏈 The Student Activity Fee Siphon
+While classrooms lack current instructional texts, the **June 11 Athletics Committee Agenda (Item III.D)** outlines a plan to blend restricted state Asset Preservation facility funds directly into sports lines. 
+
+This follows a **\$450,000.00 unauthorized sweep of the Student Activities Fee Fund Balance** used to prop up an athletic department that was already penalized for **NCAA eligibility fraud in 2023** and suffered a total fund depletion in 2025.
+
+---
+
+### 📊 DATA VERIFICATION URLS FOR NEWS DESKS
+* **Immutable Public GitHub Record:** [INSERT REPOSITORY URL]
+* **Cryptographic Ledger Checksum (SHA-256):** `72fc575990263fbc10255a6873523f2de701235fe7a97`
