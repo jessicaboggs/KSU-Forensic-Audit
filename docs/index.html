@@ -107,8 +107,10 @@
                     // 3. Render Custom HTML/CSS Bar Chart for 2021 Deficits
                     if (metrics.reported_vs_actual_deficit_2021) {
                         const chartData = metrics.reported_vs_actual_deficit_2021;
-                        const reported = chartData.reported !== undefined ? chartData.reported : 0;
-                        const actual = chartData.actual_carried_forward !== undefined ? chartData.actual_carried_forward : 0;
+                        
+                        // Convert negative values to positive absolute numbers for visual bars
+                        const reported = Math.abs(chartData.reported !== undefined ? chartData.reported : 0);
+                        const actual = Math.abs(chartData.actual_carried_forward !== undefined ? chartData.actual_carried_forward : 0);
                         
                         // Calculate percentage weights relative to maximum value for proportional rendering
                         const maxVal = Math.max(reported, actual, 1);
