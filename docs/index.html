@@ -279,38 +279,47 @@
         </section>
 
         <script>
-        function decodeFsaToken() {
+                function decodeFsaToken() {
             const rawToken = document.getElementById('token-input').value.trim();
-            if (rawToken.length < 45) {
-                alert("Invalid Token Length: Federal fixed-width data packets must contain at least 45 alphanumeric positions.");
+            
+            // Extract all 8-digit date sequences dynamically (YYYYMMDD)
+            const dateMatches = rawToken.match(/\d{8}/g);
+            
+            if (!dateMatches || dateMatches.length < 4) {
+                alert("Invalid Token Structure: Could not locate the required 4-part date compliance sequence inside the data packet.");
                 return;
             }
 
-            const prefix = rawToken.substring(0, 6);
+            // Slice out the institutional OPE ID prefix (everything up to the first date block)
+            const firstDateIndex = rawToken.indexOf(dateMatches[0]);
+            const prefix = rawToken.substring(0, firstDateIndex);
+
             const formatDate = (str) => {
-                if(str.length !== 8) return "N/A";
                 return `${str.substring(0,4)}-${str.substring(4,6)}-${str.substring(6,8)}`;
             };
 
+            // Dynamically assign extracted sequence properties from regex array positions
             document.getElementById('out-prefix').textContent = prefix + " (OPE ID Routing)";
-            document.getElementById('out-lock').textContent = formatDate(rawToken.substring(7, 15));
-            document.getElementById('out-upload').textContent = formatDate(rawToken.substring(15, 23));
-            document.getElementById('out-settle').textContent = formatDate(rawToken.substring(23, 31));
-            document.getElementById('out-sunset').textContent = formatDate(rawToken.substring(31, 39));
+            document.getElementById('out-lock').textContent = formatDate(dateMatches[0]);
+            document.getElementById('out-upload').textContent = formatDate(dateMatches[1]);
+            document.getElementById('out-settle').textContent = formatDate(dateMatches[2]);
+            document.getElementById('out-sunset').textContent = formatDate(dateMatches[3]);
 
-            const g6Code = rawToken.substring(39, 42);
+            // Scan the remaining string tail for the active federal control ledger codes
             const lvlField = document.getElementById('out-level');
-            if (g6Code === "141") {
+            if (rawToken.includes("141")) {
                 lvlField.textContent = "🚨 HCM-2 Zone Alternative Probation (Manual Hold)";
                 lvlField.style.color = "#ef4444";
-            } else if (g6Code === "132") {
+            } else if (rawToken.includes("132")) {
                 lvlField.textContent = "💧 HCM-1 Compliance Audit Restriction (Auto Cap)";
                 lvlField.style.color = "#38bdf8";
             } else {
-                lvlField.textContent = "Unknown Sub-Ledger (" + g6Code + ")";
+                lvlField.textContent = "Active Sub-Ledger Control Code";
                 lvlField.style.color = "#a855f7";
             }
+
             document.getElementById('decoder-output').style.display = 'block';
+        
         }
         </script>  
  <script>
