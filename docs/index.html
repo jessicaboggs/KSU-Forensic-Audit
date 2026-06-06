@@ -291,7 +291,7 @@
             }
 
             // Slice out the institutional OPE ID prefix (everything up to the first date block)
-            const firstDateIndex = rawToken.indexOf(dateMatches[0]);
+            const firstDateIndex = rawToken.search(/\d{8}/);
             const prefix = rawToken.substring(0, firstDateIndex);
 
             const formatDate = (str) => {
