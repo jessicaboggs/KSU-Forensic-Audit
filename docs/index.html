@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KSU Forensic Audit Monitor</title>
+    <!-- Pure CSS Tailwind (No local compilation or adblock blocking issues) -->
+    <link href="https://cloudflare.com" rel="stylesheet">
+    <!-- ChartJS Visualization Engine -->
     <script src="https://jsdelivr.net"></script>
-    <script src="https://tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen p-6">
     <div class="max-w-7xl mx-auto">
+        
         <!-- Header / System Status Layer -->
         <header class="mb-8 border-b border-gray-700 pb-6 flex justify-between items-center">
             <div>
@@ -53,7 +56,7 @@
             <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
                 <h2 class="text-lg font-bold text-white mb-4">Investigative Timeline</h2>
                 <div id="timeline-container" class="space-y-4 overflow-y-auto max-h-[26rem] pr-2">
-                    <!-- Dynamic Rows Go Here -->
+                    <!-- Dynamic Rows Go Here via JSON payload mapping -->
                 </div>
             </div>
         </div>
