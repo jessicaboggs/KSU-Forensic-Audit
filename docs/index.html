@@ -307,9 +307,11 @@
 
                     // Scan the remaining string tail for the active federal control ledger codes
                        // Scan the remaining string tail for the active federal control ledger codes
+                    // Scan the remaining string tail for the active federal control ledger codes
             const lvlField = document.getElementById('out-level');
             const isHcm2 = rawToken.includes("141");
             const isHcm1 = rawToken.includes("132");
+            const isAdvanceAuditTrack = rawToken.includes("107");
             const isLateAudit = rawToken.includes("SH5");
             const isZoneAlt = rawToken.includes("SH2");
 
@@ -317,11 +319,15 @@
                 lvlField.textContent = "🚨 HCM-2 Zone Alternative Probation (Manual Hold)";
                 lvlField.style.color = "#ef4444";
             } else if (isHcm2 && isLateAudit) {
-                lvlField.textContent = "🛑 HCM-2 Late Compliance Audit Sanction (Manual Hold)";
-                lvlField.style.color = "#f97316"; // Alert orange
+                lvlField.textContent = "🛑 HCM-2 High-Risk Late Compliance Audit Sanction (Manual Pre-Review)";
+                lvlField.style.color = "#f97316";
             } else if (isHcm1 && isLateAudit) {
-                lvlField.textContent = "💧 HCM-1 Compliance Audit Restriction (Auto Cap)";
+                lvlField.textContent = "💧 HCM-1 Standard Late Compliance Audit Restriction (Automated Cap)";
                 lvlField.style.color = "#38bdf8";
+            } else if (isAdvanceAuditTrack && isLateAudit) {
+                // Map the UPIKE Advance Payment / Late Audit reporting state
+                lvlField.textContent = "⚠️ Advance Draw: Active Late Compliance Audit Reporting Monitor";
+                lvlField.style.color = "#fbbf24"; // Warning amber/yellow
             } else if (rawToken.includes("142")) {
                 lvlField.textContent = "✅ Resolved: Historical HCM-2 Emergency Relief Hold (CARES/HEERF)";
                 lvlField.style.color = "#10b981";
@@ -329,6 +335,7 @@
                 lvlField.textContent = "Active Sub-Ledger Control Code";
                 lvlField.style.color = "#a855f7";
             }
+
 
             }
 
