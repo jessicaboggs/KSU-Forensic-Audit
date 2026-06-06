@@ -241,7 +241,9 @@
                  if (pm.unsupported_procard_spending_annual !== undefined) {
                     document.getElementById('val-procard').textContent = `${formatCurrency(pm.unsupported_procard_spending_annual)}/yr`;
                 }
-                if (pm.mandated_degree_cap !== undefined) document.getElementById('val-degree').textContent = `${pm.mandated_degree_cap} Sectors`;
+                if (pm.polytechnic_transition && pm.polytechnic_transition.target_degree_sectors !== undefined) {
+                    document.getElementById('val-degree').textContent = `${pm.polytechnic_transition.target_degree_sectors} Sectors`;
+}
                 if (pm.sga_agenda_availability !== undefined) document.getElementById('val-sga').textContent = pm.sga_agenda_availability;
 
 
