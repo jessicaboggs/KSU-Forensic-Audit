@@ -290,13 +290,24 @@
                         // EXPOSE ALL RAW DATA KEYS DIRECTLY ON SCREEN TO FIND THE DEFICIT
                         const rawKeysOnScreen = Object.keys(trend).join(', ');
 
+                                           data.historical_trends.forEach(trend => {
+                        const tr = document.createElement('tr');
+                        tr.className = 'evidence-row';
+
+                        // Parse the actual deficit property name we just discovered
+                        const deficitValue = trend.deficit_actual !== undefined ? trend.deficit_actual : 0;
+                        const balanceValue = parseFloat(deficitValue);
+                        const balanceStyle = balanceValue < 0 ? 'color: #f87171; font-weight: bold;' : 'color: #cbd5e1;';
+
                         tr.innerHTML = `
                             <td style="font-weight: bold; color: #ffffff; padding: 8px;">${trend.fiscal_year || 'N/A'}</td>
                             <td style="padding: 8px;">${trend.ipeds_enrollment_avg ? parseInt(trend.ipeds_enrollment_avg).toLocaleString() : 'N/A'}</td>
-                            <td style="padding: 8px; color: #f59e0b; font-family: monospace; font-size: 10px;">${rawKeysOnScreen}</td>
+                            <td style="padding: 8px; ${balanceStyle}">${formatCurrency(deficitValue)}</td>
                             <td style="padding: 8px;"><span style="background-color: #0f172a; padding: 2px 6px; border-radius: 4px; border: 1px solid #334155;">VERIFIED</span></td>
                         `;
                         tableBody.appendChild(tr);
+                    });
+
                     });
                 }
             } catch (error) {
