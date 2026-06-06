@@ -248,10 +248,11 @@
                 }
 
                 if (data.analyst_compliance_flags) {
-                    const flags = data.analyst_compliance_flags;
-                    if (flags.attestation_status) document.getElementById('val-attestation').textContent = flags.attestation_status.toUpperCase();
-                    if (flags.soa_oversight_index) document.getElementById('val-oversight').textContent = flags.soa_oversight_index.toUpperCase();
-                }
+                const flags = data.analyst_compliance_flags;
+                if (flags.attestation_status) document.getElementById('val-attestation').textContent = flags.attestation_status.toUpperCase();
+                if (flags.soa_oversight_index) document.getElementById('val-oversight').textContent = flags.soa_oversight_index.toUpperCase();
+            }
+
 
                 if (data.historical_trends) {
                     // 1. DYNAMIC BAR CHART GENERATION
