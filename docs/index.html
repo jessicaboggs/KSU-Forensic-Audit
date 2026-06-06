@@ -259,7 +259,7 @@
                     tr.className = 'evidence-row';
                     
                     // Extract deficit balance field safely from your JSON object properties
-                    const deficitValue = trend.reported_vs_actual_gap !== undefined ? trend.reported_vs_actual_gap : 0;
+                    const deficitValue = trend.reported_vs_actual_deficit_gap ?? trend.reported_vs_actual_deficit ?? trend.reported_vs_actual_gap ?? 0;
                     const balanceValue = parseFloat(deficitValue);
                     const balanceStyle = balanceValue < 0 ? 'color: #f87171; font-weight: bold;' : 'color: #cbd5e1;';
 
