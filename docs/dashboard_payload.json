@@ -1,13 +1,13 @@
 {
   "system_status": {
-    "last_updated": "2026-06-06T16:15:47Z",
+    "last_updated": "2026-06-06T17:40:16Z",
     "transparency_gap_months": 18,
     "active_exigency_status": true
   },
   "public_metrics": {
     "total_emergency_bailout": 23000000.0,
     "reported_vs_actual_deficit_2021": {
-      "reported": 0.0,
+      "reported": -2700000.0,
       "actual_carried_forward": -15000000.0
     },
     "unsupported_procard_spending_annual": 1300000.0,

@@ -42,7 +42,7 @@ def build_dashboard_payload():
         "public_metrics": {
             "total_emergency_bailout": 23000000.00,
             "reported_vs_actual_deficit_2021": {
-                "reported": 0.00,
+                "reported": -2700000.00,
                 "actual_carried_forward": -15000000.00
             },
             "unsupported_procard_spending_annual": 1300000.00,
