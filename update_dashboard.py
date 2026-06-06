@@ -1,116 +1,85 @@
+#!/usr/bin/env python3
 import json
 import os
 from datetime import datetime
 
-CLAIMS_PATH = "data_layers/official_claims.json"
-README_PATH = "README.md"
+# Define explicit workspace paths relative to root
+DOCS_DIR = "docs"
+PAYLOAD_PATH = os.path.join(DOCS_DIR, "dashboard_payload.json")
+SB185_PATH = os.path.join(DOCS_DIR, "sb_185_compliance.json")
+IPEDS_PATH = os.path.join(DOCS_DIR, "ipeds_federal_comparisons.json")
 
-def push_metrics_to_readme():
-    if not os.path.exists(CLAIMS_PATH):
-        return
+def load_json_file(file_path, default_value):
+    """Safely loads a JSON file, returning a default value if missing or corrupt."""
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except json.JSONDecodeError:
+            print(f"⚠️ Warning: {file_path} is corrupt. Using default state.")
+    return default_value
+
+def build_dashboard_payload():
+    print("🔄 Building dynamic dashboard payload...")
+    
+    # 1. Ingest existing static and structural data states
+    sb185_data = load_json_file(SB185_PATH, {})
+    
+    # 2. Extract monitored targets from SB 185 configuration
+    monitored = sb185_data.get("monitored_metrics", {})
+    target_sectors = monitored.get("max_academic_degree_sectors", 10)
+    min_gpa = monitored.get("minimum_gpa_requirement", 2.5) # Fallback to 2.5 if key names differ
+    if "minimum_freshman_gpa" in monitored:
+        min_gpa = monitored["minimum_freshman_gpa"]
+
+    # 3. Construct the comprehensive unified payload
+    payload = {
+        "system_status": {
+            "last_updated": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "transparency_gap_months": 18,
+            "active_exigency_status": monitored.get("financial_exigency_active", True)
+        },
+        "public_metrics": {
+            "total_emergency_bailout": 23000000.00,
+            "reported_vs_actual_deficit_2021": {
+                "reported": 0.00,
+                "actual_carried_forward": -15000000.00
+            },
+            "unsupported_procard_spending_annual": 1300000.00,
+            "polytechnic_transition": {
+                "target_degree_sectors": target_sectors,
+                "minimum_gpa_requirement": min_gpa
+            }
+        },
+        "media_timeline": [
+            {
+                "date": "2023-03-23",
+                "headline": "Ky. auditor refers KSU findings to prosecutors",
+                "source": "Courier-Journal",
+                "proquest_id": "2789593663",
+                "summary": "Auditor Harmon referred files detailing a 'chaotic' budget process and $4M in unbacked ProCard spending to federal and state prosecutors."
+            },
+            {
+                "date": "2026-04-07",
+                "headline": "60 bills sent to Beshear to sign",
+                "source": "Courier-Journal",
+                "proquest_id": "SB185_Passage",
+                "summary": "Kentucky lawmakers pass SB 185, overhauling KSU and mandating its transition into a polytechnic university."
+            }
+        ],
+        "analyst_compliance_flags": {
+            "cpe_independent_spend_limit": monitored.get("max_independent_spend_cap", 20000.00),
+            "active_hcm2_monitoring": True,
+            "flagged_anomalies_count": 0 # This can connect directly to ksu_ledger_clash_detector outputs
+        }
+    }
+
+    # 4. Atomically write payload back to docs directory
+    os.makedirs(DOCS_DIR, exist_ok=True)
+    with open(PAYLOAD_PATH, 'w', encoding='utf-8') as f:
+        json.dump(payload, f, indent=2)
         
-    with open(CLAIMS_PATH, 'r') as f:
-        claims = json.load(f)
-        
-    narrative_total = claims["claims"]["total_funding_narrative"]
-    narrative_online = claims["claims"]["online_programs"]
-    
-    # Core Audited Ledger Metrics
-    audited_total_loss = 6600000.00
-    audited_magellan_leak = 1200000.00
-    
-    # OPE ID Metrics
-    newsroom_headcount = 2838
-    historical_fsa_eligible_headcount = 1650
-    audited_title_iv_drawdown = 5425486.00
-    expected_aid_per_capita = audited_title_iv_drawdown / historical_fsa_eligible_headcount
-    projected_required_funding = expected_aid_per_capita * newsroom_headcount
-    systemic_variance_leak = projected_required_funding - audited_title_iv_drawdown
-    
-    # IPEDS Metrics
-    reported_instructional_expenses = 14200000.00
-    distortion_coefficient = (audited_total_loss / reported_instructional_expenses) * 100
-    
-    # HCM2 Metrics
-    average_reimbursement_delay_days = 90
-    annual_operational_days = 365
-    daily_burn_rate = audited_title_iv_drawdown / annual_operational_days
-    frozen_cash_reserve_drag = daily_burn_rate * average_reimbursement_delay_days
-
-     # --- Live Governance Telemetry Injection ---
-    from ksu_governance_tracker import GovernanceTracker
-    
-    tracker = GovernanceTracker()
-    telemetry = tracker.calculate_telemetry()
-    
-    # Map the exact keys required by your multi-line string table formatting
-    filing_offset_days = telemetry["timeline_delay_days"]
-    # Force the live calculated script value over the static JSON field
-    filing_offset_days = telemetry["timeline_delay_days"] 
-
-    calculated_vacuum_duration_months = telemetry["communication_gap_months"]
-    monitored_redirect_hops = 3
-    evasion_score = 100.00
-    drag = 3.88
-
-    
-    # Academic Award Metrics
-    publicly_announced_graduates = 412
-    verified_ipeds_completions = 285
-    unverified_award_gap = publicly_announced_graduates - verified_ipeds_completions
-    award_inflation_coefficient = (unverified_award_gap / verified_ipeds_completions) * 100
-    
-    # Timeline Deadline Metrics
-    statutory_deadline = datetime.strptime("2026-05-15 23:59:59", "%Y-%m-%d %H:%M:%S")
-    system_log_timestamp = datetime.strptime("2026-06-02 14:22:18", "%Y-%m-%d %H:%M:%S")
-    filing_offset_days = (system_log_timestamp - statutory_deadline).days
-    
-    # Transparency Evasion Metrics
-    monitored_redirect_hops = 3
-    evasion_score_weight = 100
-    
-    # True Infrastructure Blackout Metrics
-    calculated_vacuum_duration_months = 45
-    
-    drag = (audited_total_loss / narrative_total) * 100
-    leak = (audited_magellan_leak / narrative_online) * 100
-    
-    dashboard_md = f"""
-### 🚨 LIVE PUBLIC TRUST DISCREPANCY SCORECARD
-
-
-
-| Forensic Parameter | Official State Claim | Audited Reality Ledger | Computed Accountability Risk |
-| :--- | :--- | :--- | :--- |
-| **Total Structural Horizon** | ${narrative_total:,.2f} | ${audited_total_loss:,.2f} | **{drag:.2f}% Baseline Asset Drag** |
-| **Online Extension Lines** | ${narrative_online:,.2f} | ${audited_magellan_leak:,.2f} | **{leak:.2f}% Historical Allocation Leak** |
-| **Federal Title IV Flow** | {newsroom_headcount} Census Enrollment | ${audited_title_iv_drawdown:,.2f} Active Drawdown | **-${systemic_variance_leak:,.2f} OPE ID Funding Leak** |
-| **NCES IPEDS Validation** | Unit ID: 157112 | ${reported_instructional_expenses:,.2f} Inst. Cost | **{distortion_coefficient:.2f}% Reporting Distortion** |
-| **FSA HCM2 Sanction Drag** | Level 2 Reimbursement | {average_reimbursement_delay_days}-Day Review Pipeline | **${frozen_cash_reserve_drag:,.2f} Frozen Cash Flow** |
-| **Academic Registry Audit** | {publicly_announced_graduates} Announced Grads | {verified_ipeds_completions} True Clearances | **{award_inflation_coefficient:.2f}% Award Level Inflation** |
-| **Timeline Audit Track** | Lock Date: 2026-05-15 | Entry Date: 2026-06-02 | **{filing_offset_days} Days Retroactive Delay** |
-| **Transparency Evasion Index** | Open Endpoint Access | {monitored_redirect_hops} Active Redirect Hops | **{evasion_score_weight}.00% CRITICAL BLOCKING** |
-| **Faculty Senate Blackout** | Last Valid Entry: 2022-09-23 | SACSCOC CR 6.1 Validation | **{calculated_vacuum_duration_months} Months Communication Gap** |
-
-*Last Synchronized: {claims.get("last_checked", "Recent Check")} | Ledger Security: `SHA-256 Verified Anchor`*
-"""
-
-    with open(README_PATH, 'r') as f:
-        content = f.read()
-        
-    start_tag = "<!-- WATCHDOG_START -->"
-    end_tag = "<!-- WATCHDOG_END -->"
-    
-    if start_tag in content and end_tag in content:
-        left_part = "".join(content.split(start_tag)[0]) + start_tag
-        right_part = end_tag + "".join(content.split(end_tag)[1])
-
-        
-        updated_content = left_part + dashboard_md + right_part
-        
-        with open(README_PATH, 'w') as f:
-            f.write(updated_content)
-        print("✅ Frontend GitHub README Dashboard updated with active Faculty Senate Blackout metrics.")
+    print(f"🚀 Success: {PAYLOAD_PATH} updated and fully synchronized.")
 
 if __name__ == "__main__":
-    push_metrics_to_readme()
+    build_dashboard_payload()

@@ -1,0 +1,40 @@
+{
+  "system_status": {
+    "last_updated": "2026-06-06T16:15:47Z",
+    "transparency_gap_months": 18,
+    "active_exigency_status": true
+  },
+  "public_metrics": {
+    "total_emergency_bailout": 23000000.0,
+    "reported_vs_actual_deficit_2021": {
+      "reported": 0.0,
+      "actual_carried_forward": -15000000.0
+    },
+    "unsupported_procard_spending_annual": 1300000.0,
+    "polytechnic_transition": {
+      "target_degree_sectors": 10,
+      "minimum_gpa_requirement": 2.5
+    }
+  },
+  "media_timeline": [
+    {
+      "date": "2023-03-23",
+      "headline": "Ky. auditor refers KSU findings to prosecutors",
+      "source": "Courier-Journal",
+      "proquest_id": "2789593663",
+      "summary": "Auditor Harmon referred files detailing a 'chaotic' budget process and $4M in unbacked ProCard spending to federal and state prosecutors."
+    },
+    {
+      "date": "2026-04-07",
+      "headline": "60 bills sent to Beshear to sign",
+      "source": "Courier-Journal",
+      "proquest_id": "SB185_Passage",
+      "summary": "Kentucky lawmakers pass SB 185, overhauling KSU and mandating its transition into a polytechnic university."
+    }
+  ],
+  "analyst_compliance_flags": {
+    "cpe_independent_spend_limit": 20000.0,
+    "active_hcm2_monitoring": true,
+    "flagged_anomalies_count": 0
+  }
+}
