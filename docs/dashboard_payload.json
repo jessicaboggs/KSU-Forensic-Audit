@@ -111,5 +111,24 @@
       "file_target": "SACSCOC_Complaint_Matrix.md",
       "verification": "Pending Review"
     }
-  ]
+  ],
+  "sb_185_legal_layer": {
+    "statute": "Kentucky Senate Bill 185",
+    "enactment_date": "2026-04-01",
+    "legal_status": "Active (Challenged in Federal Court)",
+    "governance_phase": "Five-Year Polytechnic Transition",
+    "monitored_metrics": {
+      "financial_exigency_active": true,
+      "max_independent_spend_cap": 20000.00,
+      "max_academic_degree_sectors": 10,
+      "minimum_freshman_gpa": 2.5,
+      "minimum_freshman_act": 18
+    },
+    "active_litigation": {
+      "plaintiffs": "KSU Students and Alumni Class Action",
+      "filing_date": "2026-05-11",
+      "court": "U.S. District Court for the Eastern District of Kentucky",
+      "core_claim": "Violation of Title VI of the Civil Rights Act"
+    }
+  }
 }

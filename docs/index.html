@@ -130,6 +130,39 @@
                 </table>
             </div>
         </section>
+        <!-- Statutory Mandate & Active Litigation Monitor Split Panel -->
+        <section class="chart-sec">
+            <h2 class="section-title">SB 185 Legislative Mandate & Federal Litigation Monitor</h2>
+            <div class="grid-layer" style="margin-bottom: 0; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px;">
+                
+                <!-- Left Column: Statute Parameters -->
+                <div style="background-color: #111827; padding: 20px; border-radius: 8px; border: 1px solid #374151;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <strong id="legal-statute-title" style="color: #f3f4f6; font-size: 16px;">Statute Track</strong>
+                        <span id="legal-statute-status" style="font-size: 11px; font-weight: bold; background-color: #7f1d1d; color: #f87171; padding: 2px 6px; border-radius: 4px;">LOCKED</span>
+                    </div>
+                    <p style="margin: 0; color: #9ca3af; font-size: 13px;">Governance Phase: <span id="legal-governance-phase" style="color: #f3f4f6; font-weight: bold;">---</span></p>
+                    <div style="margin-top: 12px; border-top: 1px solid #1f2937; padding-top: 12px; font-size: 13px; color: #9ca3af; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="display: flex; justify-content: space-between;"><span>Independent Spend Cap:</span><span id="legal-spend-cap" style="color: #f3f4f6; font-family: monospace;">$0</span></div>
+                        <div style="display: flex; justify-content: space-between;"><span>Min Freshman GPA Target:</span><span id="legal-min-gpa" style="color: #f3f4f6;">0.0</span></div>
+                        <div style="display: flex; justify-content: space-between;"><span>Min Freshman ACT Ceiling:</span><span id="legal-min-act" style="color: #f3f4f6;">0</span></div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Active Federal Lawsuit -->
+                <div style="background-color: #111827; padding: 20px; border-radius: 8px; border: 1px solid #374151; border-left: 4px solid #ef4444;">
+                    <span style="color: #ef4444; font-size: 11px; font-weight: bold; text-transform: uppercase;">ACTIVE FEDERAL CIVIL LITIGATION</span>
+                    <h3 id="legal-litigation-plaintiffs" style="color: #f3f4f6; font-size: 15px; margin: 6px 0 2px 0;">Plaintiffs Loading...</h3>
+                    <p id="legal-litigation-court" style="color: #6b7280; font-size: 12px; margin: 0 0 12px 0;">Court Jurisdiction</p>
+                    <div style="background-color: #1f2937; padding: 10px; border-radius: 6px; border: 1px solid #374151;">
+                        <span style="color: #9ca3af; font-size: 11px; font-weight: bold; text-transform: uppercase;">CORE CONSTITUTIONAL CLAIM</span>
+                        <p id="legal-litigation-claim" style="margin: 4px 0 0 0; color: #f87171; font-weight: bold; font-size: 13px;">Claim Loading...</p>
+                    </div>
+                    <p style="color: #6b7280; font-size: 11px; margin: 8px 0 0 0; text-align: right;">Filing Date: <span id="legal-litigation-date">---</span></p>
+                </div>
+
+            </div>
+        </section>
 
         <!-- Timeline Section -->
         <section class="timeline-sec">
@@ -300,6 +333,31 @@
                             ${event.source ? `<div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Source: ${event.source}</div>` : ''}
                         `;
                         feed.appendChild(item);
+                        
+                // 8. Populate SB 185 Mandate & Active Civil Litigation Layer
+                if (data.sb_185_legal_layer) {
+                    const legal = data.sb_185_legal_layer;
+                    
+                    document.getElementById('legal-statute-title').innerText = legal.statute || 'Statute Track';
+                    document.getElementById('legal-statute-status').innerText = legal.legal_status || 'ACTIVE';
+                    document.getElementById('legal-governance-phase').innerText = legal.governance_phase || '---';
+                    
+                    if (legal.monitored_metrics) {
+                        const metrics = legal.monitored_metrics;
+                        document.getElementById('legal-spend-cap').innerText = '$' + Number(metrics.max_independent_spend_cap).toLocaleString();
+                        document.getElementById('legal-min-gpa').innerText = metrics.minimum_freshman_gpa || '---';
+                        document.getElementById('legal-min-act').innerText = metrics.minimum_freshman_act || '---';
+                    }
+                    
+                    if (legal.active_litigation) {
+                        const lit = legal.active_litigation;
+                        document.getElementById('legal-litigation-plaintiffs').innerText = lit.plaintiffs || 'Class Action Case';
+                        document.getElementById('legal-litigation-court').innerText = lit.court || 'Federal Jurisdiction';
+                        document.getElementById('legal-litigation-claim').innerText = lit.core_claim || '---';
+                        document.getElementById('legal-litigation-date').innerText = lit.filing_date || '---';
+                    }
+                }
+
                     });
                 }
                 
