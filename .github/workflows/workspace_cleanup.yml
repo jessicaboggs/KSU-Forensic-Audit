@@ -46,6 +46,9 @@ jobs:
     - name: Step 2.97 - Run Timeline Deadline Compliance Auditor
       run: python ksu_deadline_fraud.py
 
+    - name: Step 2.975 - Run KSU Law vs. Lore Statutory Auditor
+      run: python ksu_law_vs_lore_tracker.py
+
     - name: Step 2.98 - Run Ledger Clash and Runway Detector
       run: python ksu_ledger_clash_detector.py
 
