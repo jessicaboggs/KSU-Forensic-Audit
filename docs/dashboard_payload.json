@@ -12,10 +12,51 @@
     },
     "unsupported_procard_spending_annual": 1300000.0,
     "polytechnic_transition": {
-      "target_degree_sectors": 10,
-      "minimum_gpa_requirement": 2.5
+      "target_degree_sectors": "10",
+      "minimum_gpa_requirement": "2.5"
+    },
+    "compliance_tracking": {
+      "fy_2025_audit": {
+        "statutory_deadline": "2025-12-31",
+        "days_overdue": 157,
+        "status": "NON-EXISTENT",
+        "infraction_type": "Attestation Delay"
+      }
+    },
+    "governance_metrics": {
+      "student_government_association": {
+        "published_agendas_current_cycle": 0,
+        "minutes_availability_rate": 0.0,
+        "oversight_status": "CRITICAL_VOID"
+      }
     }
   },
+  "historical_trends": [
+    {
+      "fiscal_year": "2005-2010 (Baseline)",
+      "ipeds_enrollment_avg": 2850,
+      "institutional_deficit": 0.0,
+      "audit_status": "Compliant"
+    },
+    {
+      "fiscal_year": "2015-2020 (Pre-Exigency)",
+      "ipeds_enrollment_avg": 2200,
+      "institutional_deficit": -4500000.0,
+      "audit_status": "Delayed"
+    },
+    {
+      "fiscal_year": "2021-2024 (Forensic Horizon)",
+      "ipeds_enrollment_avg": 1700,
+      "institutional_deficit": -15000000.0,
+      "audit_status": "Adverse Opinion"
+    },
+    {
+      "fiscal_year": "2025-2026 (Current Void)",
+      "ipeds_enrollment_avg": 1450,
+      "institutional_deficit": null,
+      "audit_status": "Missing/Overdue"
+    }
+  ],
   "media_timeline": [
     {
       "date": "2023-03-23",
@@ -33,7 +74,7 @@
     }
   ],
   "analyst_compliance_flags": {
-    "cpe_independent_spend_limit": 20000.0,
+    "cpe_independent_spend_limit": true,
     "active_hcm2_monitoring": true,
     "flagged_anomalies_count": 0
   }

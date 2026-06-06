@@ -4,42 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KSU Forensic Audit Monitor</title>
-    <!-- Links directly to your local file inside your repository -->
     <link rel="stylesheet" href="./tailwind.css">
 </head>
 <body>
     <div class="container">
 
-        <!-- Header -->
+        <!-- Header Block -->
         <header>
             <div>
                 <h1>THE ULTIMATE KSU FORENSIC AUDIT</h1>
                 <div class="subtitle">Civic Data Infrastructure & Legislative Oversight Tracker</div>
             </div>
-            <div class="badge-box">
-                <span class="badge">FINANCIAL EXIGENCY</span>
-                <div class="sync-lbl">Sync: <span id="sync-time">---</span></div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <div id="compliance-banner" class="badge" style="background-color: #7f1d1d; display: none;">
+                    FY2025 AUDIT: <span id="days-overdue">0</span> DAYS OVERDUE
+                </div>
+                <div class="badge-box">
+                    <span class="badge">FINANCIAL EXIGENCY</span>
+                    <div class="sync-lbl">Sync: <span id="sync-time">---</span></div>
+                </div>
             </div>
         </header>
 
-        <!-- Metrics Grid -->
+        <!-- Metric Cards -->
         <main class="grid-layer">
-            
-            <!-- Emergency State Bailout Card -->
             <div class="card">
                 <h3 class="card-title">Emergency State Bailout</h3>
                 <p id="metric-bailout" class="card-val">$0</p>
                 <p class="card-sub">Source: KY General Assembly Loan</p>
             </div>
-
-            <!-- Unbacked ProCard Volume Card -->
             <div class="card">
                 <h3 class="card-title">Unbacked ProCard Volume</h3>
                 <p id="metric-procard" class="card-val text-red">$0/yr</p>
                 <p class="card-sub text-red" style="opacity: 0.7;">Missing purchase documentation</p>
             </div>
-
-            <!-- SB 185 Mandated Degree Cap Card -->
             <div class="card">
                 <h3 class="card-title">SB 185 Mandated Degree Cap</h3>
                 <p id="metric-degree-cap" class="card-val">0 Sectors</p>
@@ -47,7 +45,7 @@
             </div>
         </main>
 
-        <!-- Discrepancy & Chart Section -->
+        <!-- Deficit Chart Canvas -->
         <section class="chart-sec">
             <h2 class="section-title">2021 Discrepancy: Reported vs Actual Deficit</h2>
             <div id="deficit-chart-container" style="display: flex; flex-direction: column; gap: 16px;">
@@ -55,7 +53,49 @@
             </div>
         </section>
 
-        <!-- Timeline Section -->
+        <!-- Governance Matrix Layer -->
+        <section class="chart-sec" style="margin-bottom: 32px;">
+            <h2 class="section-title">Oversight & Governance Tracking Matrix</h2>
+            <div class="grid-layer" style="margin-bottom: 0; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                <div style="background-color: #111827; padding: 16px; border-radius: 8px; border: 1px solid #374151;">
+                    <span style="color: #9ca3af; font-size: 11px; font-weight: bold; text-transform: uppercase;">FY 2025 ATTESTATION STATUS</span>
+                    <p id="governance-audit-status" class="text-red" style="font-size: 18px; font-weight: 800; margin: 4px 0 0 0;">UNKNOWN</p>
+                    <p style="color: #6b7280; font-size: 11px; margin-top: 2px;">Deadline: Dec 31, 2025</p>
+                </div>
+                <div style="background-color: #111827; padding: 16px; border-radius: 8px; border: 1px solid #374151;">
+                    <span style="color: #9ca3af; font-size: 11px; font-weight: bold; text-transform: uppercase;">SGA AGENDA AVAILABILITY</span>
+                    <p id="governance-sga-agendas" style="font-size: 18px; font-weight: 800; margin: 4px 0 0 0;">0</p>
+                    <p style="color: #6b7280; font-size: 11px; margin-top: 2px;">Published current cycle</p>
+                </div>
+                <div style="background-color: #111827; padding: 16px; border-radius: 8px; border: 1px solid #374151;">
+                    <span style="color: #9ca3af; font-size: 11px; font-weight: bold; text-transform: uppercase;">SGA OVERSIGHT INDEX</span>
+                    <p id="governance-sga-status" class="text-red" style="font-size: 18px; font-weight: 800; margin: 4px 0 0 0;">CRITICAL VOID</p>
+                    <p style="color: #6b7280; font-size: 11px; margin-top: 2px;">Minutes availability rate: <span id="sga-minutes-pct">0%</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Historical Trend Array Table -->
+        <section class="chart-sec" style="margin-bottom: 32px; overflow-x: auto;">
+            <h2 class="section-title">Long-Term Historical Trends (IPEDS Enrollment & Financial Baseline)</h2>
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #374151; color: #9ca3af;">
+                        <th style="padding: 10px 8px;">Fiscal Horizon</th>
+                        <th style="padding: 10px 8px;">Avg IPEDS Enrollment</th>
+                        <th style="padding: 10px 8px;">Deficit Balance</th>
+                        <th style="padding: 10px 8px;">Audit Status Opinion</th>
+                    </tr>
+                </thead>
+                <tbody id="historical-trend-rows" style="color: #f3f4f6;">
+                    <tr>
+                        <td colspan="4" style="padding: 16px 8px; color: #6b7280;">Loading long-term historical records...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Timeline -->
         <section class="timeline-sec">
             <h2 class="section-title">Investigative Timeline</h2>
             <div id="timeline-feed" class="space-y-4">
@@ -64,8 +104,6 @@
         </section>
 
     </div>
-
-    <!-- Script Engine to Feed Data from Local JSON Payload -->
     <script>
         async function initDashboard() {
             try {
@@ -86,35 +124,46 @@
                 if (data.public_metrics) {
                     const metrics = data.public_metrics;
                     
-                    // Match Emergency Bailout
                     if (metrics.total_emergency_bailout !== undefined) {
                         document.getElementById('metric-bailout').innerText = 
                             '$' + Number(metrics.total_emergency_bailout).toLocaleString('en-US');
                     }
-                    
-                    // Match ProCard Volume
                     if (metrics.unsupported_procard_spending_annual !== undefined) {
                         document.getElementById('metric-procard').innerText = 
                             '$' + Number(metrics.unsupported_procard_spending_annual).toLocaleString('en-US') + '/yr';
                     }
-                    
-                    // Match Degree Cap
                     if (metrics.polytechnic_transition && metrics.polytechnic_transition.target_degree_sectors !== undefined) {
                         document.getElementById('metric-degree-cap').innerText = 
                             metrics.polytechnic_transition.target_degree_sectors + ' Sectors';
                     }
 
+                    // Compliance Overdue Mapping
+                    if (metrics.compliance_tracking && metrics.compliance_tracking.fy_2025_audit) {
+                        const auditInfo = metrics.compliance_tracking.fy_2025_audit;
+                        if (auditInfo.days_overdue) {
+                            document.getElementById('compliance-banner').style.display = 'inline-block';
+                            document.getElementById('days-overdue').innerText = auditInfo.days_overdue;
+                        }
+                        document.getElementById('governance-audit-status').innerText = auditInfo.status || 'MISSING';
+                    }
+
+                    // Governance / SGA Analytics Mapping
+                    if (metrics.governance_metrics && metrics.governance_metrics.student_government_association) {
+                        const sga = metrics.governance_metrics.student_government_association;
+                        document.getElementById('governance-sga-agendas').innerText = sga.published_agendas_current_cycle !== undefined ? sga.published_agendas_current_cycle : 0;
+                        document.getElementById('governance-sga-status').innerText = sga.oversight_status || 'CRITICAL_VOID';
+                        document.getElementById('sga-minutes-pct').innerText = (sga.minutes_availability_rate !== undefined ? sga.minutes_availability_rate * 100 : 0) + '%';
+                    }
                     // 3. Render Custom HTML/CSS Bar Chart for 2021 Deficits
                     if (metrics.reported_vs_actual_deficit_2021) {
                         const chartData = metrics.reported_vs_actual_deficit_2021;
-                        
                         const rawReported = chartData.reported !== undefined ? chartData.reported : 0;
                         const rawActual = chartData.actual_carried_forward !== undefined ? chartData.actual_carried_forward : 0;
                         
                         const reportedAbs = Math.abs(rawReported);
                         const actualAbs = Math.abs(rawActual);
-                        
                         const maxVal = Math.max(reportedAbs, actualAbs, 1);
+                        
                         const reportedPct = (reportedAbs / maxVal) * 100;
                         const actualPct = (actualAbs / maxVal) * 100;
 
@@ -141,7 +190,31 @@
                     }
                 }
 
-                // 4. Populate Dynamic Media / Investigative Timeline Loops (Fixed Keys)
+                // 4. Populate Multi-Year Historical Trend Table Rows
+                if (data.historical_trends && Array.isArray(data.historical_trends)) {
+                    const trendContainer = document.getElementById('historical-trend-rows');
+                    trendContainer.innerHTML = ''; 
+                    
+                    data.historical_trends.forEach((row, index) => {
+                        const tr = document.createElement('tr');
+                        tr.style.borderBottom = '1px solid #1f2937';
+                        tr.style.backgroundColor = index % 2 === 0 ? 'transparent' : '#1f2937';
+                        
+                        const deficitDisplay = row.institutional_deficit === null ? 'Missing/Void' : 
+                                               row.institutional_deficit === 0 ? '$0' : 
+                                               '$' + Number(row.institutional_deficit).toLocaleString('en-US');
+                        
+                        tr.innerHTML = `
+                            <td style="padding: 12px 8px; font-weight: bold;">${row.fiscal_year || '---'}</td>
+                            <td style="padding: 12px 8px; color: #9ca3af;">${row.ipeds_enrollment_avg ? row.ipeds_enrollment_avg.toLocaleString() : '---'}</td>
+                            <td style="padding: 12px 8px; font-family: monospace; color: ${row.institutional_deficit < 0 ? '#f87171' : '#f3f4f6'};">${deficitDisplay}</td>
+                            <td style="padding: 12px 8px;"><span style="font-size: 12px; padding: 2px 6px; border-radius: 4px; background-color: ${row.audit_status === 'Compliant' ? '#064e3b' : '#7f1d1d'};">${row.audit_status || '---'}</span></td>
+                        `;
+                        trendContainer.appendChild(tr);
+                    });
+                }
+
+                // 5. Populate Dynamic Media / Investigative Timeline Loops
                 if (data.media_timeline && Array.isArray(data.media_timeline)) {
                     const feed = document.getElementById('timeline-feed');
                     feed.innerHTML = ''; 
@@ -151,7 +224,6 @@
                         item.style.padding = '12px 0';
                         item.style.borderBottom = '1px solid #374151';
                         
-                        // Updated to match exactly: event.headline and event.summary
                         item.innerHTML = `
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
                                 <strong style="color: #f3f4f6; font-size: 15px;">${event.headline || 'Investigative Event'}</strong>
@@ -169,7 +241,6 @@
                 document.getElementById('sync-time').innerText = "Sync Error";
             }
         }
-
         window.addEventListener('DOMContentLoaded', initDashboard);
     </script>
 </body>
