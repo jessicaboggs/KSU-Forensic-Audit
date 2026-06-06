@@ -378,7 +378,9 @@
                 }
                 
             } catch (error) {
-                print("Dashboard engine failed to initialize data channels:", error);
+                console.error("Dashboard engine failed to initialize data channels:", error);
+            }
+
             }
         }
 
