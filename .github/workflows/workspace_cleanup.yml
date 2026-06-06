@@ -46,6 +46,10 @@ jobs:
     - name: Step 2.97 - Run Timeline Deadline Compliance Auditor
       run: python ksu_deadline_fraud.py
 
+    - name: Step 2.98 - Run Ledger Clash and Runway Detector
+      run: python ksu_ledger_clash_detector.py
+
+
     - name: Step 2.99 - Run Administrative Evasion Transparency Monitor
       run: python ksu_evasion_logger.py
 
