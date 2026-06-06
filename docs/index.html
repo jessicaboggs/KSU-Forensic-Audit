@@ -402,17 +402,73 @@
         }
 
         // Live Search Filter Engine
-        function filterEvidenceVault() {
-            const query = document.getElementById('evidence-search').value.toLowerCase();
-            const rows = document.querySelectorAll('.evidence-row');
-            rows.forEach(row => {
-                if (row.innerText.toLowerCase().includes(query)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
+     function filterEvidenceVault() {
+    const query = document.getElementById('evidence-search').value.toLowerCase();
+    const rows = document.querySelectorAll('.evidence-row');
+    
+    rows.forEach(row => {
+        if (row.innerText.toLowerCase().includes(query)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
         }
+    });
+}
+async function initDashboard() {
+    try {
+        console.log("Initializing data pipeline channels...");
+        const response = await fetch('dashboard_payload.json');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        const data = await response.json();
+        console.log("Forensic Data Pipeline Loaded Successfully:", data);
+
+        const formatCurrency = (val) => {
+            const num = parseFloat(val);
+            return isNaN(num) ? "$0" : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
+        };
+
+        const updateCardValue = (titleText, newValue, labelSelector = 'div') => {
+            const elements = Array.from(document.querySelectorAll(labelSelector));
+            const headerElement = elements.find(el => el.textContent.trim().toUpperCase() === titleText.toUpperCase());
+            if (headerElement) {
+                const valueElement = headerElement.parentElement.querySelector('h1, h2, div:nth-child(2), span, .value') || headerElement.nextElementSibling;
+                if (valueElement) {
+                    valueElement.textContent = newValue;
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        if (data.public_metrics) {
+            const metrics = data.public_metrics;
+            if (metrics.total_emergency_bailout) updateCardValue("EMERGENCY STATE BAILOUT", formatCurrency(metrics.total_emergency_bailout));
+            if (metrics.unbacked_procard_volume) updateCardValue("UNBACKED PROCARD VOLUME", `${formatCurrency(metrics.unbacked_procard_volume)}/yr`);
+            if (metrics.mandated_degree_cap !== undefined) updateCardValue("SB 185 MANDATED DEGREE CAP", `${metrics.mandated_degree_cap} Sectors`);
+            if (metrics.sga_agenda_availability !== undefined) updateCardValue("SGA AGENDA AVAILABILITY", metrics.sga_agenda_availability);
+        }
+
+        if (data.ipeds_aid_summary && data.ipeds_aid_summary.total_title_iv_aid) {
+            updateCardValue("TOTAL TITLE IV FEDERAL AID", formatCurrency(data.ipeds_aid_summary.total_title_iv_aid));
+        }
+
+        if (data.analyst_compliance_flags) {
+            const flags = data.analyst_compliance_flags;
+            if (flags.attestation_status) updateCardValue("FY 2025 ATTESTATION STATUS", flags.attestation_status.toUpperCase());
+            if (flags.soa_oversight_index) updateCardValue("SOA OVERSIGHT INDEX", flags.soa_oversight_index.toUpperCase());
+        }
+
+        const chartLoader = Array.from(document.querySelectorAll('div, p')).find(el => el.textContent.includes("Loading financial comparative charts..."));
+        if (chartLoader && data.historical_trends) {
+            chartLoader.textContent = "Data channels active. Ready to render historical trends.";
+        }
+
+    } catch (error) {
+        console.error("Dashboard engine failed to initialize data channels:", error);
+    }
+}
+
 
         window.addEventListener('DOMContentLoaded', initDashboard);
     </script>
