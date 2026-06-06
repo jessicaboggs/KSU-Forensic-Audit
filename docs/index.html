@@ -67,29 +67,40 @@
     <script>
         async function initDashboard() {
             try {
-                // Fetch the dynamic payload outputted by your python pipeline
                 const response = await fetch('./dashboard_payload.json');
                 if (!response.ok) throw new Error('Failed to fetch dashboard payload asset.');
                 
                 const data = await response.json();
                 console.log("Forensic Data Pipeline Loaded Successfully:", data);
                 
-                // 1. Update system synchronization timestamp
-                if (data.timestamp) {
-                    document.getElementById('sync-time').innerText = data.timestamp;
+                // 1. Sync Timestamp
+                if (data.system_status && data.system_status.last_updated) {
+                    document.getElementById('sync-time').innerText = data.system_status.last_updated;
                 } else {
                     document.getElementById('sync-time').innerText = new Date().toISOString();
                 }
                 
-                // 2. Map JSON data properties to UI text containers safely
-                if (data.emergency_bailout) {
-                    document.getElementById('metric-bailout').innerText = data.emergency_bailout;
-                }
-                if (data.unbacked_procard) {
-                    document.getElementById('metric-procard').innerText = data.unbacked_procard;
-                }
-                if (data.degree_cap) {
-                    document.getElementById('metric-degree-cap').innerText = data.degree_cap;
+                // 2. Map Metrics out of the nested public_metrics object layer
+                if (data.public_metrics) {
+                    const metrics = data.public_metrics;
+                    
+                    // Match Emergency Bailout
+                    if (metrics.total_emergency_bailout !== undefined) {
+                        document.getElementById('metric-bailout').innerText = 
+                            '$' + Number(metrics.total_emergency_bailout).toLocaleString('en-US');
+                    }
+                    
+                    // Match ProCard Volume
+                    if (metrics.unsupported_procard_spending_annual !== undefined) {
+                        document.getElementById('metric-procard').innerText = 
+                            '$' + Number(metrics.unsupported_procard_spending_annual).toLocaleString('en-US') + '/yr';
+                    }
+                    
+                    // Match Degree Cap out of polytechnic_transition sub-object
+                    if (metrics.polytechnic_transition && metrics.polytechnic_transition.target_degree_sectors !== undefined) {
+                        document.getElementById('metric-degree-cap').innerText = 
+                            metrics.polytechnic_transition.target_degree_sectors + ' Sectors';
+                    }
                 }
                 
             } catch (error) {
@@ -98,7 +109,6 @@
             }
         }
 
-        // Boot dashboard data synchronization on page load
         window.addEventListener('DOMContentLoaded', initDashboard);
     </script>
 </body>
