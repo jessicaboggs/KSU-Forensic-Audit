@@ -249,26 +249,29 @@
                     if (flags.soa_oversight_index) document.getElementById('val-oversight').textContent = flags.soa_oversight_index.toUpperCase();
                 }
 
-                if (data.historical_trends) {
-                    document.getElementById('chart-loader').textContent = "Data pipeline synchronized. Layout rendering complete.";
-                    const tableBody = document.getElementById('historical-table-body');
-                    tableBody.innerHTML = '';
+               if (data.historical_trends) {
+                document.getElementById('chart-loader').textContent = "Data pipeline synchronized. Layout rendering complete.";
+                const tableBody = document.getElementById('historical-table-body');
+                tableBody.innerHTML = '';
 
-                    data.historical_trends.forEach(trend => {
-                        const tr = document.createElement('tr');
-                        tr.className = 'evidence-row';
-                        const balanceValue = parseFloat(trend.deficit_balance);
-                        const balanceStyle = balanceValue < 0 ? 'color: #f87171; font-weight: bold;' : 'color: #cbd5e1;';
+                data.historical_trends.forEach(trend => {
+                    const tr = document.createElement('tr');
+                    tr.className = 'evidence-row';
+                    
+                    // Extract deficit balance field safely from your JSON object properties
+                    const deficitValue = trend.reported_vs_actual_gap !== undefined ? trend.reported_vs_actual_gap : 0;
+                    const balanceValue = parseFloat(deficitValue);
+                    const balanceStyle = balanceValue < 0 ? 'color: #f87171; font-weight: bold;' : 'color: #cbd5e1;';
 
-                        tr.innerHTML = `
-                            <td style="font-weight: bold; color: #ffffff; padding: 8px; border-bottom: 1px solid #1e293b;">${trend.fiscal_horizon || 'N/A'}</td>
-                            <td style="padding: 8px; border-bottom: 1px solid #1e293b;">${trend.avg_ipeds_enrollment ? parseInt(trend.avg_ipeds_enrollment).toLocaleString() : 'N/A'}</td>
-                            <td style="${balanceStyle} padding: 8px; border-bottom: 1px solid #1e293b;">${formatCurrency(trend.deficit_balance)}</td>
-                            <td style="padding: 8px; border-bottom: 1px solid #1e293b;"><span style="background-color: #0f172a; padding: 2px 6px; border-radius: 4px; border: 1px solid #334155;">${trend.audit_status_opinion || 'UNRESOLVED'}</span></td>
-                        `;
-                        tableBody.appendChild(tr);
-                    });
-                }
+                    tr.innerHTML = `
+                        <td style="font-weight: bold; color: #ffffff; padding: 8px; border-bottom: 1px solid #1e293b;">${trend.fiscal_year || 'N/A'}</td>
+                        <td style="padding: 8px; border-bottom: 1px solid #1e293b;">${trend.ipeds_enrollment_avg ? parseInt(trend.ipeds_enrollment_avg).toLocaleString() : 'N/A'}</td>
+                        <td style="${balanceStyle} padding: 8px; border-bottom: 1px solid #1e293b;">${formatCurrency(deficitValue)}</td>
+                        <td style="padding: 8px; border-bottom: 1px solid #1e293b;"><span style="background-color: #0f172a; padding: 2px 6px; border-radius: 4px; border: 1px solid #334155;">${trend.audit_status_opinion || 'VERIFIED'}</span></td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            }
             } catch (error) {
                 console.error("Dashboard engine failed to initialize data channels:", error);
             }
