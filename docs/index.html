@@ -16,6 +16,9 @@
                 <div class="subtitle">Civic Data Infrastructure & Legislative Oversight Tracker</div>
             </div>
             <div style="display: flex; gap: 12px; align-items: center;">
+                <button onclick="exportTimelineData()" style="background-color: #1f2937; border: 1px solid #4b5563; color: #f3f4f6; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;">
+                    📥 EXPORT DATA LOGS
+                </button>
                 <div id="compliance-banner" class="badge" style="background-color: #7f1d1d; display: none;">
                     FY2025 AUDIT: <span id="days-overdue">0</span> DAYS OVERDUE
                 </div>
@@ -54,7 +57,7 @@
         </section>
 
         <!-- Governance Matrix Layer -->
-        <section class="chart-sec" style="margin-bottom: 32px;">
+        <section class="chart-sec">
             <h2 class="section-title">Oversight & Governance Tracking Matrix</h2>
             <div class="grid-layer" style="margin-bottom: 0; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
                 <div style="background-color: #111827; padding: 16px; border-radius: 8px; border: 1px solid #374151;">
@@ -76,7 +79,7 @@
         </section>
 
         <!-- Historical Trend Array Table -->
-        <section class="chart-sec" style="margin-bottom: 32px; overflow-x: auto;">
+        <section class="chart-sec" style="overflow-x: auto;">
             <h2 class="section-title">Long-Term Historical Trends (IPEDS Enrollment & Financial Baseline)</h2>
             <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
                 <thead>
@@ -95,6 +98,14 @@
             </table>
         </section>
 
+        <!-- Analyst Compliance Flags Panel -->
+        <section class="chart-sec">
+            <h2 class="section-title">Analyst Compliance Flags & Active Monitoring Warnings</h2>
+            <div id="compliance-flags-container" style="display: flex; flex-direction: column; gap: 12px;">
+                <p style="color: #6b7280; font-size: 14px;">Evaluating regulatory compliance flags...</p>
+            </div>
+        </section>
+
         <!-- Timeline -->
         <section class="timeline-sec">
             <h2 class="section-title">Investigative Timeline</h2>
@@ -105,12 +116,15 @@
 
     </div>
     <script>
+        let cachedPayloadData = null;
+
         async function initDashboard() {
             try {
                 const response = await fetch('./dashboard_payload.json');
                 if (!response.ok) throw new Error('Failed to fetch dashboard payload asset.');
                 
                 const data = await response.json();
+                cachedPayloadData = data;
                 console.log("Forensic Data Pipeline Loaded Successfully:", data);
                 
                 // 1. Sync Timestamp
@@ -125,16 +139,13 @@
                     const metrics = data.public_metrics;
                     
                     if (metrics.total_emergency_bailout !== undefined) {
-                        document.getElementById('metric-bailout').innerText = 
-                            '$' + Number(metrics.total_emergency_bailout).toLocaleString('en-US');
+                        document.getElementById('metric-bailout').innerText = '$' + Number(metrics.total_emergency_bailout).toLocaleString('en-US');
                     }
                     if (metrics.unsupported_procard_spending_annual !== undefined) {
-                        document.getElementById('metric-procard').innerText = 
-                            '$' + Number(metrics.unsupported_procard_spending_annual).toLocaleString('en-US') + '/yr';
+                        document.getElementById('metric-procard').innerText = '$' + Number(metrics.unsupported_procard_spending_annual).toLocaleString('en-US') + '/yr';
                     }
                     if (metrics.polytechnic_transition && metrics.polytechnic_transition.target_degree_sectors !== undefined) {
-                        document.getElementById('metric-degree-cap').innerText = 
-                            metrics.polytechnic_transition.target_degree_sectors + ' Sectors';
+                        document.getElementById('metric-degree-cap').innerText = metrics.polytechnic_transition.target_degree_sectors + ' Sectors';
                     }
 
                     // Compliance Overdue Mapping
@@ -190,7 +201,29 @@
                     }
                 }
 
-                // 4. Populate Multi-Year Historical Trend Table Rows
+                // 4. Map Analyst Compliance Flags Board
+                if (data.analyst_compliance_flags) {
+                    const flags = data.analyst_compliance_flags;
+                    const cpeStatus = flags.cpe_independent_spend_limit ? 'CRITICAL_MONITORING' : 'STANDARD';
+                    const hcm2Status = flags.active_hcm2_monitoring ? 'RESTRICTED_CASH' : 'STANDARD';
+                    
+                    document.getElementById('compliance-flags-container').innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: #111827; border-radius: 6px; border-left: 4px solid #ef4444;">
+                            <div><strong style="font-size: 14px; color: #f3f4f6;">CPE Independent Spending Cap</strong><p style="margin: 4px 0 0 0; color: #9ca3af; font-size: 12px;">State-level intervention expenditure controls.</p></div>
+                            <span style="font-size: 11px; font-weight: bold; background-color: #7f1d1d; color: #f87171; padding: 4px 8px; border-radius: 4px;">${cpeStatus}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: #111827; border-radius: 6px; border-left: 4px solid #ef4444;">
+                            <div><strong style="font-size: 14px; color: #f3f4f6;">Federal Access Status: HCM2 Sanctions</strong><p style="margin: 4px 0 0 0; color: #9ca3af; font-size: 12px;">US Dept of Ed Heightened Cash Monitoring restriction.</p></div>
+                            <span style="font-size: 11px; font-weight: bold; background-color: #7f1d1d; color: #f87171; padding: 4px 8px; border-radius: 4px;">${hcm2Status}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: #111827; border-radius: 6px; border-left: 4px solid ${flags.flagged_anomalies_count > 0 ? '#ef4444' : '#10b981'};">
+                            <div><strong style="font-size: 14px; color: #f3f4f6;">System Ledger Anomalies Count</strong><p style="margin: 4px 0 0 0; color: #9ca3af; font-size: 12px;">Active cross-ledger entries verification engine.</p></div>
+                            <span style="font-size: 11px; font-weight: bold; background-color: ${flags.flagged_anomalies_count > 0 ? '#7f1d1d' : '#064e3b'}; color: ${flags.flagged_anomalies_count > 0 ? '#f87171' : '#34d399'}; padding: 4px 8px; border-radius: 4px;">${flags.flagged_anomalies_count} ANOMALIES</span>
+                        </div>
+                    `;
+                }
+
+                // 5. Populate Multi-Year Historical Trend Table Rows
                 if (data.historical_trends && Array.isArray(data.historical_trends)) {
                     const trendContainer = document.getElementById('historical-trend-rows');
                     trendContainer.innerHTML = ''; 
@@ -200,9 +233,7 @@
                         tr.style.borderBottom = '1px solid #1f2937';
                         tr.style.backgroundColor = index % 2 === 0 ? 'transparent' : '#1f2937';
                         
-                        const deficitDisplay = row.institutional_deficit === null ? 'Missing/Void' : 
-                                               row.institutional_deficit === 0 ? '$0' : 
-                                               '$' + Number(row.institutional_deficit).toLocaleString('en-US');
+                        const deficitDisplay = row.institutional_deficit === null ? 'Missing/Void' : row.institutional_deficit === 0 ? '$0' : '$' + Number(row.institutional_deficit).toLocaleString('en-US');
                         
                         tr.innerHTML = `
                             <td style="padding: 12px 8px; font-weight: bold;">${row.fiscal_year || '---'}</td>
@@ -214,7 +245,7 @@
                     });
                 }
 
-                // 5. Populate Dynamic Media / Investigative Timeline Loops
+                // 6. Populate Dynamic Media / Investigative Timeline Loops
                 if (data.media_timeline && Array.isArray(data.media_timeline)) {
                     const feed = document.getElementById('timeline-feed');
                     feed.innerHTML = ''; 
@@ -238,9 +269,26 @@
                 
             } catch (error) {
                 console.error("Dashboard engine failed to initialize data channels:", error);
-                document.getElementById('sync-time').innerText = "Sync Error";
             }
         }
+
+        // Exporter Module
+        function exportTimelineData() {
+            if (!cachedPayloadData || !cachedPayloadData.media_timeline) {
+                alert("Data layers are not fully synchronized yet.");
+                return;
+            }
+            const fileString = JSON.stringify(cachedPayloadData.media_timeline, null, 2);
+            const textBlob = new Blob([fileString], { type: 'application/json' });
+            const downloaderAnchor = document.createElement('a');
+            downloaderAnchor.download = 'ksu_forensic_timeline_export.json';
+            downloaderAnchor.href = window.URL.createObjectURL(textBlob);
+            downloaderAnchor.style.display = 'none';
+            document.body.appendChild(downloaderAnchor);
+            downloaderAnchor.click();
+            document.body.removeChild(downloaderAnchor);
+        }
+
         window.addEventListener('DOMContentLoaded', initDashboard);
     </script>
 </body>
