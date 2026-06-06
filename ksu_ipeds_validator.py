@@ -5,7 +5,7 @@ CLAIMS_PATH = "data_layers/official_claims.json"
 
 def run_ipeds_validation():
     print("📊 Initializing NCES IPEDS Data Compliance Validator...")
-    print("• Target Institution ID : 157112 (Kentucky State University)")
+    print("• Target Institution ID : 157058 (Kentucky State University)")
     
     # 1. Establish the baseline IPEDS audited metrics
     reported_instructional_expenses = 14200000.00
@@ -18,7 +18,7 @@ def run_ipeds_validation():
     print("\n" + "="*60)
     print("      🏛️ NCES IPEDS COMPLIANCE AUDIT INDEX MATRIX      ")
     print("="*60)
-    print(f"• Official IPEDS Unit ID       : 157112")
+    print(f"• Official IPEDS Unit ID       : 157058")
     print(f"• Reported Instructional Cost  : ${reported_instructional_expenses:,.2f}")
     print(f"• Audited Diverted Asset Pool  : ${audited_core_leak_total:,.2f}")
     print("-"*60)
