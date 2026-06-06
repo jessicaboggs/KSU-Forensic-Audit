@@ -194,7 +194,7 @@
     </div>
  <script>
 
-        const fileString = "[]";
+        let fileString = "[]";
 
         function exportTimelineData() {
             const textBlob = new Blob([fileString], { type: 'application/json' });
@@ -223,6 +223,8 @@
                 
                 const data = await response.json();
                 console.log("Forensic Data Pipeline Loaded Successfully:", data);
+
+                fileString = JSON.stringify(data, null, 2);
 
                 const formatCurrency = (val) => {
                     const num = parseFloat(val);
