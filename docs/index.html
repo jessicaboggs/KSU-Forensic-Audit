@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KSU Forensic Audit Monitor</title>
     <style>
-        /* Bulletproof Native CSS Dashboard Theme */
+        /* Native CSS Dashboard Theme Layout Framework */
         body {
             background-color: #0f172a !important;
             color: #cbd5e1 !important;
@@ -63,7 +63,23 @@
             border-radius: 4px !important;
             padding: 6px 12px !important;
         }
-        /* Color Utilites */
+        table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+        th {
+            border-bottom: 2px solid #334155;
+            color: #94a3b8;
+            font-weight: bold;
+            padding: 8px;
+        }
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #1e293b;
+        }
         .text-slate-400 { color: #94a3b8 !important; }
         .text-slate-500 { color: #64748b !important; }
         .text-red-400 { color: #f87171 !important; }
@@ -75,99 +91,108 @@
         .text-3xl { font-size: 1.875rem !important; font-weight: 800 !important; margin-top: 8px !important; margin-bottom: 8px !important; }
         .text-sm { font-size: 0.875rem !important; }
         .text-xs { font-size: 0.75rem !important; font-weight: bold; }
-        .text-\[10px\] { font-size: 10px !important; }
-        .text-\[11px\] { font-size: 11px !important; }
-        .space-y-2 > * + * { margin-top: 8px !important; }
-        .space-y-4 > * + * { margin-top: 16px !important; }
     </style>
 </head>
+<body>
 
+    <div class="max-w-7xl">
+        
         <!-- HEADER SECTION -->
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 gap-4">
+        <header>
             <div>
-                <h1 class="text-2xl font-bold tracking-tight text-white">THE ULTIMATE KSU FORENSIC AUDIT</h1>
+                <h1>THE ULTIMATE KSU FORENSIC AUDIT</h1>
                 <div class="text-sm text-slate-400">Civic Data Infrastructure & Legislative Oversight Tracker</div>
             </div>
-            <div class="flex flex-wrap items-center gap-3">
-                <button onclick="exportTimelineData()" class="px-4 py-2 bg-[#1f2937] border border-[#4b5563] rounded text-xs font-semibold hover:bg-slate-700 transition">
-                    📥 EXPORT DATA LOGS
-                </button>
-                <div class="flex flex-col items-end">
-                    <span class="px-3 py-1 bg-red-900/50 border border-red-500 text-red-400 text-xs font-bold rounded">FINANCIAL EXIGENCY</span>
-                    <div class="text-[10px] text-slate-500 mt-1" id="sync-lbl">Sync: <span id="sync-time">--:--:--</span></div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button onclick="exportTimelineData()">📥 EXPORT DATA LOGS</button>
+                <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                    <span class="bg-red-900/50">FINANCIAL EXIGENCY</span>
+                    <div class="text-xs text-slate-500" style="margin-top: 4px;">Sync: <span id="sync-time">--:--:--</span></div>
                 </div>
             </div>
         </header>
+
         <!-- TOP METRICS GRID -->
-        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            <!-- Card 1 -->
-            <div class="bg-[#1e293b] border border-slate-800 rounded-lg p-5 space-y-2">
-                <div class="text-xs font-bold uppercase tracking-wider text-slate-400">EMERGENCY STATE BAILOUT</div>
-                <h2 class="text-3xl font-extrabold text-white dashboard-val" id="val-bailout">$0</h2>
-                <div class="text-[11px] text-slate-500">Source: KY General Assembly Loan</div>
+        <main>
+            <div>
+                <div class="text-xs text-slate-400 uppercase">EMERGENCY STATE BAILOUT</div>
+                <h2 class="text-3xl" id="val-bailout">$0</h2>
+                <div class="text-xs text-slate-500">Source: KY General Assembly Loan</div>
             </div>
-
-            <!-- Card 2 -->
-            <div class="bg-[#1e293b] border border-slate-800 rounded-lg p-5 space-y-2">
-                <div class="text-xs font-bold uppercase tracking-wider text-slate-400">UNBACKED PROCARD VOLUME</div>
-                <h2 class="text-3xl font-extrabold text-red-400 dashboard-val" id="val-procard">$0/yr</h2>
-                <div class="text-[11px] text-red-400/70">Missing purchase documentation</div>
+            <div>
+                <div class="text-xs text-slate-400 uppercase">UNBACKED PROCARD VOLUME</div>
+                <h2 class="text-3xl text-red-400" id="val-procard">$0/yr</h2>
+                <div class="text-xs text-red-400">Missing purchase documentation</div>
             </div>
-
-            <!-- Card 3 -->
-            <div class="bg-[#1e293b] border border-slate-800 rounded-lg p-5 space-y-2">
-                <div class="text-xs font-bold uppercase tracking-wider text-slate-400">SB 185 MANDATED DEGREE CAP</div>
-                <h2 class="text-3xl font-extrabold text-white dashboard-val" id="val-degree">0 Sectors</h2>
-                <div class="text-[11px] text-slate-500">Polytechnic transition ceiling</div>
+            <div>
+                <div class="text-xs text-slate-400 uppercase">SB 185 MANDATED DEGREE CAP</div>
+                <h2 class="text-3xl" id="val-degree">0 Sectors</h2>
+                <div class="text-xs text-slate-500">Polytechnic transition ceiling</div>
             </div>
-
-            <!-- Card 4 -->
-            <div class="bg-[#1e293b] border border-slate-800 rounded-lg p-5 space-y-2">
-                <div class="text-xs font-bold uppercase tracking-wider text-slate-400">TOTAL TITLE IV FEDERAL AID</div>
-                <h2 class="text-3xl font-extrabold text-white dashboard-val" id="val-titleiv">$0</h2>
-                <div class="text-[11px] text-emerald-400">IPEDS Status: <span class="font-bold">LOCKED</span></div>
+            <div>
+                <div class="text-xs text-slate-400 uppercase">TOTAL TITLE IV FEDERAL AID</div>
+                <h2 class="text-3xl" id="val-titleiv">$0</h2>
+                <div class="text-xs text-emerald-400">IPEDS Status: LOCKED</div>
             </div>
         </main>
+
         <!-- CHARTS / DISCREPANCY BLOCK -->
-        <section class="bg-[#1e293b] border border-slate-800 rounded-lg p-5">
-            <h3 class="text-sm font-bold text-white mb-4">2021 Discrepancy: Reported vs Actual Deficit</h3>
-            <div id="chart-loader" class="text-xs text-slate-500 animate-pulse">Loading financial comparative charts...</div>
+        <section>
+            <h3 class="text-sm font-bold">2021 Discrepancy: Reported vs Actual Deficit</h3>
+            <div id="chart-loader" class="text-xs text-slate-500" style="margin-top:8px;">Loading financial comparative charts...</div>
         </section>
+
         <!-- OVERSIGHT & GOVERNANCE MATRIX -->
-        <section class="bg-[#1e293b] border border-slate-800 rounded-lg p-5 space-y-4">
-            <h3 class="text-sm font-bold text-white">Oversight & Governance Tracking Matrix</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-[#0f172a] p-4 rounded border border-slate-800">
-                    <div class="text-[10px] font-bold text-slate-400 uppercase">FY 2025 ATTESTATION STATUS</div>
-                    <div class="text-sm font-bold text-amber-500 mt-1" id="val-attestation">UNKNOWN</div>
-                    <div class="text-[10px] text-slate-500 mt-1">Deadline: Dec 31, 2025</div>
+        <section style="display: flex; flex-direction: column; gap: 12px;">
+            <h3 class="text-sm font-bold">Oversight & Governance Tracking Matrix</h3>
+            <div class="grid-cols-3">
+                <div>
+                    <div class="text-xs text-slate-400 uppercase">FY 2025 ATTESTATION STATUS</div>
+                    <div class="text-sm font-bold text-amber-500" id="val-attestation" style="margin-top: 4px;">UNKNOWN</div>
+                    <div class="text-xs text-slate-500" style="margin-top: 4px;">Deadline: Dec 31, 2025</div>
                 </div>
-                <div class="bg-[#0f172a] p-4 rounded border border-slate-800">
-                    <div class="text-[10px] font-bold text-slate-400 uppercase">SGA AGENDA AVAILABILITY</div>
-                    <div class="text-sm font-bold text-white mt-1" id="val-sga">0</div>
-                    <div class="text-[10px] text-slate-500 mt-1">Published current cycle</div>
+                <div>
+                    <div class="text-xs text-slate-400 uppercase">SGA AGENDA AVAILABILITY</div>
+                    <div class="text-sm font-bold" id="val-sga" style="margin-top: 4px;">0</div>
+                    <div class="text-xs text-slate-500" style="margin-top: 4px;">Published current cycle</div>
                 </div>
-                <div class="bg-[#0f172a] p-4 rounded border border-slate-800">
-                    <div class="text-[10px] font-bold text-slate-400 uppercase">SOA OVERSIGHT INDEX</div>
-                    <div class="text-sm font-bold text-red-500 mt-1" id="val-oversight">CRITICAL VOID</div>
-                    <div class="text-[10px] text-red-400/70 mt-1">Minutes availability rate: 0%</div>
+                <div>
+                    <div class="text-xs text-slate-400 uppercase">SOA OVERSIGHT INDEX</div>
+                    <div class="text-sm font-bold text-red-500" id="val-oversight" style="margin-top: 4px;">CRITICAL VOID</div>
+                    <div class="text-xs text-red-400" style="margin-top: 4px;">Minutes availability rate: 0%</div>
                 </div>
             </div>
         </section>
+
         <!-- HISTORICAL RECORDS SEARCH & TABLE -->
-        <section class="bg-[#1e293b] border border-slate-800 rounded-lg p-5 space-y-4">
-            <div class="flex justify-between items-center">
-                <h3 class="text-sm font-bold text-white">Long-Term Historical Trends (IPEDS Enrollment & Financial Baseline)</h3>
-                <input type="text" id="evidence-search" onkeyup="filterEvidenceVault()" placeholder="Search records..." class="bg-[#0f172a] border border-slate-700 rounded px-3 py-1 text-xs text-white focus:outline-none focus:border-blue-500">
+        <section>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 12px;">
+                <h3 class="text-sm font-bold">Long-Term Historical Trends (IPEDS Enrollment & Financial Baseline)</h3>
+                <input type="text" id="evidence-search" onkeyup="filterEvidenceVault()" placeholder="Search records...">
             </div>
-            <div id="historical-loader" class="text-xs text-slate-500 animate-pulse">Loading long-term historical records...</div>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fiscal Horizon</th>
+                            <th>Avg IPEDS Enrollment</th>
+                            <th>Deficit Balance</th>
+                            <th>Audit Status Opinion</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historical-table-body">
+                        <tr>
+                            <td colspan="4" style="text-align: center; color: #64748b;">Loading historical record channels...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
     </div>
-    <!-- PIPELINE LOGIC ENGINE -->
-    <script>
-        const fileString = ""; // Target variable payload holder for file exporter
+ <script>
+
+        const fileString = "";
 
         function exportTimelineData() {
             const textBlob = new Blob([fileString], { type: 'application/json' });
@@ -183,19 +208,14 @@
         function filterEvidenceVault() {
             const query = document.getElementById('evidence-search').value.toLowerCase();
             const rows = document.querySelectorAll('.evidence-row');
-            
             rows.forEach(row => {
-                if (row.innerText.toLowerCase().includes(query)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+                row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none';
             });
         }
+
         async function initDashboard() {
             try {
                 console.log("Initializing data pipeline channels...");
-                
                 const response = await fetch('dashboard_payload.json');
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 
@@ -206,57 +226,55 @@
                     const num = parseFloat(val);
                     return isNaN(num) ? "$0" : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
                 };
-                // Map system sync timestamps
+
                 if (data.system_status && data.system_status.last_updated) {
                     document.getElementById('sync-time').textContent = data.system_status.last_updated;
                 }
 
-                // Populate main public metric elements
                 if (data.public_metrics) {
                     const pm = data.public_metrics;
-                    if (pm.total_emergency_bailout !== undefined) {
-                        document.getElementById('val-bailout').textContent = formatCurrency(pm.total_emergency_bailout);
-                    }
-                    if (pm.unbacked_procard_volume !== undefined) {
-                        document.getElementById('val-procard').textContent = `${formatCurrency(pm.unbacked_procard_volume)}/yr`;
-                    }
-                    if (pm.mandated_degree_cap !== undefined) {
-                        document.getElementById('val-degree').textContent = `${pm.mandated_degree_cap} Sectors`;
-                    }
-                    if (pm.sga_agenda_availability !== undefined) {
-                        document.getElementById('val-sga').textContent = pm.sga_agenda_availability;
-                    }
+                    if (pm.total_emergency_bailout !== undefined) document.getElementById('val-bailout').textContent = formatCurrency(pm.total_emergency_bailout);
+                    if (pm.unbacked_procard_volume !== undefined) document.getElementById('val-procard').textContent = `${formatCurrency(pm.unbacked_procard_volume)}/yr`;
+                    if (pm.mandated_degree_cap !== undefined) document.getElementById('val-degree').textContent = `${pm.mandated_degree_cap} Sectors`;
+                    if (pm.sga_agenda_availability !== undefined) document.getElementById('val-sga').textContent = pm.sga_agenda_availability;
                 }
 
-                // Populate title IV support totals
                 if (data.ipeds_aid_summary && data.ipeds_aid_summary.total_title_iv_aid !== undefined) {
                     document.getElementById('val-titleiv').textContent = formatCurrency(data.ipeds_aid_summary.total_title_iv_aid);
                 }
 
-                // Map compliance attestation values
                 if (data.analyst_compliance_flags) {
                     const flags = data.analyst_compliance_flags;
-                    if (flags.attestation_status) {
-                        document.getElementById('val-attestation').textContent = flags.attestation_status.toUpperCase();
-                    }
-                    if (flags.soa_oversight_index) {
-                        document.getElementById('val-oversight').textContent = flags.soa_oversight_index.toUpperCase();
-                    }
-                }
-                // Clear loading state placeholders on success
-                if (data.historical_trends) {
-                    document.getElementById('chart-loader').textContent = "Data pipeline synchronized. Layout rendering complete.";
-                    document.getElementById('historical-loader').textContent = "Historical trend vectors verified.";
+                    if (flags.attestation_status) document.getElementById('val-attestation').textContent = flags.attestation_status.toUpperCase();
+                    if (flags.soa_oversight_index) document.getElementById('val-oversight').textContent = flags.soa_oversight_index.toUpperCase();
                 }
 
+                if (data.historical_trends) {
+                    document.getElementById('chart-loader').textContent = "Data pipeline synchronized. Layout rendering complete.";
+                    const tableBody = document.getElementById('historical-table-body');
+                    tableBody.innerHTML = '';
+
+                    data.historical_trends.forEach(trend => {
+                        const tr = document.createElement('tr');
+                        tr.className = 'evidence-row';
+                        const balanceValue = parseFloat(trend.deficit_balance);
+                        const balanceStyle = balanceValue < 0 ? 'color: #f87171; font-weight: bold;' : 'color: #cbd5e1;';
+
+                        tr.innerHTML = `
+                            <td style="font-weight: bold; color: #ffffff; padding: 8px; border-bottom: 1px solid #1e293b;">${trend.fiscal_horizon || 'N/A'}</td>
+                            <td style="padding: 8px; border-bottom: 1px solid #1e293b;">${trend.avg_ipeds_enrollment ? parseInt(trend.avg_ipeds_enrollment).toLocaleString() : 'N/A'}</td>
+                            <td style="${balanceStyle} padding: 8px; border-bottom: 1px solid #1e293b;">${formatCurrency(trend.deficit_balance)}</td>
+                            <td style="padding: 8px; border-bottom: 1px solid #1e293b;"><span style="background-color: #0f172a; padding: 2px 6px; border-radius: 4px; border: 1px solid #334155;">${trend.audit_status_opinion || 'UNRESOLVED'}</span></td>
+                        `;
+                        tableBody.appendChild(tr);
+                    });
+                }
             } catch (error) {
                 console.error("Dashboard engine failed to initialize data channels:", error);
             }
         }
 
-        // Initialize engine call when DOM structure loads completely
         window.addEventListener('DOMContentLoaded', initDashboard);
     </script>
 </body>
 </html>
-<!-- Cache breaker entry tag forced update -->
