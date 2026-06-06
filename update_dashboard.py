@@ -42,6 +42,13 @@ def build_dashboard_payload():
                 }
             }
         },
+        "ipeds_aid_summary": {
+            "unduplicated_headcount": 2200,
+            "total_title_iv_aid": 12500000.00,
+            "verification_status": "FEDERALLY_LOCKED",
+            "full_time_staff": 142
+            },
+
         "analyst_compliance_flags": {
             "cpe_independent_spend_limit": True,
             "active_hcm2_monitoring": True,

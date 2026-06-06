@@ -46,6 +46,11 @@
                 <p id="metric-degree-cap" class="card-val">0 Sectors</p>
                 <p class="card-sub">Polytechnic transition ceiling</p>
             </div>
+            <div class="card">
+                <h3 class="card-title">Total Title IV Federal Aid</h3>
+                <p id="metric-federal-aid" class="card-val">$0</p>
+                <p class="card-sub">IPEDS Status: <span id="metric-federal-verification" style="font-weight: bold; color: #34d399;">LOCKED</span></p>
+            </div>
         </main>
 
         <!-- Discrepancy & Chart Section -->
@@ -55,7 +60,6 @@
                 <p style="color: #6b7280; font-size: 14px;">Loading financial comparative charts...</p>
             </div>
         </section>
-
         <!-- Oversight & Governance Tracking Matrix -->
         <section class="chart-sec">
             <h2 class="section-title">Oversight & Governance Tracking Matrix</h2>
@@ -77,6 +81,7 @@
                 </div>
             </div>
         </section>
+
         <!-- Multi-Year Historical Trend Table Array -->
         <section class="chart-sec" style="overflow-x: auto;">
             <h2 class="section-title">Long-Term Historical Trends (IPEDS Enrollment & Financial Baseline)</h2>
@@ -104,7 +109,6 @@
                 <p style="color: #6b7280; font-size: 14px;">Evaluating regulatory compliance flags...</p>
             </div>
         </section>
-
         <!-- Evidentiary Index / Document Repository Section -->
         <section class="chart-sec">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -130,6 +134,7 @@
                 </table>
             </div>
         </section>
+
         <!-- Statutory Mandate & Active Litigation Monitor Split Panel -->
         <section class="chart-sec">
             <h2 class="section-title">SB 185 Legislative Mandate & Federal Litigation Monitor</h2>
@@ -206,6 +211,17 @@
                         document.getElementById('metric-degree-cap').innerText = metrics.polytechnic_transition.target_degree_sectors + ' Sectors';
                     }
 
+                    // New: Dynamic IPEDS Title IV Aid Card Binding Hook
+                    if (metrics.ipeds_aid_summary) {
+                        const ipeds = metrics.ipeds_aid_summary;
+                        if (ipeds.total_title_iv_aid !== undefined) {
+                            document.getElementById('metric-federal-aid').innerText = '$' + Number(ipeds.total_title_iv_aid).toLocaleString('en-US');
+                        }
+                        if (ipeds.verification_status) {
+                            document.getElementById('metric-federal-verification').innerText = ipeds.verification_status;
+                        }
+                    }
+
                     // Compliance Overdue Mapping
                     if (metrics.compliance_tracking && metrics.compliance_tracking.fy_2025_audit) {
                         const auditInfo = metrics.compliance_tracking.fy_2025_audit;
@@ -236,7 +252,7 @@
                         const reportedPct = (reportedAbs / maxVal) * 100;
                         const actualPct = (actualAbs / maxVal) * 100;
 
-                    document.getElementById('deficit-chart-container').innerHTML = `
+                        document.getElementById('deficit-chart-container').innerHTML = `
                             <div style="width: 100%;">
                                 <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px;">
                                     <span>Reported Deficit</span>
@@ -258,6 +274,7 @@
                         `;
                     }
                 }
+
                 // 4. Map Analyst Compliance Flags Board
                 if (data.analyst_compliance_flags) {
                     const flags = data.analyst_compliance_flags;
@@ -272,10 +289,6 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: #111827; border-radius: 6px; border-left: 4px solid #ef4444;">
                             <div><strong style="font-size: 14px; color: #f3f4f6;">Federal Access Status: HCM2 Sanctions</strong><p style="margin: 4px 0 0 0; color: #9ca3af; font-size: 12px;">US Dept of Ed Heightened Cash Monitoring restriction.</p></div>
                             <span style="font-size: 11px; font-weight: bold; background-color: #7f1d1d; color: #f87171; padding: 4px 8px; border-radius: 4px;">${hcm2Status}</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: #111827; border-radius: 6px; border-left: 4px solid ${flags.flagged_anomalies_count > 0 ? '#ef4444' : '#10b981'};">
-                            <div><strong style="font-size: 14px; color: #f3f4f6;">System Ledger Anomalies Count</strong><p style="margin: 4px 0 0 0; color: #9ca3af; font-size: 12px;">Active internal verification checking engine.</p></div>
-                            <span style="font-size: 11px; font-weight: bold; background-color: ${flags.flagged_anomalies_count > 0 ? '#7f1d1d' : '#064e3b'}; color: ${flags.flagged_anomalies_count > 0 ? '#f87171' : '#34d399'}; padding: 4px 8px; border-radius: 4px;">${flags.flagged_anomalies_count} ANOMALIES</span>
                         </div>
                     `;
                 }
@@ -297,6 +310,7 @@
                         trendContainer.appendChild(tr);
                     });
                 }
+
                 // 6. Populate Searchable Evidentiary Index Vault Rows
                 if (data.evidentiary_index && Array.isArray(data.evidentiary_index)) {
                     const vaultContainer = document.getElementById('evidence-vault-rows');
@@ -316,7 +330,29 @@
                         vaultContainer.appendChild(tr);
                     });
                 }
-                // 7. Populate Dynamic Media / Investigative Timeline Loops
+
+                // 7. Populate SB 185 Mandate & Active Civil Litigation Layer
+                if (data.sb_185_legal_layer) {
+                    const legal = data.sb_185_legal_layer;
+                    document.getElementById('legal-statute-title').innerText = legal.statute || 'Statute Track';
+                    document.getElementById('legal-statute-status').innerText = legal.legal_status || 'ACTIVE';
+                    document.getElementById('legal-governance-phase').innerText = legal.governance_phase || '---';
+                    if (legal.monitored_metrics) {
+                        const metrics = legal.monitored_metrics;
+                        document.getElementById('legal-spend-cap').innerText = '$' + Number(metrics.max_independent_spend_cap).toLocaleString();
+                        document.getElementById('legal-min-gpa').innerText = metrics.minimum_freshman_gpa || '---';
+                        document.getElementById('legal-min-act').innerText = metrics.minimum_freshman_act || '---';
+                    }
+                    if (legal.active_litigation) {
+                        const lit = legal.active_litigation;
+                        document.getElementById('legal-litigation-plaintiffs').innerText = lit.plaintiffs || 'Class Action Case';
+                        document.getElementById('legal-litigation-court').innerText = lit.court || 'Federal Jurisdiction';
+                        document.getElementById('legal-litigation-claim').innerText = lit.core_claim || '---';
+                        document.getElementById('legal-litigation-date').innerText = lit.filing_date || '---';
+                    }
+                }
+
+                // 8. Populate Dynamic Media / Investigative Timeline Loops
                 if (data.media_timeline && Array.isArray(data.media_timeline)) {
                     const feed = document.getElementById('timeline-feed');
                     feed.innerHTML = ''; 
@@ -333,36 +369,11 @@
                             ${event.source ? `<div style="font-size: 11px; color: #6b7280; margin-top: 4px;">Source: ${event.source}</div>` : ''}
                         `;
                         feed.appendChild(item);
-                        
-                // 8. Populate SB 185 Mandate & Active Civil Litigation Layer
-                if (data.sb_185_legal_layer) {
-                    const legal = data.sb_185_legal_layer;
-                    
-                    document.getElementById('legal-statute-title').innerText = legal.statute || 'Statute Track';
-                    document.getElementById('legal-statute-status').innerText = legal.legal_status || 'ACTIVE';
-                    document.getElementById('legal-governance-phase').innerText = legal.governance_phase || '---';
-                    
-                    if (legal.monitored_metrics) {
-                        const metrics = legal.monitored_metrics;
-                        document.getElementById('legal-spend-cap').innerText = '$' + Number(metrics.max_independent_spend_cap).toLocaleString();
-                        document.getElementById('legal-min-gpa').innerText = metrics.minimum_freshman_gpa || '---';
-                        document.getElementById('legal-min-act').innerText = metrics.minimum_freshman_act || '---';
-                    }
-                    
-                    if (legal.active_litigation) {
-                        const lit = legal.active_litigation;
-                        document.getElementById('legal-litigation-plaintiffs').innerText = lit.plaintiffs || 'Class Action Case';
-                        document.getElementById('legal-litigation-court').innerText = lit.court || 'Federal Jurisdiction';
-                        document.getElementById('legal-litigation-claim').innerText = lit.core_claim || '---';
-                        document.getElementById('legal-litigation-date').innerText = lit.filing_date || '---';
-                    }
-                }
-
                     });
                 }
                 
             } catch (error) {
-                console.error("Dashboard engine failed to initialize data channels:", error);
+                print("Dashboard engine failed to initialize data channels:", error);
             }
         }
 
