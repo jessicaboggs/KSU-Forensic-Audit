@@ -237,14 +237,18 @@
 
                 if (data.public_metrics) {
                     const pm = data.public_metrics;
-                    if (pm.total_emergency_bailout !== undefined) document.getElementById('val-bailout').textContent = formatCurrency(pm.total_emergency_bailout);
-                    if (pm.unbacked_procard_volume !== undefined) document.getElementById('val-procard').textContent = `${formatCurrency(pm.unbacked_procard_volume)}/yr`;
-                    if (pm.mandated_degree_cap !== undefined) document.getElementById('val-degree').textContent = `${pm.mandated_degree_cap} Sectors`;
-                    if (pm.sga_agenda_availability !== undefined) document.getElementById('val-sga').textContent = pm.sga_agenda_availability;
+                if (pm.total_emergency_bailout !== undefined) document.getElementById('val-bailout').textContent = formatCurrency(pm.total_emergency_bailout);
+                 if (pm.unsupported_procard_spending_annual !== undefined) {
+                    document.getElementById('val-procard').textContent = `${formatCurrency(pm.unsupported_procard_spending_annual)}/yr`;
                 }
+                if (pm.mandated_degree_cap !== undefined) document.getElementById('val-degree').textContent = `${pm.mandated_degree_cap} Sectors`;
+                if (pm.sga_agenda_availability !== undefined) document.getElementById('val-sga').textContent = pm.sga_agenda_availability;
+
 
                 if (data.ipeds_aid_summary && data.ipeds_aid_summary.total_title_iv_aid !== undefined) {
                     document.getElementById('val-titleiv').textContent = formatCurrency(data.ipeds_aid_summary.total_title_iv_aid);
+                }
+
                 }
 
                          // Reroute compliance and oversight metrics to correct nested JSON paths
