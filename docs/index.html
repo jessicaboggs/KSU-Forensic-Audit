@@ -4,25 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KSU Forensic Audit Monitor</title>
-    <script src="https://tailwindcss.com"></script>
     <style>
-        /* Fallback rules to force layout layout structure */
+        /* Bulletproof Native CSS Dashboard Theme */
+        body {
+            background-color: #0f172a !important;
+            color: #cbd5e1 !important;
+            font-family: ui-sans-serif, system-ui, -apple-system, sans-serif !important;
+            padding: 24px !important;
+            margin: 0 !important;
+        }
+        .max-w-7xl {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
         header {
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
             flex-wrap: wrap !important;
+            gap: 16px !important;
+            border-bottom: 1px solid #334155 !important;
+            padding-bottom: 24px !important;
         }
-        main, .grid-cols-3 {
+        h1, h2, h3 {
+            color: #ffffff !important;
+            margin: 0 !important;
+        }
+        main {
             display: grid !important;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
             gap: 16px !important;
         }
+        main > div, section {
+            background-color: #1e293b !important;
+            border: 1px solid #334155 !important;
+            border-radius: 8px !important;
+            padding: 20px !important;
+            box-sizing: border-box;
+        }
+        .grid-cols-3 {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+            gap: 16px !important;
+        }
+        .grid-cols-3 > div {
+            background-color: #0f172a !important;
+            border: 1px solid #334155 !important;
+            border-radius: 6px !important;
+            padding: 16px !important;
+        }
+        input {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            border: 1px solid #475569 !important;
+            border-radius: 4px !important;
+            padding: 6px 12px !important;
+        }
+        /* Color Utilites */
+        .text-slate-400 { color: #94a3b8 !important; }
+        .text-slate-500 { color: #64748b !important; }
+        .text-red-400 { color: #f87171 !important; }
+        .text-amber-500 { color: #f59e0b !important; }
+        .text-emerald-400 { color: #34d399 !important; }
+        .bg-red-900\/50 { background-color: rgba(127, 29, 29, 0.5) !important; border: 1px solid #ef4444 !important; padding: 4px 12px; border-radius: 4px; }
+        button { background-color: #1f2937 !important; color: #ffffff !important; border: 1px solid #4b5563 !important; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #374151 !important; }
+        .text-3xl { font-size: 1.875rem !important; font-weight: 800 !important; margin-top: 8px !important; margin-bottom: 8px !important; }
+        .text-sm { font-size: 0.875rem !important; }
+        .text-xs { font-size: 0.75rem !important; font-weight: bold; }
+        .text-\[10px\] { font-size: 10px !important; }
+        .text-\[11px\] { font-size: 11px !important; }
+        .space-y-2 > * + * { margin-top: 8px !important; }
+        .space-y-4 > * + * { margin-top: 16px !important; }
     </style>
 </head>
 
-<body class="bg-[#0f172a] text-slate-200 font-sans antialiased min-h-screen p-6">
-    <div class="max-w-7xl mx-auto space-y-6">
         <!-- HEADER SECTION -->
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 gap-4">
             <div>
