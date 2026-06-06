@@ -31,6 +31,30 @@
       }
     }
   },
+  "analyst_compliance_flags": {
+    "cpe_independent_spend_limit": true,
+    "active_hcm2_monitoring": true,
+    "flagged_anomalies_count": 0
+  },
+  "sb_185_legal_layer": {
+    "statute": "Kentucky Senate Bill 185",
+    "enactment_date": "2026-04-01",
+    "legal_status": "Active (Challenged in Federal Court)",
+    "governance_phase": "Five-Year Polytechnic Transition",
+    "monitored_metrics": {
+      "financial_exigency_active": true,
+      "max_independent_spend_cap": 20000.0,
+      "max_academic_degree_sectors": 10,
+      "minimum_freshman_gpa": 2.5,
+      "minimum_freshman_act": 18
+    },
+    "active_litigation": {
+      "plaintiffs": "KSU Students and Alumni Class Action",
+      "filing_date": "2026-05-11",
+      "court": "U.S. District Court for the Eastern District of Kentucky",
+      "core_claim": "Violation of Title VI of the Civil Rights Act"
+    }
+  },
   "historical_trends": [
     {
       "fiscal_year": "2005-2010 (Baseline)",
@@ -57,27 +81,6 @@
       "audit_status": "Missing/Overdue"
     }
   ],
-  "media_timeline": [
-    {
-      "date": "2023-03-23",
-      "headline": "Ky. auditor refers KSU findings to prosecutors",
-      "source": "Courier-Journal",
-      "proquest_id": "2789593663",
-      "summary": "Auditor Harmon referred files detailing a 'chaotic' budget process and $4M in unbacked ProCard spending to federal and state prosecutors."
-    },
-    {
-      "date": "2026-04-07",
-      "headline": "60 bills sent to Beshear to sign",
-      "source": "Courier-Journal",
-      "proquest_id": "SB185_Passage",
-      "summary": "Kentucky lawmakers pass SB 185, overhauling KSU and mandating its transition into a polytechnic university."
-    }
-  ],
-  "analyst_compliance_flags": {
-    "cpe_independent_spend_limit": true,
-    "active_hcm2_monitoring": true,
-    "flagged_anomalies_count": 0
-  },
   "evidentiary_index": [
     {
       "document_id": "REF-2021-AUD",
@@ -102,33 +105,22 @@
       "coverage_period": "2026 - Horizon",
       "file_target": "sb_185_compliance.json",
       "verification": "Statutory Directive"
-    },
-    {
-      "document_id": "REF-SACS-COMP",
-      "category": "Accreditation",
-      "title": "SACSCOC Sanction & Compliance Complaint Matrix",
-      "coverage_period": "FY 2025",
-      "file_target": "SACSCOC_Complaint_Matrix.md",
-      "verification": "Pending Review"
     }
   ],
-  "sb_185_legal_layer": {
-    "statute": "Kentucky Senate Bill 185",
-    "enactment_date": "2026-04-01",
-    "legal_status": "Active (Challenged in Federal Court)",
-    "governance_phase": "Five-Year Polytechnic Transition",
-    "monitored_metrics": {
-      "financial_exigency_active": true,
-      "max_independent_spend_cap": 20000.00,
-      "max_academic_degree_sectors": 10,
-      "minimum_freshman_gpa": 2.5,
-      "minimum_freshman_act": 18
+  "media_timeline": [
+    {
+      "date": "2023-03-23",
+      "headline": "Ky. auditor refers KSU findings to prosecutors",
+      "source": "Courier-Journal",
+      "proquest_id": "2789593663",
+      "summary": "Auditor Harmon referred files detailing a 'chaotic' budget process and $4M in unbacked ProCard spending to federal and state prosecutors."
     },
-    "active_litigation": {
-      "plaintiffs": "KSU Students and Alumni Class Action",
-      "filing_date": "2026-05-11",
-      "court": "U.S. District Court for the Eastern District of Kentucky",
-      "core_claim": "Violation of Title VI of the Civil Rights Act"
+    {
+      "date": "2026-04-07",
+      "headline": "60 bills sent to Beshear to sign",
+      "source": "Courier-Journal",
+      "proquest_id": "SB185_Passage",
+      "summary": "Kentucky lawmakers pass SB 185, overhauling KSU and mandating its transition into a polytechnic university."
     }
-  }
+  ]
 }
