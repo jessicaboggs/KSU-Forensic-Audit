@@ -305,7 +305,7 @@
             document.getElementById('out-settle').textContent = formatDate(dateMatches[2]);
             document.getElementById('out-sunset').textContent = formatDate(dateMatches[3]);
 
-            // Scan the remaining string tail for the active federal control ledger codes
+                    // Scan the remaining string tail for the active federal control ledger codes
             const lvlField = document.getElementById('out-level');
             if (rawToken.includes("141")) {
                 lvlField.textContent = "🚨 HCM-2 Zone Alternative Probation (Manual Hold)";
@@ -313,6 +313,10 @@
             } else if (rawToken.includes("132")) {
                 lvlField.textContent = "💧 HCM-1 Compliance Audit Restriction (Auto Cap)";
                 lvlField.style.color = "#38bdf8";
+            } else if (rawToken.includes("142")) {
+                // Explicitly logs the resolved/historic pandemic emergency relief holds
+                lvlField.textContent = "✅ Resolved: Historical HCM-2 Emergency Relief Hold (CARES/HEERF)";
+                lvlField.style.color = "#10b981"; // Clean success green color
             } else {
                 lvlField.textContent = "Active Sub-Ledger Control Code";
                 lvlField.style.color = "#a855f7";
