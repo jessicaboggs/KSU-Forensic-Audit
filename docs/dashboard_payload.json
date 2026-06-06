@@ -77,5 +77,39 @@
     "cpe_independent_spend_limit": true,
     "active_hcm2_monitoring": true,
     "flagged_anomalies_count": 0
-  }
+  },
+  "evidentiary_index": [
+    {
+      "document_id": "REF-2021-AUD",
+      "category": "Financial Audit",
+      "title": "2021 Forensic Carried Forward Variance Analysis",
+      "coverage_period": "FY 2021",
+      "file_target": "EVIDENTIARY_INDEX.md",
+      "verification": "Auditor Verified"
+    },
+    {
+      "document_id": "REF-IPEDS-TREND",
+      "category": "IPEDS Summary",
+      "title": "Historical Enrollment & Operational Cost Core Dataset",
+      "coverage_period": "2005 - 2025",
+      "file_target": "ipeds_federal_comparisons.json",
+      "verification": "NCES Database"
+    },
+    {
+      "document_id": "REF-SB185-COMP",
+      "category": "Legislative Mandate",
+      "title": "Senate Bill 185 Polytechnic Compliance Tracking Log",
+      "coverage_period": "2026 - Horizon",
+      "file_target": "sb_185_compliance.json",
+      "verification": "Statutory Directive"
+    },
+    {
+      "document_id": "REF-SACS-COMP",
+      "category": "Accreditation",
+      "title": "SACSCOC Sanction & Compliance Complaint Matrix",
+      "coverage_period": "FY 2025",
+      "file_target": "SACSCOC_Complaint_Matrix.md",
+      "verification": "Pending Review"
+    }
+  ]
 }
