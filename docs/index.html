@@ -194,6 +194,36 @@
             </div>
         </section>
 
+                <!-- INTERACTIVE TOKEN DECODER MODULE -->
+        <section style="display: flex; flex-direction: column; gap: 12px; border-left: 4px solid #38bdf8; margin-top: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 8px;">
+                <h3 class="text-sm font-bold" style="color: #38bdf8; margin: 0; font-family: monospace;">🛠️ Interactive Fixed-Width FSA Token Decoder</h3>
+                <span style="font-size: 9px; background-color: #0c4a6e; color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-weight: bold;">PARSING LAYER READY</span>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="color: #94a3b8; font-size: 11px;">Paste any G6/G5 transaction token to extract positional database parameters instantly:</div>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="token-input" placeholder="Paste token here... (e.g., click one of the keys above)" style="flex: 1; font-size: 12px; background-color: #0f172a; color: #ffffff; border: 1px solid #334155; border-radius: 4px; padding: 8px 12px; font-family: monospace;">
+                    <button onclick="decodeFsaToken()" style="background-color: #0369a1; color: #ffffff; font-size: 11px; font-weight: bold; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">DECODE TOKEN</button>
+                </div>
+            </div>
+
+            <!-- Parsed Metadata Display Grid Outputs -->
+            <div id="decoder-output" style="display: none; background-color: #0f172a; border: 1px solid #1e293b; padding: 12px; border-radius: 6px; margin-top: 4px;">
+                <h4 style="color: #ffffff; font-size: 12px; margin: 0 0 10px 0; font-family: monospace; border-bottom: 1px solid #1e293b; padding-bottom: 4px;">📋 Extracted System Properties</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-size: 11px;">
+                    <div><span style="color: #64748b; font-weight: bold;">Program Identifier:</span> <span id="out-prefix" style="color: #ffffff; font-family: monospace;"></span></div>
+                    <div><span style="color: #64748b; font-weight: bold;">Initial Aid Lock Date:</span> <span id="out-lock" style="color: #ffffff; font-family: monospace;"></span></div>
+                    <div><span style="color: #64748b; font-weight: bold;">Upload / Request Date:</span> <span id="out-upload" style="color: #ffffff; font-family: monospace;"></span></div>
+                    <div><span style="color: #64748b; font-weight: bold;">Settlement / Approval Date:</span> <span id="out-settle" style="color: #ffffff; font-family: monospace;"></span></div>
+                    <div><span style="color: #64748b; font-weight: bold;">Audit Evaluation Sunset:</span> <span id="out-sunset" style="color: #ffffff; font-family: monospace;"></span></div>
+                    <div><span style="color: #64748b; font-weight: bold;">Federal Control Level:</span> <span id="out-level" style="font-weight: bold; font-family: monospace;"></span></div>
+                </div>
+            </div>
+        </section>
+
+
         <!-- HISTORICAL RECORDS SEARCH & TABLE -->
         <section>
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 12px;">
@@ -220,6 +250,69 @@
         </section>
 
     </div>
+          <!-- INTERACTIVE TOKEN DECODER MODULE -->
+        <section style="display: flex; flex-direction: column; gap: 12px; border-left: 4px solid #38bdf8; margin-top: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 8px;">
+                <h3 class="text-sm font-bold" style="color: #38bdf8; margin: 0; font-family: monospace;">🛠️ Interactive Fixed-Width FSA Token Decoder</h3>
+                <span style="font-size: 9px; background-color: #0c4a6e; color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-weight: bold;">PARSING LAYER READY</span>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="color: #94a3b8; font-size: 11px;">Paste any G6/G5 transaction token to extract positional database parameters instantly:</div>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="token-input" placeholder="Paste token here... (e.g., YPY501220241016...)" style="flex: 1; font-size: 12px; background-color: #0f172a; color: #ffffff; border: 1px solid #334155; border-radius: 4px; padding: 8px 12px; font-family: monospace;">
+                    <button onclick="decodeFsaToken()" style="background-color: #0369a1; color: #ffffff; font-size: 11px; font-weight: bold; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">DECODE TOKEN</button>
+                </div>
+            </div>
+
+            <div id="decoder-output" style="display: none; background-color: #0f172a; border: 1px solid #1e293b; padding: 12px; border-radius: 6px; margin-top: 4px;">
+                <h4 style="color: #ffffff; font-size: 12px; margin: 0 0 10px 0; font-family: monospace; border-bottom: 1px solid #1e293b; padding-bottom: 4px;">📋 Extracted System Properties</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-size: 11px;">
+                    <div><span style="color: #64748b; font-weight: bold;">Program Identifier:</span> <span id="out-prefix" style="color: #ffffff; font-family: monospace;"></span></div>
+                    <div><span style="color: #64748b; font-weight: bold;">Initial Aid Lock Date:</span> <span id="out-lock" style="color: #ffffff; font-family: monospace;"></span></div>
+                    <div><span style="color: #64748b; font-weight: bold;">Upload / Request Date:</span> <span id="out-upload" style="color: #ffffff; font-family: monospace;"></span></div>
+                    <div><span style="color: #64748b; font-weight: bold;">Settlement / Approval Date:</span> <span id="out-settle" style="color: #ffffff; font-family: monospace;"></span></div>
+                    <div><span style="color: #64748b; font-weight: bold;">Audit Evaluation Sunset:</span> <span id="out-sunset" style="color: #ffffff; font-family: monospace;"></span></div>
+                    <div><span style="color: #64748b; font-weight: bold;">Federal Control Level:</span> <span id="out-level" style="font-weight: bold; font-family: monospace;"></span></div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+        function decodeFsaToken() {
+            const rawToken = document.getElementById('token-input').value.trim();
+            if (rawToken.length < 45) {
+                alert("Invalid Token Length: Federal fixed-width data packets must contain at least 45 alphanumeric positions.");
+                return;
+            }
+
+            const prefix = rawToken.substring(0, 6);
+            const formatDate = (str) => {
+                if(str.length !== 8) return "N/A";
+                return `${str.substring(0,4)}-${str.substring(4,6)}-${str.substring(6,8)}`;
+            };
+
+            document.getElementById('out-prefix').textContent = prefix + " (OPE ID Routing)";
+            document.getElementById('out-lock').textContent = formatDate(rawToken.substring(7, 15));
+            document.getElementById('out-upload').textContent = formatDate(rawToken.substring(15, 23));
+            document.getElementById('out-settle').textContent = formatDate(rawToken.substring(23, 31));
+            document.getElementById('out-sunset').textContent = formatDate(rawToken.substring(31, 39));
+
+            const g6Code = rawToken.substring(39, 42);
+            const lvlField = document.getElementById('out-level');
+            if (g6Code === "141") {
+                lvlField.textContent = "🚨 HCM-2 Zone Alternative Probation (Manual Hold)";
+                lvlField.style.color = "#ef4444";
+            } else if (g6Code === "132") {
+                lvlField.textContent = "💧 HCM-1 Compliance Audit Restriction (Auto Cap)";
+                lvlField.style.color = "#38bdf8";
+            } else {
+                lvlField.textContent = "Unknown Sub-Ledger (" + g6Code + ")";
+                lvlField.style.color = "#a855f7";
+            }
+            document.getElementById('decoder-output').style.display = 'block';
+        }
+        </script>  
  <script>
 
         let fileString = "[]";
