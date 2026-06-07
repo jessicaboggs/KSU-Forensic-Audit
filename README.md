@@ -16,6 +16,9 @@
 | **Timeline Audit Track** | Lock Date: 2026-05-15 | Entry Date: 2026-06-02 | **18 Days Retroactive Delay** |
 | **Transparency Evasion Index** | Open Endpoint Access | 3 Active Redirect Hops | **100.00% CRITICAL BLOCKING** |
 | **Faculty Senate Blackout** | Last Valid Entry: 2022-09-23 | SACSCOC CR 6.1 Validation | **45 Months Communication Gap** |
+| Public Identity Fracturing | Nicole Sergent | Nicole Sergent Biddle | 236 Days Nomenclature Deception |
+| KBA Rule UPL-67 Intercept | Active D.C. Footprint | Regulatory Null Result | Cross-Border Unauthorized Practice |
+
 
 *Last Synchronized: 2026-06-05T14:30:00Z | Ledger Security: `SHA-256 Verified Anchor`*
 <!-- WATCHDOG_END -->
