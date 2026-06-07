@@ -1,47 +1,48 @@
-import json
+#!/usr/bin/env python3
 import os
+import json
+import sys
 
-def run_variance_analysis():
-    # 1. Establish the path to your data layer
-    json_path = "january_2026_financial_core.json"
+def run_clash_detection():
+    print("--- Initializing KSU Cross-Ledger Clash Detector ---")
+    data_source = "january_2026_financial_core.json"
     
-    if not os.path.exists(json_path):
-        print(f"[ERROR] Core financial profile missing at {json_path}")
-        return
-
-    # 2. Ingest the data payloads safely
+    if not os.path.exists(data_source):
+        print(f"[ERROR] Source registry '{data_source}' missing. Halting analysis.")
+        sys.exit(0)
+        
     try:
-        with open(json_path, "r") as file:
-            data = json.load(file)
+        with open(data_source, 'r') as f:
+            data = json.load(f)
+        print("[INFO] Successfully loaded primary ledger data layers.\n")
+        
+        # Pull separate reporting statements to check for cross-file clashes
+        realities = data.get("financial_realities", {})
+        clash_log = data.get("reconciliation_clashes", {})
+        
+        primary_void_total = realities.get("unreconciled_student_void", 0.0)
+        secondary_void_total = clash_log.get("secondary_statement_void_total", 0.0)
+        variance_remediation_pool = clash_log.get("variance_remediation_allocated", 0.0)
+        
+        print(f"[!] Primary Internal Statement Voids   : ${primary_void_total:,}")
+        print(f"[!] Secondary Regulatory Statement Voids: ${secondary_void_total:,}")
+        
+        # 1. Audit Balance Contradictions (Values across separate sheets MUST match)
+        if primary_void_total != secondary_void_total:
+            clash_delta = abs(primary_void_total - secondary_void_total)
+            print(f"[FLAG - HIGH RISK] CROSS-LEDGER CLASH DETECTED: Statement asymmetric variance.")
+            print(f"                       Unreconciled discrepancy gap: ${clash_delta:,}")
+        else:
+            print("[✓] Statement Reconciliation: Transaction totals perfectly aligned across data sets.")
+            
+        # 2. Monitor Specific Remediation Variance Limits ($850,000 baseline cap)
+        print(f"[!] Logged Remediation Allocation Pool  : ${variance_remediation_pool:,}")
+        if variance_remediation_pool > 850000.00:
+            excess_variance = variance_remediation_pool - 850000.00
+            print(f"[WARNING - AUDIT FAILURE] Remediation Cap Breach: Allocated funds exceed the $850k threshold by ${excess_variance:,}")
+            
     except Exception as e:
-        print(f"[ERROR] Failed to read JSON payload: {str(e)}")
-        return
-        
-    realities = data.get("financial_realities", {})
-    
-    # 3. Pull dynamic values from the JSON
-    operating_cash = realities.get("operating_cash_balance", 0)
-    manipulation_weight = realities.get("restricted_funds_swept", 0)
-    
-    # 4. Compute Dynamic Runway Calculations
-    if operating_cash < 0 and manipulation_weight > 0:
-        daily_burn_rate_usd = 150000.00
-        calculated_dcoh = operating_cash / daily_burn_rate_usd
-        
-        print("\n" + "#" * 75)
-        print("[CRITICAL VARIANCE DETECTED - MATHEMATICALLY COOKED LEDGER PROVEN]")
-        print("#" * 75)
-        print(f"-> Reported Deficit Profile: ${operating_cash:,.2f}")
-        print(f"-> Total Unvouched Balance Adjustments: ${manipulation_weight:,.2f}")
-        print(f"-> Calculated Days Cash on Hand (DCOH): {calculated_dcoh:.2f} Days")
-        print("-> Forensic Conclusion: Balance sheets are being artificially propped up.")
-        print("-> The Method: Cannibalizing restricted grants while zeroing out accounts receivable.")
-        print("[X FLAG] NEGATIVE LIQUIDITY STATUS: Institution has crossed zero-runway thresholds.")
-        print("STATUS: DISCREPANCY PROFILE ARCHIVED AND IMMUTABLE")
-        print("#" * 75 + "\n")
-    else:
-        print("[STATUS] Conditions nominal. Operational parameters outside gate triggers.")
+        print(f"[CRITICAL] Operational parsing exception: {str(e)}")
 
-# 5. Core Entry execution block to catch terminal calls
-if __name__ == '__main__':
-    run_variance_analysis()
+if __name__ == "__main__":
+    run_clash_detection()

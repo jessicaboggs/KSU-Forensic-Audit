@@ -29,6 +29,10 @@
     "historical_baseline_cohort": 1850,
     "calculated_retention_percentage": 42.5,
     "unexplained_record_drops": true
+  },
+  "reconciliation_clashes": {
+    "secondary_statement_void_total": 4808488.79,
+    "variance_remediation_allocated": 1150000.00
   }
 
 }
