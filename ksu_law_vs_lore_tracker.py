@@ -88,6 +88,14 @@ def run_law_vs_lore_analysis():
                 "statutory_law": "April 3 enactment forces a 60-day public notice window (June 2) plus a 30-day notice minimum (July 2).",
                 "severity": "CRITICAL TIMING FRAUD"
             },
+                        {
+                "category": "Unchecked Admissions Pipeline",
+                "statute_reference": "SB 185 Section 5 Mandate",
+                "newsroom_lore": "Enrollment declines are framed as casual market shifts or temporary operational pauses.",
+                "statutory_law": "Imposes a hard statutory floor requiring an unweighted 2.5 GPA AND an 18 ACT for all standard entries.",
+                "severity": "HIGH RISK"
+            },
+
             {
                 "category": "Accreditation Contingency Loophole",
                 "statute_reference": "SB 185 Sec. 2(3) & 2(6)",
