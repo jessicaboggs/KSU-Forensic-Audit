@@ -95,7 +95,13 @@ def run_law_vs_lore_analysis():
                 "statutory_law": "Imposes a hard statutory floor requiring an unweighted 2.5 GPA AND an 18 ACT for all standard entries.",
                 "severity": "HIGH RISK"
             },
-
+            {
+                "category": "Unchecked June 1 Execution Phase",
+                "statute_reference": "SB 185 Sec. 2(1), 2(4) & Litigation Core",
+                "newsroom_lore": "Admin moves forward with June 1 cuts, claiming the absence of a TRO completely validates their timeline.",
+                "statutory_law": "Procedural text remains broken; proceeding without a TRO merely accumulates active evidence of statutory breaches.",
+                "severity": "CRITICAL COMPLIANCE DEVIATION"
+            },
             {
                 "category": "Accreditation Contingency Loophole",
                 "statute_reference": "SB 185 Sec. 2(3) & 2(6)",
