@@ -23,5 +23,12 @@
     "unauthorized_advance_drawdowns": true,
     "reimbursement_cycle_delay_days": 45,
     "unresolved_federal_claims_usd": 1250000.00
+  },
+  "federal_ipeds_records": {
+    "reported_full_time_cohort": 1240,
+    "historical_baseline_cohort": 1850,
+    "calculated_retention_percentage": 42.5,
+    "unexplained_record_drops": true
   }
+
 }

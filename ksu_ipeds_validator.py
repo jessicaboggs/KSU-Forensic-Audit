@@ -1,34 +1,49 @@
-import json
+#!/usr/bin/env python3
 import os
+import json
+import sys
 
-CLAIMS_PATH = "data_layers/official_claims.json"
-
-def run_ipeds_validation():
-    print("📊 Initializing NCES IPEDS Data Compliance Validator...")
-    print("• Target Institution ID : 157058 (Kentucky State University)")
+def run_ipeds_analysis():
+    print("--- Initializing KSU Federal IPEDS Data Validator ---")
+    data_source = "january_2026_financial_core.json"
     
-    # 1. Establish the baseline IPEDS audited metrics
-    reported_instructional_expenses = 14200000.00
-    audited_core_leak_total = 6600000.00
-    
-    # 2. Compute the Systemic Reporting Distortions
-    # Measures how much the audited structural variance compromises reported data accuracy
-    distortion_coefficient = (audited_core_leak_total / reported_instructional_expenses) * 100
-    
-    print("\n" + "="*60)
-    print("      🏛️ NCES IPEDS COMPLIANCE AUDIT INDEX MATRIX      ")
-    print("="*60)
-    print(f"• Official IPEDS Unit ID       : 157058")
-    print(f"• Reported Instructional Cost  : ${reported_instructional_expenses:,.2f}")
-    print(f"• Audited Diverted Asset Pool  : ${audited_core_leak_total:,.2f}")
-    print("-"*60)
-    print(f"• SYSTEMIC REPORTING DISTORTION: {distortion_coefficient:.2f}%")
-    print("="*60)
-    
-    if distortion_coefficient > 25.00:
-        print("🚨 CRITICAL: Audited leak sizes heavily compromise federal IPEDS data integrity.")
-    else:
-        print("✅ STATUS: IPEDS data inputs align within nominal bounds.")
+    if not os.path.exists(data_source):
+        print(f"[ERROR] Source registry '{data_source}' missing. Halting analysis.")
+        sys.exit(0)
+        
+    try:
+        with open(data_source, 'r') as f:
+            data = json.load(f)
+        print("[INFO] Successfully loaded federal reporting telemetry layers.\n")
+        
+        # Isolate the IPEDS data block safely
+        ipeds_log = data.get("federal_ipeds_records", {})
+        reported_enrollment = ipeds_log.get("reported_full_time_cohort", 0)
+        historical_baseline = ipeds_log.get("historical_baseline_cohort", 0)
+        retention_rate = ipeds_log.get("calculated_retention_percentage", 100.0)
+        erasure_flag_detected = ipeds_log.get("unexplained_record_drops", False)
+        
+        # 1. Evaluate Cohort Variance (Check for sharp, unannounced population drop-offs)
+        print(f"[!] Historical Baseline Cohort : {historical_baseline:,} Students")
+        print(f"[!] Reported Enrollment Cohort : {reported_enrollment:,} Students")
+        
+        if historical_baseline > 0:
+            variance_pct = ((historical_baseline - reported_enrollment) / historical_baseline) * 100
+            if variance_pct >= 20.0:
+                print(f"[FLAG - HIGH RISK] IPEDS Data Instability: Cohort contracted by {variance_pct:.2f}% relative to baseline.")
+        
+        # 2. Check for explicit record erasure indicators
+        if erasure_flag_detected:
+            print("[FLAG - AUDIT FAILURE] CRITICAL ANOMALY: Unexplained per-capita data erasure sequence triggered.")
+            print("                       Federal profiles show historical data rows omitted without institutional restatements.")
+            
+        # 3. Track Retention Safeguards
+        print(f"[!] Logged Retention Position : {retention_rate}%")
+        if retention_rate < 50.0:
+            print(f"[WARNING - AMENDMENT NEEDED] Institutional risk: Retention rate below federal threshold baseline.")
+            
+    except Exception as e:
+        print(f"[CRITICAL] Operational parsing exception: {str(e)}")
 
 if __name__ == "__main__":
-    run_ipeds_validation()
+    run_ipeds_analysis()
