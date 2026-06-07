@@ -16,23 +16,20 @@ def run_fraud_analysis():
         with open(data_source, 'r') as f:
             data = json.load(f)
         print("[INFO] Successfully loaded financial core data summary.")
-
+        
         realities = data.get("financial_realities", {})
         notes = data.get("forensic_notes", {})
-
+        
         # 1. Check for swept or diverted funds
         restricted_swept = realities.get("restricted_funds_swept", 0)
         if restricted_swept > 0:
-            print(f"[FLAG - HIGH RISK] Restricted funds diverted/swept: ${restricted_swept:,}")
-
+            print(f"[FLAG - HIGH RISK] Restricted funds diverted/swept: ${restricted_swept}")
+            
         # 2. Check for negative cash flow metrics
         operating_cash = realities.get("operating_cash_balance", 0)
-        # Target the accelerated liquidity collapse threshold
         print(f"[!] Operating Cash Posture: {operating_cash} Days Cash on Hand.")
         if operating_cash <= -30:
-            print(" [CRITICAL] BREACH DETECTED: Liquidity is over negative 30 days.")
-            print(" [VIOLATION] SACSCOC Good-Cause Forfeiture Threshold Achieved.")
-            print(" [LEGAL STATUS]: TERMINAL FINANCIAL INSOLVENCY ENFORCED.")
+            print(f"[FLAG - CASH ALERT] Operating cash balance critically low: {operating_cash} Days Cash on Hand.")
 
         # 3. Check for unreconciled/void anomalies
         unreconciled_void = realities.get("unreconciled_student_void", 0)
