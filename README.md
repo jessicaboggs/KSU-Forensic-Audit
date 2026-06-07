@@ -46,6 +46,35 @@ This documentation serves as an immutable reference layer to ensure persistent p
 | **🤖 AI & Technological Disclosure** | Formal Kentucky Bar Association compliance statement & `parse_ppa.py` documentation. | 🟢 Verified | [`AI_DISCLOSURE.md`](./docs/AI_DISCLOSURE.md) |
 
 
+---
+
+## ⚖️ LEGAL DISCLAIMER & FORENSIC PROTOCOL DISCLOSURE
+### 1. Source and Provenance of Information
+All analytical models, data arrays, and ledger snapshots contained within this repository are derived exclusively from publicly accessible archives, official legislative databases, Open Records Act requests, and public university administrative disclosures.
+
+### 2. Absence of Personally Identifiable Information (PII)
+The raw data logs and school file extracts utilized (`schfile_extract_20260604.txt`) contain **zero personal student records, zero names, and zero individual identity matrices**. All data streams consist strictly of institutional OPEID codes, structural program tracking fields, and public sector transaction values. This project operates in absolute compliance with FERPA and data privacy standards.
+
+### 3. Nature of the Scripts
+The Python modules provided (`ksu_law_vs_lore_tracker.py`, `ksu_mansion_drain.py`, etc.) function solely as automated mathematical evaluation tools. They analyze open-source state text and publicly posted financial data schemas against statutory benchmarks. They do not infiltrate, bypass, or alter any private, proprietary, or secure state computer networks.
+
+---
+
+## 🏛️ STRUCTURAL AUDIT COMPLIANCE & AUTOMATION INDEX
+Every core finding detailed in our media briefings is programmatically monitored and verified via local automation tools executing against our immutable ledger layers:
+
+
+| Investigative Focus | Target Compliance Vector | Local Automation Tool | Reference Ledger Layer |
+| :--- | :--- | :--- | :--- |
+| **Asset Evaluation** | SACSCOC Core Req 1.1 / Governance | `ksu_governance_tracker.py` | `january_2026_financial_core.json` |
+| **Capital Allocation** | State Procurement Guidelines | `ksu_award_level_verifier.py` | `docs/dashboard_payload.json` |
+| **Remediation Variance** | Fiscal Firewall / Public Notice | `ksu_deadline_fraud.py` | `sb_185_compliance.json` |
+| **Board Continuity** | Bi-weekly Governance Mandates | `ksu_blackout_monitor.py` | `docs/EVIDENTIARY_INDEX.md` |
+| **Statutory Deviations** | SB 185 Section 2(6) Contingencies | `ksu_law_vs_lore_tracker.py` | `january_2026_financial_core.json` |
+
+
+
+
 
 ## ## 1. CORE COMPLIANCE INFRACTIONS MATRIX
 
