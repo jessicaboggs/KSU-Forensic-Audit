@@ -38,6 +38,10 @@
     "single_source_award_total": 1350000.00,
     "statutory_board_threshold": 50000.00,
     "board_prior_authorization": false
+  },
+  "foundation_filing_status": {
+    "form_990_filed_2025": false,
+    "filing_delay_days": 204
   }
 
 }

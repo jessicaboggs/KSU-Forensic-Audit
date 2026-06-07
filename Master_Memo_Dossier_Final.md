@@ -24,3 +24,5 @@ dashboard_payload.json` |
 
 ## 3. Governance Certification
 Historical communication delays identified by the audit team have been formally recognized. The institution is establishing an open, bi-weekly reporting cadence with the Faculty Senate to validate compliance parameters.
+
+Audit Note on Foundation Segregation (2025 Tax Year): While historical boundaries can be mapped using legacy documents up through 2024, the complete absence of a 2025 Form 990 filing means the component foundation's independent ledger is currently completely unverified. This structural omission forces a critical dependency layout where inner institutional cash sweeps remain obscured from federal oversight portals.
