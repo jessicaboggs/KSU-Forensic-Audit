@@ -10,10 +10,10 @@
 | **Total Structural Horizon** | $170,000,000.00 | $6,600,000.00 | **3.88% Baseline Asset Drag** |
 | **Online Extension Lines** | $20,000,000.00 | $1,200,000.00 | **6.00% Historical Allocation Leak** |
 | **Federal Title IV Flow** | 2838 Census Enrollment | $5,425,486.00 Active Drawdown | **-$3,906,349.92 OPE ID Funding Leak** |
-| **NCES IPEDS Validation** | Unit ID: 157112 | $14,200,000.00 Inst. Cost | **46.48% Reporting Distortion** |
+| **NCES IPEDS Validation** | Unit ID: 157058 | $14,200,000.00 Inst. Cost | **46.48% Reporting Distortion** |
 | **FSA HCM2 Sanction Drag** | Level 2 Reimbursement | 90-Day Review Pipeline | **$1,337,791.07 Frozen Cash Flow** |
 | **Academic Registry Audit** | 412 Announced Grads | 285 True Clearances | **44.56% Award Level Inflation** |
-| **Timeline Audit Track** | Lock Date: 2026-05-15 | Entry Date: 2026-06-02 | **17 Days Retroactive Delay** |
+| **Timeline Audit Track** | Lock Date: 2026-05-15 | Entry Date: 2026-06-02 | **18 Days Retroactive Delay** |
 | **Transparency Evasion Index** | Open Endpoint Access | 3 Active Redirect Hops | **100.00% CRITICAL BLOCKING** |
 | **Faculty Senate Blackout** | Last Valid Entry: 2022-09-23 | SACSCOC CR 6.1 Validation | **45 Months Communication Gap** |
 
