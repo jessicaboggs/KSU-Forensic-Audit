@@ -17,6 +17,18 @@ dashboard_payload.json` |
 | **Board Continuity** | Bi-weekly Governance Mandates | `ksu_blackout_monitor.py` | `docs/EVIDENTIARY_INDEX.md` |
 
 
+### ⚖️ SPECIAL FORENSIC EXPOSITION: STATUTORY NON-COMPLIANCE UNDER SB 185
+Programmatic cross-examination via `ksu_law_vs_lore_tracker.py` confirms that administrative actions regarding academic restructuring directly collide with the strict statutory protections built into **Senate Bill 185 (Chapter 120 of the 2026 Acts)**.
+
+#### 1. The Section 2(6) Supremacy Firewall
+While public relations statements claim unilateral authority to terminate academic majors to enforce the 10-sector cap, Section 2, Subsection (6) establishes an absolute compliance restriction:
+> *"Notwithstanding subsections (4) and (5) of this section, Kentucky State University shall abide by all instructions provided by SACSCOC that are required to maintain institutional accreditation."*
+
+#### 2. The DAPIP Evidence Ledger
+Federal logging entries extracted from the Department of Education's **DAPIP Registry** show zero approved program closures since the bill's passage. Instead, the SACSCOC Board of Trustees placed the institution on **Heightened Monitoring / Focused Review Probation**. 
+
+
+
 ## 2. Remediation of Variance ($850,000.00)
 *   **Asset Categorization:** University Advancement Venue and Presidential Residence.
 *   **Corrective Action Plan:** Immediate transition of all facility operational logs to the open-access public governance portal.
