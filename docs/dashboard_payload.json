@@ -85,6 +85,18 @@
       "ipeds_enrollment_avg": 1450,
       "institutional_deficit": null,
       "audit_status": "Missing/Overdue"
+    },
+    {
+      "forensic_parameter": "Public Identity Fracturing",
+      "official_state_claim": "Nicole Sergent",
+      "audited_reality_ledger": "Nicole Sergent Biddle",
+      "computed_risk": "236 Days Nomenclature Deception"
+    },
+    {
+      "forensic_parameter": "KBA Rule UPL-67 Intercept",
+      "official_state_claim": "Active D.C. Footprint",
+      "audited_reality_ledger": "Regulatory Null Result",
+      "computed_risk": "Cross-Border Unauthorized Practice"
     }
   ],
   "evidentiary_index": [
@@ -111,6 +123,20 @@
       "coverage_period": "2026 - Horizon",
       "file_target": "sb_185_compliance.json",
       "verification": "Statutory Directive"
+    }
+  ],
+  "forensic_risk_register": [
+    {
+      "forensic_parameter": "Public Identity Fracturing",
+      "official_state_claim": "Nicole Sergent",
+      "audited_reality_ledger": "Nicole Sergent Biddle",
+      "computed_risk": "236 Days Nomenclature Deception"
+    },
+    {
+      "forensic_parameter": "KBA Rule UPL-67 Intercept",
+      "official_state_claim": "Active D.C. Footprint",
+      "audited_reality_ledger": "Regulatory Null Result",
+      "computed_risk": "Cross-Border Unauthorized Practice"
     }
   ],
   "media_timeline": [
