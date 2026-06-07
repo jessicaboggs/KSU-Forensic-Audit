@@ -1,5 +1,6 @@
 import os
 import json
+import hashlib  # Replace or add this at the top
 import requests
 from bs4 import BeautifulSoup
 
@@ -13,6 +14,10 @@ def fetch_and_track():
     # Isolate the main article text
     article_text = soup.find('main').get_text(strip=True) if soup.find('main') else soup.get_text()
     
+    # Generate a deterministic SHA-256 hash string
+    text_encoded = article_text.encode('utf-8')
+    stable_hash = hashlib.sha256(text_encoded).hexdigest()
+    
     current_payload = {
         "url": URL,
         "last_checked": "2026-06-05T14:30:00Z",
@@ -21,9 +26,9 @@ def fetch_and_track():
             "asset_preservation": 60000000,
             "online_programs": 20000000
         },
-        "raw_text_hash": hash(article_text)
+        "raw_text_hash": stable_hash  # Saves a consistent string
     }
-
+    
     # If the file already exists, check for text alterations (Spoliation)
     if os.path.exists(DATA_PATH):
         with open(DATA_PATH, 'r') as f:
@@ -31,12 +36,12 @@ def fetch_and_track():
         if old_data.get("raw_text_hash") != current_payload["raw_text_hash"]:
             print("⚠️ ALERT: Stealth text modification detected on the official KSU Newsroom page!")
             # Trigger alert mechanisms here
-      # Automatically ensure the data_layers directory exists before writing
+            
+    # Automatically ensure the data_layers directory exists before writing
     os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
     
     with open(DATA_PATH, 'w') as f:
         json.dump(current_payload, f, indent=2)
-          
 
 if __name__ == "__main__":
     fetch_and_track()
