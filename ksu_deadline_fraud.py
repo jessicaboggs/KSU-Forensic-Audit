@@ -17,14 +17,16 @@ def check_deadline_compliance():
     # 2. Compute the Filing Delay Metrics
     if system_log_timestamp > statutory_deadline:
         filing_offset_days = (system_log_timestamp - statutory_deadline).days
-        print("\n" + "!"*60)
+
+        print("\n" + "!" * 60)
         print("CRITICAL TIMING EXCLUSION DETECTED: RETROACTIVE AMENDMENT")
-        print("!"*60)
-        print(f" -> Statutory Deadline   : {statutory_deadline_str}")
-        print(f" -> System Log Entry     : {system_log_timestamp_str}")
-        print(f" -> Filing Offset Delay  : {filing_offset_days} Days Overdue")
-        print(" -> Forensic Profile     : Post-deadline data injection pattern")
-        print("!"*60 + "\n")
+        print("!" * 60)
+        print(f"-> Statutory Deadline : {statutory_deadline_str}")
+        print(f"-> System Log Entry    : {system_log_timestamp_str}")
+        print(f"-> Filing Offset Delay : {filing_offset_days} Days Overdue")
+        print("-> Forensic Profile    : Post-deadline data injection pattern")
+        print("!" * 60 + "\n")
+
     else:
         filing_offset_days = 0
         print("✅ STATUS: Document submission timestamps match statutory deadlines.")
