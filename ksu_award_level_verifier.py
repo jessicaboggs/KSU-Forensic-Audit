@@ -1,33 +1,44 @@
-import json
+#!/usr/bin/env python3
 import os
+import json
+import sys
 
-def verify_academic_awards():
-    print("🎓 Initializing Postsecondary Academic Award Level Verifier...")
-    print("• Focus: Degree & Certificate Tracking Compliance")
+def run_award_verification():
+    print("--- Initializing KSU Procurement & Award Level Verifier ---")
+    data_source = "january_2026_financial_core.json"
     
-    # 1. Establish the validation parameters
-    publicly_announced_graduates = 412     # Number from local press briefs/newsroom targets
-    verified_ipeds_completions = 285       # True academic registry clearances
-    
-    # 2. Compute the Inflation Factor
-    # Identifies data inflation gaps designed to secure per-graduate performance funding
-    unverified_award_gap = publicly_announced_graduates - verified_ipeds_completions
-    award_inflation_coefficient = (unverified_award_gap / verified_ipeds_completions) * 100
-    
-    print("\n" + "="*60)
-    print("      📜 INSTITUTIONAL AWARD LEVEL REGISTRY CORE MATRIX     ")
-    print("="*60)
-    print(f"• Publicly Announced Graduates : {publicly_announced_graduates} Profiles")
-    print(f"• Verified IPEDS Completions   : {verified_ipeds_completions} Records")
-    print("-"*60)
-    print(f"• UNVERIFIED AWARD PROFILE GAP : +{unverified_award_gap} Unlinked Degrees")
-    print(f"• AWARD LEVEL INFLATION RATE   : {award_inflation_coefficient:.2f}%")
-    print("="*60)
-    
-    if award_inflation_coefficient > 15.00:
-        print("🚨 ALERT: High degree profile inflation detected. Cross-reference with funding metrics.")
-    else:
-        print("✅ STATUS: Graduation and award registries match within expected audit parameters.")
+    if not os.path.exists(data_source):
+        print(f"[ERROR] Source registry '{data_source}' missing. Halting analysis.")
+        sys.exit(0)
+        
+    try:
+        with open(data_source, 'r') as f:
+            data = json.load(f)
+        print("[INFO] Successfully loaded institutional allocation layers.\n")
+        
+        # Isolate procurement logs safely
+        procurement_log = data.get("procurement_records", {})
+        single_source_total = procurement_log.get("single_source_award_total", 0.0)
+        board_threshold_limit = procurement_log.get("statutory_board_threshold", 50000.00)
+        authorization_secured = procurement_log.get("board_prior_authorization", False)
+        
+        print(f"[!] Logged Single-Source Contract Value : ${single_source_total:,}")
+        print(f"[!] Statutory Board Clearance Ceiling    : ${board_threshold_limit:,}")
+        
+        # 1. Audit Procurement Thresholds & Prior Authorization Boundaries
+        if single_source_total > board_threshold_limit:
+            print(f"[FLAG - HIGH RISK] THRESHOLD VIOLATION: Contract exceeds the standard ceiling.")
+            
+            if not authorization_secured:
+                print("[FLAG - AUDIT FAILURE] CRITICAL NON-COMPLIANCE: No prior Board of Regents clearance logged.")
+                print("                       All outlays matching this signature violate state procurement guidelines.")
+            else:
+                print("[✓] Authorization Layer: Post-threshold contract backed by retroactive clearance.")
+        else:
+            print("[✓] Procurement Scope: Allocation sits safely within standard administrative bounds.")
+            
+    except Exception as e:
+        print(f"[CRITICAL] Operational parsing exception: {str(e)}")
 
 if __name__ == "__main__":
-    verify_academic_awards()
+    run_award_verification()
