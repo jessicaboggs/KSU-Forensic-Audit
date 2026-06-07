@@ -68,6 +68,27 @@ def run_law_vs_lore_analysis():
                 "severity": "HIGH RISK"
             },
             {
+                "category": "Pre-emptive Program Shuttering",
+                "statute_reference": "SB 185 Sec. 2(1) Notice Window",
+                "newsroom_lore": "Administration claims immediate authority to close doors on non-polytechnic majors.",
+                "statutory_law": "Enforces a strict 60-day review and public CPE posting loop prior to plan activation.",
+                "severity": "HIGH RISK"
+            },
+            {
+                "category": "Unauthorized Faculty Lockouts",
+                "statute_reference": "SB 185 Sec. 2(4) Notice Firewall",
+                "newsroom_lore": "HR executing immediate personnel sweeps under the guise of statutory streamlining.",
+                "statutory_law": "Mandates a strict 30-day written notice baseline backed by prior Board of Regents clearance.",
+                "severity": "CRITICAL VIOLATION"
+            },
+            {
+                "category": "Premature June 1 Executions",
+                "statute_reference": "SB 185 Sec. 2(1) & 2(4) Deficits",
+                "newsroom_lore": "Admin states June 1 operates as a hard legislative cliff for immediate program and staff terminations.",
+                "statutory_law": "April 3 enactment forces a 60-day public notice window (June 2) plus a 30-day notice minimum (July 2).",
+                "severity": "CRITICAL TIMING FRAUD"
+            },
+            {
                 "category": "Accreditation Contingency Loophole",
                 "statute_reference": "SB 185 Sec. 2(3) & 2(6)",
                 "newsroom_lore": "Admin claims SB 185 mandates immediate program cuts to hit the 10-sector cap by June 1.",
@@ -90,9 +111,7 @@ def run_law_vs_lore_analysis():
         print("-" * 60)
         
         # 2. SANCTION POLICY EVALUATION: Page 62 Substantive Change Checker
-        # Extract the current active sanction directly from your forensic notes layer
         notes = data.get("forensic_notes", {})
-        # Baseline fallback to true institutional status if not explicitly overridden in JSON
         active_sanction = notes.get("active_sacscoc_sanction", "Probation for Good Cause")
         
         policy_bounds = evaluate_sanction_requirements(active_sanction)
