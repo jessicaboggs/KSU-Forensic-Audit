@@ -1,10 +1,10 @@
 {
   "url": "https://kysu.edu",
-  "last_checked": "2026-06-05T14:30:00Z",
+  "last_checked": "2026-06-07T19:38:59Z",
   "claims": {
     "total_funding_narrative": 170000000,
     "asset_preservation": 60000000,
     "online_programs": 20000000
   },
-  "raw_text_hash": 502337257583122072
+  "raw_text_hash": "b4d8645efbba5a92a4ec44afe429af4ec3f36a236fc5f3982dc4439ea81ee273"
 }
