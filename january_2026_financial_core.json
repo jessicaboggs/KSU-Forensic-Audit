@@ -42,6 +42,11 @@
   "foundation_filing_status": {
     "form_990_filed_2025": false,
     "filing_delay_days": 204
+  },
+  "legacy_2025_anomalies": {
+    "student_activity_fees_swept": 425000.00,
+    "empty_mansion_maintenance_usd": 185000.00,
+    "mansion_vacancy_status": true
   }
 
 }
