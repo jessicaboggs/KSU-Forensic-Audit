@@ -373,9 +373,17 @@
                 fileString = JSON.stringify(data, null, 2);
 
                 const formatCurrency = (val) => {
-                    const num = parseFloat(val);
-                    return isNaN(num) ? "$0" : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
-                };
+    if (!val) return "$0";
+    // Strip out $, commas, and whitespace so parseFloat receives a clean numeric string
+    const cleanVal = String(val).replace(/[^0-9.-]/g, '');
+    const num = parseFloat(cleanVal);
+    return isNaN(num) ? "$0" : new Intl.NumberFormat('en-US', { 
+        style: 'currency', 
+        currency: 'USD',
+        maximumFractionDigits: 0 // Optional: hides cents if you want punchy clean numbers
+    }).format(num);
+};
+
 
                 if (data.system_status && data.system_status.last_updated) {
                     document.getElementById('sync-time').textContent = data.system_status.last_updated;
