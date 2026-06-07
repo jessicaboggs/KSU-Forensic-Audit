@@ -3,6 +3,27 @@ import os
 import json
 import sys
 
+def evaluate_sanction_requirements(current_sanction: str) -> dict:
+    """
+    Evaluates SACSCOC policy bounds to determine if a contingency 
+    teach-out plan is legally mandated based on the active sanction tier.
+    Warning activates restrictions, while Probation activates mandatory teach-outs.
+    """
+    sanction_lower = current_sanction.lower()
+    requirements = {
+        "substantive_change_restriction": False,
+        "mandatory_contingency_teach_out": False
+    }
+    
+    if "warning" in sanction_lower:
+        requirements["substantive_change_restriction"] = True
+        requirements["mandatory_contingency_teach_out"] = False
+    elif "probation" in sanction_lower or "good cause" in sanction_lower:
+        requirements["substantive_change_restriction"] = True
+        requirements["mandatory_contingency_teach_out"] = True
+        
+    return requirements
+
 def run_law_vs_lore_analysis():
     print("--- Initializing KSU Law vs. Lore Compliance Tracker ---")
     data_source = "january_2026_financial_core.json"
@@ -68,7 +89,25 @@ def run_law_vs_lore_analysis():
             
         print("-" * 60)
         
-        # 2. ACCREDITATION CONTINGENCY AUDIT: Section 2(6) Tracker
+        # 2. SANCTION POLICY EVALUATION: Page 62 Substantive Change Checker
+        # Extract the current active sanction directly from your forensic notes layer
+        notes = data.get("forensic_notes", {})
+        # Baseline fallback to true institutional status if not explicitly overridden in JSON
+        active_sanction = notes.get("active_sacscoc_sanction", "Probation for Good Cause")
+        
+        policy_bounds = evaluate_sanction_requirements(active_sanction)
+        print(f"--- SACSCOC Sanction Evaluation Window: '{active_sanction}' ---")
+        print(f"[!] Substantive Change Restriction Active : {policy_bounds['substantive_change_restriction']}")
+        print(f"[!] Mandatory Contingency Teach-Out Plan  : {policy_bounds['mandatory_contingency_teach_out']}")
+        
+        if policy_bounds['mandatory_contingency_teach_out']:
+            print("[FLAG - ACCREDITATION CRITICAL] Due to Probation status, unilateral program deletions without")
+            print("                                prior SACSCOC-approved teach-out prospectuses constitute severe")
+            print("                                non-compliance under Page 62 procedural standards.")
+        print()
+        print("-" * 60)
+        
+        # 3. ACCREDITATION CONTINGENCY AUDIT: Section 2(6) Tracker
         academic_state = data.get("academic_program_tracking", {})
         current_sectors = academic_state.get("current_sector_count", 0)
         unapproved_cuts = academic_state.get("programs_severed_pre_sacscoc_signoff", 0)
