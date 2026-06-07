@@ -18,5 +18,10 @@
     "board_session_dates": ["2026-05-10", "2026-05-28"],
     "active_quorum_count": 4,
     "unapproved_policy_modifications": 3
+  },
+  "federal_hcm2_records": {
+    "unauthorized_advance_drawdowns": true,
+    "reimbursement_cycle_delay_days": 45,
+    "unresolved_federal_claims_usd": 1250000.00
   }
 }

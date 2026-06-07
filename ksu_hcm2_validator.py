@@ -1,34 +1,45 @@
-import json
+#!/usr/bin/env python3
 import os
+import json
+import sys
 
-def run_hcm2_audit():
-    print("⚠️ Initializing Federal FSA Heightened Cash Monitoring (HCM2) Drag Engine...")
-    print("• Sanction Status: ACTIVE RESTRICTION (Level 2 Reimbursement)")
+def run_hcm2_analysis():
+    print("--- Initializing KSU Federal HCM2 Compliance Validator ---")
+    data_source = "january_2026_financial_core.json"
     
-    # 1. Establish the cash flow restriction variables
-    total_restricted_title_iv_pool = 5425486.00 # From your OPE ID data layer
-    average_reimbursement_delay_days = 90       # Standard federal HCM2 validation window
-    annual_operational_days = 365
-    
-    # 2. Compute Cash Flow Freeze Coefficient
-    # Estimates the amount of cash constantly locked up in the federal review pipeline
-    daily_burn_rate = total_restricted_title_iv_pool / annual_operational_days
-    frozen_cash_reserve_drag = daily_burn_rate * average_reimbursement_delay_days
-    
-    print("\n" + "="*60)
-    print("      🚨 USDOE HEIGHTENED CASH MONITORING COMPLIANCE MATRIX    ")
-    print("="*60)
-    print(f"• Restriction Category         : HCM2 (Reimbursement Only)")
-    print(f"• Total Title IV Pool Impacted : ${total_restricted_title_iv_pool:,.2f}")
-    print(f"• Baseline Pipeline Delay     : {average_reimbursement_delay_days} Days")
-    print("-"*60)
-    print(f"• CONTINUOUS FROZEN CASH FLOW : ${frozen_cash_reserve_drag:,.2f}")
-    print("="*60)
-    
-    if frozen_cash_reserve_drag > 1000000.00:
-        print("🚨 CRITICAL: Severe HCM2 pipeline delay threatens immediate institutional solvency.")
-    else:
-        print("✅ STATUS: Operational cash reserves absorption matches standard risk profiles.")
+    if not os.path.exists(data_source):
+        print(f"[ERROR] Source registry '{data_source}' missing. Halting analysis.")
+        sys.exit(0)
+        
+    try:
+        with open(data_source, 'r') as f:
+            data = json.load(f)
+        print("[INFO] Successfully loaded federal compliance telemetry layers.\n")
+        
+        # Isolate the federal data block safely
+        hcm2_log = data.get("federal_hcm2_records", {})
+        advance_drawdown_detected = hcm2_log.get("unauthorized_advance_drawdowns", False)
+        reimbursement_lag_days = hcm2_log.get("reimbursement_cycle_delay_days", 0)
+        pending_reimbursement_total = hcm2_log.get("unresolved_federal_claims_usd", 0.0)
+        
+        # 1. Evaluate Advance Drawdown Constraints (Strictly prohibited under HCM2)
+        if advance_drawdown_detected:
+            print("[FLAG - AUDIT FAILURE] CRITICAL VIOLATION: Unauthorized advance drawdown detected.")
+            print("                       Under HCM2 constraints, funding must be disbursed prior to drawing federal capital.")
+        else:
+            print("[✓] Advance Drawdowns: No illegal advanced drawdowns identified.")
+            
+        # 2. Evaluate Reimbursement Lags (HCM2 cycles typically drag operational liquidity)
+        print(f"[!] Logged Federal Reimbursement Laging Window: {reimbursement_lag_days} Days")
+        if reimbursement_lag_days > 30:
+            print(f"[WARNING - CASH LOCKOUT] Severe operational liquidity threat: {reimbursement_lag_days}-day processing lag exceeds safe parameters.")
+            
+        # 3. Check for Outstanding Financial Exposure
+        if pending_reimbursement_total > 0:
+            print(f"[!] Unresolved Federal Claims Position: ${pending_reimbursement_total:,}")
+            
+    except Exception as e:
+        print(f"[CRITICAL] Operational parsing exception: {str(e)}")
 
 if __name__ == "__main__":
-    run_hcm2_audit()
+    run_hcm2_analysis()
