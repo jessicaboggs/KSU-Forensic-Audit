@@ -36,6 +36,16 @@ This public repository serves as an independent data archive tracking the admini
 
 This documentation serves as an immutable reference layer to ensure persistent public access to fiscal audit findings, independent of external platform adjustments or structural modifications.
 
+## 📂 PROJECT DOCUMENTATION & DIRECTORY
+
+
+| Document | Description | Status | Quick Link |
+| :--- | :--- | :--- | :--- |
+| **📰 Press Briefing File** | Executive summary, core findings, and high-level media brief. | 🟢 Ready | [`PRESS_BRIEFING.md`](./PRESS_BRIEFING.md) |
+| **🗃️ Master Memo Dossier** | Comprehensive analytical framework, ledger reconciliations, and evidence indexes. | 🟡 In Progress | [`MASTER_MEMO_DOSSIER.md`](./MASTER_MEMO_DOSSIER.md) |
+| **🤖 AI & Technological Disclosure** | Formal Kentucky Bar Association compliance statement & `parse_ppa.py` documentation. | 🟢 Verified | [`AI_DISCLOSURE.md`](./docs/AI_DISCLOSURE.md) |
+
+
 
 ## ## 1. CORE COMPLIANCE INFRACTIONS MATRIX
 
