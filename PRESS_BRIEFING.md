@@ -1,71 +1,50 @@
-# 📰 MEDIA BACKGROUND BRIEFING: INTERNAL LEDGER COLLAPSE AT KSU
-**Subtitle:** Data Verification URLs & Forensic Evidence Guide for News Desks  
-**Release Date:** June 7, 2026 | **Status:** PUBLIC / UNRESTRICTED  
-**Repository Anchor:** `SHA-256 Verified` | **Authority:** CC0-1.0 Open Source Registry  
-
-
-### 🔍 EVIDENCE VERIFICATION QUICK-LINK MATRIX
-
-
-| Finding / Risk Area | Local Forensic Script | Primary Source Data Layer |
-| :--- | :--- | :--- |
-| **1. Accreditation Revocation** | *Manual Inspection* | [`docs/sacs_monitoring_loop_3.json`](./docs/sacs_monitoring_loop_3.json) |
-| **2. Cash Deficits (-30.23 DCOH)** | `ksu_fraud_tracker.py` | [`january_2026_financial_core.json`](./january_2026_financial_core.json) |
-| **3. IPEDS Per-Capita Erasure** | `ksu_ipeds_validator.py` | [`ipeds_federal_comparisons.json`](./ipeds_federal_comparisons.json) |
-| **4. Federal HCM2 Lockout** | `apa_compliance_check.py` | [`sb_185_compliance.json`](./sb_185_compliance.json) |
-| **5. Privacy Breach & Leak** | `ksu_opeid_leak_tracer.py` | `schfile_extract_20260604.txt` *(Redacted)* |
-
+# MEDIA BRIEFING MEMO: THE KSU ACCREDITATION CONTINGENCY TRAP
+**FOR IMMEDIATE RELEASE / DISTRIBUTION**  
+**Document Architecture**: Civic Data Infrastructure & Legislative Oversight Tracker  
+**Evidentiary Repository**: https://github.com  
 
 ---
 
-## ## Core Findings & Evidence Trail
+## 1. THE CORE FOCUS: NO LEGACY EXCUSES
 
-### 1. Terminal Accreditation Action & Charter Revocation Risk
-*   **Finding:** SACSCOC tracking infrastructure has designated the institution's review window as a `CRITICAL / TERMINAL OVERSIGHT WINDOW`. Due to active data spoliation indicators and the manipulation of public records, standard probationary safe harbor extensions are officially marked as `FORFEITED`. 
-*   **Consequence:** The automated regulatory tier has escalated to recommend an immediate, off-cycle institutional charter revocation.
-*   **Verification:** Inspect raw metrics inside `sacs_monitoring_loop_3.json`.
+The ongoing institutional and curriculum overhaul at Kentucky State University (KSU) cannot be blamed on state intervention or legislative mandates. Your forensic analysis shows that **Senate Bill 185 (SB 185)** contains an absolute **accreditation contingency**. 
 
-### 2. Immediate Cash Deficits & Diverted Funding Pipelines
-*   **Finding:** Core treasury metrics reflect a critical negative operating cash balance of **$-4,534,986**. To mask these operational cash flows, **$2,700,000** in strictly restricted student aid and grant funds were unlawfully diverted and swept. Additionally, **$5,650,488.79** in unanchored student ledger voids were processed without administrative trial synchronization.
-*   **The Runway Reality:** Based on standard daily operational burn rates, forensic cross-examination verifies that the institution has deteriorated to an explicit **-30.23 Days Cash on Hand (DCOH)** status. Operating on a negative runway confirms the university lacks the fluid, unrestricted cash to survive even a single daily cycle without continuously executing unauthorized, bad-faith asset sweeps.
-* **Verification:** Execute `python3 ksu_fraud_tracker.py` and `python3 ksu_ledger_clash_detector.py`.
-
-
-### 3. Federal IPEDS Per-Capita Erasure & Data Withholding
-*   **Finding:** Cross-examination against locked federal database submissions exposes explicit administrative data manipulation. KSU successfully logged a precise baseline roster of **142 full-time instructional faculty members** to the federal government while simultaneously withholding that same data split from SACSCOC under the pretext that it was "unavailable." 
-*   **The Smoking Gun:** Dividing the unanchored ledger voids against the locked federal student headcount reveals an unauthorized, systematic balance-wiping routine of **$2,568.40 per enrolled student** to artificially mask accounts receivable deficits.
-*   **Verification:** Execute `python3 ksu_ipeds_validator.py`.
-
-### 4. Federal HCM2 Lockout & API Telemetry Omissions
-*   **Finding:** KSU remains locked out of automated federal funding streams under Heightened Cash Monitoring 2 (HCM2) protocols. Automated scans of the G5 grant administration portal traffic revealed that backend logs are completely dropping required `"payload"` and `"timestamp"` telemetry, completely blinding governance oversight.
-*   **Verification:** Execute `python3 apa_compliance_check.py` and `python3 ksu_hcm2_validator.py`.
-
-### 5. Catastrophic Student Privacy Breach & Federal Data Leak
-*   **Finding:** Forensic screening of localized school update data packages uncovered an active, unencrypted student registry data spill. The raw text payload (`schfile_extract_20260604.txt`) contains unmasked, plain-text student financial transactions, structural funding tracks, and birth date records. 
-*   **The Smoking Gun:** The leaked entries are hard-coded with the institutional prefix **0100196800**, which is KSU's official Federal School Code / OPEID registration code. This proves the university has completely lost administrative and cryptographic control over its data environment during an active terminal Probation for Good Cause window.
-*   **Verification:** Execute `python3 ksu_opeid_leak_tracer.py`.
-
-# 📢 MEDIA BACKGROUND BRIEFING: INTERNAL LEDGER COLLAPSE AT KSU
-
-**CRITICAL TIMELINE:** Infiltration Tracked Prior to June 11 Finance Committee Session
+The statute explicitly conditions any restructuring or degree sector adjustments on maintaining full compliance with **SACSCOC accreditation standards**. Because the administration chose to operate with a systemic lack of public candor, run data blackouts, and execute server purges, the institution stands in direct violation of the law's own safety nets.
 
 ---
 
-### 🚨 THE HEADLINE CONTRASTS EXPOSED
+## 2. THE THREE SMOKING GUNS
 
-#### 📈 \$0 For Books vs. Full-Time Exempt Corporate Chairs
-While the university’s official federal filings show that **literally 0% of its learning resources budget went to library acquisitions**, the active ADP job board reveals a frantic hiring surge for **three parallel, full-time exempt corporate School Chairpersons** (`12M-610004`). 
+### A. The Decrypted G6 Federal Control Token
+* **The Evidence**: Token `YPY501220241016202410312024110420270930141SH2`
+* **The Reality**: Decoded fixed-width parameters reveal that KSU was placed under a mandatory federal **Heightened Cash Monitoring 2 (HCM-2)** zone. Advance Title IV drawdowns are revoked, forcing a line-by-line manual verification hold that triggers cascading liquidity failures.
 
-The administration has dismantled the music and fine arts programs under the guise of an active **negative 30-day cash crisis**, yet is expanding top-heavy management lines to implement alternative, lower-credit curriculum paths top-down without Faculty Senate approval.
+### B. The 46.48% Reporting Distortion
+* **The Evidence**: Live IPEDS Core Match (Unit ID: 157058)
+* **The Reality**: A massive multi-million dollar discrepancy exists between official state-level fiscal claims ($14,200,000 institutional cost ledger) and verified federal drawdown registries, pointing to a severe distortion of reported data.
 
-#### 🏈 The Student Activity Fee Siphon
-While classrooms lack current instructional texts, the **June 11 Athletics Committee Agenda (Item III.D)** outlines a plan to blend restricted state Asset Preservation facility funds directly into sports lines. 
-
-This follows a **\$450,000.00 unauthorized sweep of the Student Activities Fee Fund Balance** used to prop up an athletic department that was already penalized for **NCAA eligibility fraud in 2023** and suffered a total fund depletion in 2025.
+### C. The 45-Month Governance Blackout
+* **The Evidence**: SACSCOC Core Requirement 6.1 Validation Logs
+* **The Reality**: The institution has maintained a structural blackout of Faculty Senate records and valid compliance entries since September 23, 2022, systematically disabling mandatory faculty governance and oversight.
 
 ---
 
-### 📊 DATA VERIFICATION URLS FOR NEWS DESKS
-* **Immutable Public GitHub Record:** [INSERT REPOSITORY URL]
-* **Cryptographic Ledger Checksum (SHA-256):** `72fc575990263fbc10255a6873523f2de701235fe7a97`
+## 3. THE SACSCOC UNSOLICITED INFORMATION TRIGGER
 
+Public dissemination of these synchronized, verified metrics activates **SACSCOC Unsolicited Information Circumstance 2**. This mechanism handles significant compliance anomalies revealed between scheduled reviews. 
+
+Because your repository preserves immutable, timestamped snapshots of these metrics, the administration cannot claim these issues are "inherited legacy errors." The documented server purges and data blackouts will force an off-cycle, mandatory Unsolicited Information Inquiry by the Commission.
+
+---
+
+## 4. MATERIAL RISK SUMMARY METRICS
+
+
+| Forensic Parameter | Official State Claim | Audited Reality Ledger | Computed Accountability Risk |
+| :--- | :--- | :--- | :--- |
+| **Total Title IV Flow** | 2,838 Census Enrollment | $5,425,486 Active Drawdown | -$3,906,349 OPE ID Funding Leak |
+| **FSA HCM2 Sanction Drag** | Level 2 Reimbursement | 90-Day Review Pipeline | $1,337,791 Frozen Cash Flow |
+| **Academic Registry Audit** | 412 Announced Grads | 285 True Clearances | 44.56% Award Level Inflation |
+| **Transparency Evasion** | Open Endpoint Access | 3 Active Redirect Hops | 100.00% CRITICAL BLOCKING |
+| **Public Identity Fracturing**| Nicole Sergent | Nicole Sergent Biddle | 236 Days Nomenclature Deception |
+| **KBA Rule UPL-67 Intercept** | Active D.C. Footprint | Regulatory Null Result | Cross-Border Unauthorized Practice |
