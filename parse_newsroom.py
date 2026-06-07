@@ -1,7 +1,8 @@
 import os
 import json
-import hashlib  # Replace or add this at the top
+import hashlib
 import requests
+from datetime import datetime
 from bs4 import BeautifulSoup
 
 URL = "https://kysu.edu"
@@ -14,19 +15,22 @@ def fetch_and_track():
     # Isolate the main article text
     article_text = soup.find('main').get_text(strip=True) if soup.find('main') else soup.get_text()
     
-    # Generate a deterministic SHA-256 hash string
+    # FIX: Generates a persistent, deterministic SHA-256 hash string
     text_encoded = article_text.encode('utf-8')
     stable_hash = hashlib.sha256(text_encoded).hexdigest()
     
+    # FIX: Generates the true current runtime timestamp in UTC ISO format
+    current_time_iso = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    
     current_payload = {
         "url": URL,
-        "last_checked": "2026-06-05T14:30:00Z",
+        "last_checked": current_time_iso,
         "claims": {
             "total_funding_narrative": 170000000,
             "asset_preservation": 60000000,
             "online_programs": 20000000
         },
-        "raw_text_hash": stable_hash  # Saves a consistent string
+        "raw_text_hash": stable_hash
     }
     
     # If the file already exists, check for text alterations (Spoliation)
