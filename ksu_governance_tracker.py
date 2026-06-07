@@ -1,63 +1,56 @@
-import datetime
+#!/usr/bin/env python3
+import os
+import json
+import sys
+from datetime import datetime
 
-class GovernanceTracker:
-    def __init__(self):
-        # Operational limits matching the whistleblower matrix
-        self.lock_date = datetime.date(2026, 5, 15)
-        self.entry_date = datetime.date(2026, 6, 2)
-        self.last_valid_senate_date = datetime.date(2022, 9, 23)
-        self.portal_decommission_date = datetime.date(2026, 6, 26)
-        self.current_audit_date = datetime.date.today()
-
-    def calculate_telemetry(self):
-        # Metric 1: Timeline Audit Track Delay
-        timeline_delay = (self.entry_date - self.lock_date).days
+def run_governance_analysis():
+    print("--- Initializing KSU Institutional Governance Auditor ---")
+    data_source = "january_2026_financial_core.json"
+    
+    if not os.path.exists(data_source):
+        print(f"[ERROR] Source registry '{data_source}' missing. Halting analysis.")
+        sys.exit(0)
         
-        # Metric 2: Faculty Senate Communication Gap
-        delta_months = (self.current_audit_date.year - self.last_valid_senate_date.year) * 12 + \
-                       (self.current_audit_date.month - self.last_valid_senate_date.month)
+    try:
+        with open(data_source, 'r') as f:
+            data = json.load(f)
+        print("[INFO] Successfully loaded structural compliance layers.\n")
         
-        # Metric 3: Portal Expiration Countdown
-        days_to_wipe = (self.portal_decommission_date - self.current_audit_date).days
+        # Pull records out safely using dictionary .get()
+        governance_log = data.get("governance_records", {})
+        meeting_dates = governance_log.get("board_session_dates", [])
+        voting_quorum = governance_log.get("active_quorum_count", 0)
+        unauthorized_edits = governance_log.get("unapproved_policy_modifications", 0)
         
-        return {
-            "timeline_delay_days": timeline_delay,
-            "communication_gap_months": delta_months,
-            "portal_wipe_countdown_days": days_to_wipe
-        }
-
-    def evaluate_compliance_risk(self, missing_minutes_count, redirect_hops, has_exempt_chairs):
-        metrics = self.calculate_telemetry()
-        
-        # Calculate Transparency Evasion Index
-        base_evasion = 0.0
-        if redirect_hops >= 3:
-            base_evasion += 50.0
-        if missing_minutes_count > 4:
-            base_evasion += 30.0
-        if self.current_audit_date > self.lock_date:
-            base_evasion += 20.0
-        
-        # Core SACSCOC & Fiduciary Risk Evaluation
-        sacscoc_standard_4_2_b_breached = has_exempt_chairs and (metrics["communication_gap_months"] > 24)
-        fiduciary_reconciliation_void = missing_minutes_count > 0 and (metrics["timeline_delay_days"] > 14)
-        
-        print("## 📊 ADMINISTRATIVE GOVERNANCE SCOREBOARD")
-        print(f"* **Timeline Audit Track:** {metrics['timeline_delay_days']} Days Retroactive Entry Delay")
-        print(f"* **Faculty Senate Blackout:** {metrics['communication_gap_months']} Months Continuous Communication Gap")
-        print(f"* **Portal Kill-Switch Countdown:** {metrics['portal_wipe_countdown_days']} Days Remaining Until Legacy Job Data Wipe")
-        print(f"* **Transparency Evasion Index:** {base_evasion:.2f}% CRITICAL BLOCKING INDICATION")
-        print("-" * 60)
-        print("## 🚨 REGULATORY COMPLIANCE EXPOSURES IDENTIFIED")
-        
-        if sacscoc_standard_4_2_b_breached:
-            print("[VIOLATION] SACSCOC Standard 4.2.b (Shared Governance): Unilateral exempt chair hires active during an active faculty senate blackout.")
-        if fiduciary_reconciliation_void:
-            print("[VIOLATION] SACSCOC Standard 13.6 & KRS Open Records: Board executing spending authorizations without public, approved minutes.")
-        if metrics["portal_wipe_countdown_days"] <= 21:
-            print("[ALERT] Document Spoliation Vector: Automated career portal decommissioning will wipe legacy personnel logs before the October review.")
+        # 1. Evaluate Quorum Requirements (Minimum 5 active board members needed)
+        print(f"[!] Active Governance Voting Pool: {voting_quorum} Members Present")
+        if voting_quorum < 5:
+            print(f"[FLAG - HIGH RISK] Governance failure: Quorum requirement unmet. All passed resolutions void.")
+            
+        # 2. Track Unapproved Structural Policy Modifications
+        if unauthorized_edits > 0:
+            print(f"[FLAG - AUDIT FAILURE] Detected {unauthorized_edits} unapproved policy edits skipping board loops.")
+            
+        # 3. Analyze Cadence and Track Inter-Session Blackouts
+        if len(meeting_dates) >= 2:
+            # Parse the two most recent session timestamps
+            fmt = "%Y-%m-%d"
+            date1 = datetime.strptime(meeting_dates[-2], fmt)
+            date2 = datetime.strptime(meeting_dates[-1], fmt)
+            
+            days_between = (date2 - date1).days
+            print(f"[!] Logged Inter-Session Cadence Interval: {days_between} Days")
+            
+            # Statutory requirement: Board must convene bi-weekly (within 14 days)
+            if days_between > 14:
+                blackout_excess = days_between - 14
+                print(f"[WARNING - SPOLIATION] Bi-weekly mandate breach detected: {blackout_excess} day blackout extension.")
+        else:
+            print("[INFO] Insufficient sequence density to evaluate cadence windows.")
+            
+    except Exception as e:
+        print(f"[CRITICAL] Operational parsing exception: {str(e)}")
 
 if __name__ == "__main__":
-    tracker = GovernanceTracker()
-    # Input telemetry based on current June 2026 board dockets and ADP portal behavior
-    tracker.evaluate_compliance_risk(missing_minutes_count=5, redirect_hops=3, has_exempt_chairs=True)
+    run_governance_analysis()
