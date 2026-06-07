@@ -76,7 +76,7 @@ Every core finding detailed in our media briefings is programmatically monitored
 
 
 
-## ## 1. CORE COMPLIANCE INFRACTIONS MATRIX
+## 1. CORE COMPLIANCE INFRACTIONS MATRIX
 
 This repository hosts the diagnostic scripts and structured data objects documenting an aggregated **\$6.6 Million systemic variance and structural deficit** across institutional asset pools:
 
