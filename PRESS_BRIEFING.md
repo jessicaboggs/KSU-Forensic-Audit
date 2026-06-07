@@ -1,3 +1,10 @@
+# 📰 MEDIA BACKGROUND BRIEFING: INTERNAL LEDGER COLLAPSE AT KSU
+**Subtitle:** Data Verification URLs & Forensic Evidence Guide for News Desks  
+**Release Date:** June 7, 2026 | **Status:** PUBLIC / UNRESTRICTED  
+**Repository Anchor:** `SHA-256 Verified` | **Authority:** CC0-1.0 Open Source Registry  
+
+---
+
 ## ## Core Findings & Evidence Trail
 
 ### 1. Terminal Accreditation Action & Charter Revocation Risk
