@@ -3,6 +3,19 @@
 **Release Date:** June 7, 2026 | **Status:** PUBLIC / UNRESTRICTED  
 **Repository Anchor:** `SHA-256 Verified` | **Authority:** CC0-1.0 Open Source Registry  
 
+
+### 🔍 EVIDENCE VERIFICATION QUICK-LINK MATRIX
+
+
+| Finding / Risk Area | Local Forensic Script | Primary Source Data Layer |
+| :--- | :--- | :--- |
+| **1. Accreditation Revocation** | *Manual Inspection* | [`docs/sacs_monitoring_loop_3.json`](./docs/sacs_monitoring_loop_3.json) |
+| **2. Cash Deficits (-30.23 DCOH)** | `ksu_fraud_tracker.py` | [`january_2026_financial_core.json`](./january_2026_financial_core.json) |
+| **3. IPEDS Per-Capita Erasure** | `ksu_ipeds_validator.py` | [`ipeds_federal_comparisons.json`](./ipeds_federal_comparisons.json) |
+| **4. Federal HCM2 Lockout** | `apa_compliance_check.py` | [`sb_185_compliance.json`](./sb_185_compliance.json) |
+| **5. Privacy Breach & Leak** | `ksu_opeid_leak_tracer.py` | `schfile_extract_20260604.txt` *(Redacted)* |
+
+
 ---
 
 ## ## Core Findings & Evidence Trail
@@ -55,3 +68,4 @@ This follows a **\$450,000.00 unauthorized sweep of the Student Activities Fee F
 ### 📊 DATA VERIFICATION URLS FOR NEWS DESKS
 * **Immutable Public GitHub Record:** [INSERT REPOSITORY URL]
 * **Cryptographic Ledger Checksum (SHA-256):** `72fc575990263fbc10255a6873523f2de701235fe7a97`
+
