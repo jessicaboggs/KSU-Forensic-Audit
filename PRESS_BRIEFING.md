@@ -46,5 +46,3 @@ Because your repository preserves immutable, timestamped snapshots of these metr
 | **FSA HCM2 Sanction Drag** | Level 2 Reimbursement | 90-Day Review Pipeline | $1,337,791 Frozen Cash Flow |
 | **Academic Registry Audit** | 412 Announced Grads | 285 True Clearances | 44.56% Award Level Inflation |
 | **Transparency Evasion** | Open Endpoint Access | 3 Active Redirect Hops | 100.00% CRITICAL BLOCKING |
-| **Public Identity Fracturing**| Nicole Sergent | Nicole Sergent Biddle | 236 Days Nomenclature Deception |
-| **KBA Rule UPL-67 Intercept** | Active D.C. Footprint | Regulatory Null Result | Cross-Border Unauthorized Practice |
