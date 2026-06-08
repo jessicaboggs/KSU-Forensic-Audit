@@ -1,10 +1,108 @@
 {
-  "url": "https://kysu.edu",
-  "last_checked": "2026-06-08T09:21:50Z",
-  "claims": {
-    "total_funding_narrative": 170000000,
-    "asset_preservation": 60000000,
-    "online_programs": 20000000
-  },
-  "raw_text_hash": "b4d8645efbba5a92a4ec44afe429af4ec3f36a236fc5f3982dc4439ea81ee273"
+    "url": "https://kysu.edu",
+    "last_checked": "2026-06-08T09:21:50Z",
+    "claims": {
+        "total_funding_narrative": 170000000,
+        "asset_preservation": 60000000,
+        "online_programs": 20000000
+    },
+    "raw_text_hash": "b4d8645efbba5a92a4ec44afe429af4ec3f36a236fc5f3982dc4439ea81ee273",
+    "spoliation_tracking_ledger": [
+        {
+            "timestamp": "2026-06-08T17:39:20.996878Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:39:20.997363Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:39:20.997570Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:40:34.493957Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:40:34.494440Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:40:34.494622Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:41:45.148917Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:41:45.149483Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:41:45.149636Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:47:49.161518Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:47:49.161965Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        },
+        {
+            "timestamp": "2026-06-08T17:47:49.162158Z",
+            "url": "https://ksu.edu",
+            "status_code": 301,
+            "classification": "Spoliation/Routing Vector",
+            "redirect_destination": "https://www.k-state.edu/",
+            "flagged": true
+        }
+    ]
 }

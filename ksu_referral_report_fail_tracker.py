@@ -1,57 +1,87 @@
-import requests
+#!/usr/bin/env python3
+import os
 import sys
+import json
+from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+import requests
 
-# TARGET: The specific KSU report URLs that are failing
-TARGET_URLS = [
-    "https://kysu.edu",
-    # Add other suspect URLs here
+# --- Configuration & Paths ---
+EVIDENCE_LOG = "data_layers/official_claims.json"
+TARGET_ENDPOINTS = [
+    "https://ksu.edu",
+    "https://ksu.edu",
+    "https://ksu.edu"
 ]
+MAX_WORKERS = 5
+TIMEOUT_SEC = 10
 
-def check_transparency_fail(url):
-    print(f"[*] Auditing: {url}")
-    
+def check_endpoint(url):
+    """Evaluates target headers to isolate 404 deletions or 302/301 redirections."""
+    timestamp = datetime.utcnow().isoformat() + "Z"
     try:
-        # 1. Check Live Status (Allowing redirects to see where they dump us)
-        response = requests.get(url, timeout=10)
+        # allow_redirects=False captures the raw 301/302 footprint before the browser jumps
+        response = requests.head(url, allow_redirects=False, timeout=TIMEOUT_SEC)
+        status = response.status_code
+        location = response.headers.get("Location", "N/A")
         
-        # Check for 302/301 Redirects specifically
-        if response.history:
-            print(f"    [!] REDIRECT DETECTED: {response.history[0].status_code}")
-            print(f"    [>] Redirected to: {response.url}")
+        print(f"📡 [{status}] Checked: {url}")
+        
+        # Track 301/302 (Routing Vectors) and 404 (Destructive Spoliation)
+        if status in [301, 302, 404]:
+            return {
+                "timestamp": timestamp,
+                "url": url,
+                "status_code": status,
+                "classification": "Spoliation/Routing Vector" if status in [301, 302] else "Destructive Deletion",
+                "redirect_destination": location,
+                "flagged": True
+            }
             
-            # If it redirects to a generic homepage or unrelated page, flag it
-            if "kysu.edu" in response.url and url not in response.url:
-                print("    [X] SOFT 404 / DEFLECTION CONFIRMED")
-        
-        # Check for hard 404
-        elif response.status_code == 404:
-             print("    [X] HARD 404: Document Removed")
-        
-        elif response.status_code == 200:
-             print("    [?] STATUS 200: Page exists (Verify content manually)")
-
     except requests.exceptions.RequestException as e:
-        print(f"    [!] CONNECTION ERROR: {e}")
+        print(f"❌ [FAIL] Connection error on: {url}")
+        return {
+            "timestamp": timestamp,
+            "url": url,
+            "status_code": "CONNECTION_FAILURE",
+            "classification": "Network Disruption / Portal Blackout",
+            "error_detail": str(e),
+            "flagged": True
+        }
+    return None
 
-def check_wayback_availability(url):
-    # Check if Wayback has it, or if KSU blocked crawling via robots.txt
-    archive_api = f"http://archive.org{url}"
-    try:
-        r = requests.get(archive_api)
-        data = r.json()
+def update_evidence_ledger(anomalies):
+    """Appends caught spoliation footprints to the data layer matrix."""
+    if not os.path.exists(EVIDENCE_LOG):
+        data = {"spoliation_tracking_ledger": []}
+    else:
+        with open(EVIDENCE_LOG, "r") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                data = {"spoliation_tracking_ledger": []}
+                
+    if "spoliation_tracking_ledger" not in data:
+        data["spoliation_tracking_ledger"] = []
         
-        if not data.get('archived_snapshots'):
-             print("    [XX] WAYBACK BLOCK: No snapshots available (Suspicious for public entities)")
-        else:
-             last_save = data['archived_snapshots']['closest']['timestamp']
-             print(f"    [i] Last Archived: {last_save}")
-             
-    except Exception as e:
-        print(f"    [!] Archive Check Failed: {e}")
+    data["spoliation_tracking_ledger"].extend(anomalies)
+    
+    with open(EVIDENCE_LOG, "w") as f:
+        json.dump(data, f, indent=4)
+    print(f"📂 [*] Ledger Updated. {len(anomalies)} routing vectors logged.")
+
+def main():
+    print("🚀 Initializing Automated 404/302 Fail Tracker...")
+    
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        results = list(executor.map(check_endpoint, TARGET_ENDPOINTS))
+        
+    anomalies = [r for r in results if r is not None]
+    
+    if anomalies:
+        update_evidence_ledger(anomalies)
+    else:
+        print("[✓] Scan complete. Zero data layer routing anomalies detected.")
 
 if __name__ == "__main__":
-    print("--- KSU 1.1 TRANSPARENCY AUDIT ---")
-    for url in TARGET_URLS:
-        check_transparency_fail(url)
-        check_wayback_availability(url)
-        print("-" * 30)
+    main()
