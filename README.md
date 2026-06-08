@@ -92,6 +92,24 @@ This repository hosts the diagnostic scripts and structured data objects documen
 
 
 ---
+### ## 1.1 The Spoliation & Routing Vector (Active Referral Track)
+
+This track isolates programmatic footprints of intentional document spoliation, data alteration, and tactical compliance avoidance across targeted institutional portals. Rather than treating missing files as passive archival gaps, this vector analyzes server-side manipulation as active evidence tampering.
+
+#### 🔍 Forensic Scope & Technical Signatures
+* **HTTP 404 Anomalies (Destructive Spoliation):** Automated logging of sudden `Not Found` responses on historically verified public documents, financial statements, and meeting minutes.
+* **HTTP 302 Redirections (Tactical Shifting):** Mapping of temporary `Found/Moved` status codes used to divert external oversight traffic away from raw data layers toward sanitized, altered, or redacted alternative destinations.
+
+#### ⚙️ Validation Stack
+The verification mechanism has been centralized into the active tracking script initialized during the morning development sprint:
+* **`ksu_referral_report_fail_tracker.py`**: Executes targeted endpoint pinging, response header evaluation, and automated delta mapping. It isolates 404/302 anomalies to output a live ledger of broken chains of custody.
+* **Interdependencies**: Feeds directly into `ksu_deadline_fraud.py` and `ksu_evasion_logger.py` to establish a timeline proving synchronization between critical oversight deadlines and document deletions.
+
+#### 📋 Active Deliverables
+- [ ] Implement automated nightly cron sweeps targeting the `data_layers/official_claims.json` matrix endpoints.
+- [ ] Generate a cryptographic `Redirection & Deletion Ledger` capturing timestamped response headers, destination payloads, and origin IP ownership.
+- [ ] Export verified 404/302 spoliation logs into the final evidentiary dossier for immediate legal and accreditation referral.
+
 
 ## 2. THE REPOSITORY ARTIFACT ARCHITECTURE
 
