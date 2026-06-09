@@ -5,6 +5,13 @@
     "operational_runway_days": -280,
     "standards": [
         {
+            "code": "Standard 13.1 & 10.3",
+            "title": "Historical Trend Spoliation",
+            "status": "CRITICAL",
+            "vulnerability": "Data Gapping. Wiping historical FY21-FY22 audit trails to mask the structural descent into a -.0M deficit, leaving chart engines unable to compile baseline records.",
+            "strategy": "Freeze public access channels; maintain active 404 blocks on financial directories to blind regional newsrooms."
+        },
+        {
             "code": "Core Requirement 1.1",
             "title": "Institutional Integrity",
             "status": "CRITICAL",
