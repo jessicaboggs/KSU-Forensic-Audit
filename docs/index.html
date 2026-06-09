@@ -107,48 +107,58 @@ async function initDashboard() {
 
         if (data.compliance_matrix) {
             if (document.getElementById('val-degree')) document.getElementById('val-degree').textContent = data.compliance_matrix.length + ' Sectors';
+            if (document.getElementById('val-sga')) document.getElementById('val-sga').textContent = '0 Cycle';
         }
 
-        // 📊 Instantiate the Historical Divergence Line Chart
+        if (document.getElementById('val-attestation')) document.getElementById('val-attestation').textContent = 'PROBATION';
+        if (document.getElementById('val-oversight')) document.getElementById('val-oversight').textContent = 'CRITICAL VOID';
+
+        // 📊 Self-Healing Canvas Layout Deployment
         if (data.meta && data.meta.historical_trend_data) {
             const trend = data.meta.historical_trend_data;
-            const ctx = document.getElementById('forensicTrendChart').getContext('2d');
+            const chartCard = document.querySelector('.chart-card');
             
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: trend.labels,
-                    datasets: [
-                        {
-                            label: 'Reported Deficit ($M)',
-                            data: trend.reported_deficit_millions,
-                            borderColor: '#94a3b8',
-                            backgroundColor: 'transparent',
-                            borderWidth: 2,
-                            tension: 0.2
+            if (chartCard) {
+                // Wipe any hanging placeholder text strings and mount the canvas container directly
+                chartCard.innerHTML = `<h2>2021 Discrepancy: Reported vs Actual Deficit</h2><div style="height:260px; width:100%; position:relative;"><canvas id="forensicTrendChart"></canvas></div>`;
+                
+                const ctx = document.getElementById('forensicTrendChart').getContext('2d');
+                if (window.Chart) {
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: trend.labels,
+                            datasets: [
+                                {
+                                    label: 'Reported Deficit ($M)',
+                                    data: trend.reported_deficit_millions,
+                                    borderColor: '#94a3b8',
+                                    backgroundColor: 'transparent',
+                                    borderWidth: 2,
+                                    tension: 0.2
+                                },
+                                {
+                                    label: 'Actual Deficit ($M)',
+                                    data: trend.actual_deficit_millions,
+                                    borderColor: '#ef4444',
+                                    backgroundColor: 'transparent',
+                                    borderWidth: 3,
+                                    tension: 0.2
+                                }
+                            ]
                         },
-                        {
-                            label: 'Actual Deficit ($M)',
-                            data: trend.actual_deficit_millions,
-                            borderColor: '#ef4444',
-                            backgroundColor: 'transparent',
-                            borderWidth: 3,
-                            tension: 0.2
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { labels: { color: '#fff' } } },
+                            scales: {
+                                y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                                x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                            }
                         }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { labels: { color: '#fff' } }
-                    },
-                    scales: {
-                        y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
-                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
-                    }
+                    });
                 }
-            });
+            }
         }
     } catch (error) {
         console.error("❌ Pipeline Bridge Broken:", error);
