@@ -88,7 +88,7 @@
 <script>
 async function initDashboard() {
     try {
-        const response = await fetch(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'dashboard_payload.json' : 'dashboard_payload.json?t=' + Date.now());
+        const response = await fetch('https://github.io' + Date.now()));
         if (!response.ok) throw new Error('HTTP Status ' + response.status);
         const data = await response.json();
         console.log("🔥 Live Forensic Pipeline Active:", data);
