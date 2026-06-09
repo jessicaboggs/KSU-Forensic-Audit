@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ULTIMATE KSU FORENSIC AUDIT</title>
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #0f172a; color: #f8fafc; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background-color: #1e293b; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ef4444; }
+        .header h1 { margin: 0; font-size: 24px; color: #fff; text-transform: uppercase; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .card { background-color: #1e293b; padding: 20px; border-radius: 8px; border-left: 4px solid #ef4444; }
+        .card.blue { border-left-color: #3b82f6; }
+        .card.green { border-left-color: #10b981; }
+        .card h3 { margin: 0 0 10px 0; color: #94a3b8; font-size: 12px; text-transform: uppercase; }
+        .card p { margin: 0; font-size: 28px; font-weight: bold; color: #fff; }
+        .card small { color: #f87171; font-size: 11px; display: block; margin-top: 5px; }
+        .chart-card { background-color: #1e293b; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3b82f6; }
+        .chart-card h2 { margin: 0 0 15px 0; font-size: 16px; color: #fff; text-transform: uppercase; }
+        .badge { background-color: #7f1d1d; color: #fca5a5; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; }
+        .sync-tag { font-size: 12px; color: #94a3b8; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>The Ultimate KSU Forensic Audit</h1>
+                <p style="margin:5px 0 0 0; font-size:12px; color:#94a3b8;">Civic Data Infrastructure & Legislative Oversight Tracker</p>
+            </div>
+            <div style="text-align: right;">
+                <span class="badge">Financial Exigency</span>
+                <div class="sync-tag" style="margin-top:5px;">Sync: <span id="sync-time">2026</span></div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Emergency State Bailout</h3>
+                <p id="val-bailout">-$59,000,000</p>
+                <small style="color:#94a3b8;">Source: KY General Assembly Loan</small>
+            </div>
+            <div class="card">
+                <h3>Days Cash Runway Deficit</h3>
+                <p id="val-procard">-280 Days</p>
+                <small>Missing purchase documentation</small>
+            </div>
+            <div class="card blue">
+                <h3>SACSCOC Mandated Sector Caps</h3>
+                <p id="val-degree">24 Sectors</p>
+                <small style="color:#3b82f6;">Polytechnic transition ceiling</small>
+            </div>
+            <div class="card green">
+                <h3>Total Title IV Federal Aid</h3>
+                <p id="val-titleiv">-$59,000,000</p>
+                <small style="color:#10b981;">IPEDS Status: LOCKED</small>
+            </div>
+        </div>
+
+        <div class="chart-card" id="discrepancy-chart-card">
+            <h2>2021 Discrepancy: Reported vs Actual Deficit</h2>
+            <div style="height: 260px; width: 100%; position: relative;">
+                <canvas id="forensicTrendChart"></canvas>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card" style="border-left-color:#eab308;">
+                <h3>FY 2025 Attestation Status</h3>
+                <p id="val-attestation">PROBATION</p>
+                <small style="color:#eab308;">Deadline: Dec 31, 2025</small>
+            </div>
+            <div class="card" style="border-left-color:#a855f7;">
+                <h3>SGA Agenda Availability</h3>
+                <p id="val-sga">0 Cycle</p>
+                <small style="color:#a855f7;">Published current cycle</small>
+            </div>
+            <div class="card" style="border-left-color:#ec4899;">
+                <h3>SOA Oversight Index</h3>
+                <p id="val-oversight">CRITICAL VOID</p>
+                <small style="color:#ec4899;">Minutes availability rate: 0%</small>
+            </div>
+        </div>
+    </div>
+
+<script>
+async function initDashboard() {
+    try {
+        const response = await fetch('dashboard_payload.json?t=' + Date.now());
+        if (!response.ok) throw new Error('HTTP Status ' + response.status);
+        const data = await response.json();
+        console.log("🔥 Live Forensic Pipeline Active:", data);
+
+        if (data.meta && data.meta.evaluation_year) {
+            document.getElementById('sync-time').textContent = data.meta.evaluation_year;
+        }
+        if (data.meta && data.meta.forensic_parameters) {
+            const fp = data.meta.forensic_parameters;
+            if (document.getElementById('val-procard')) document.getElementById('val-procard').textContent = fp.days_cash_runway_deficit + ' Days';
+            if (document.getElementById('val-titleiv')) document.getElementById('val-titleiv').textContent = fp.unrestricted_net_position_deficit;
+            if (document.getElementById('val-bailout')) document.getElementById('val-bailout').textContent = fp.unrestricted_net_position_deficit;
+        }
+        if (data.compliance_matrix) {
+            if (document.getElementById('val-degree')) document.getElementById('val-degree').textContent = data.compliance_matrix.length + ' Sectors';
+            if (document.getElementById('val-sga')) document.getElementById('val-sga').textContent = '0 Cycle';
+        }
+        if (document.getElementById('val-attestation')) document.getElementById('val-attestation').textContent = 'PROBATION';
+        if (document.getElementById('val-oversight')) document.getElementById('val-oversight').textContent = 'CRITICAL VOID';
+
+        if (data.meta && data.meta.historical_trend_data) {
+            const trend = data.meta.historical_trend_data;
+            setTimeout(() => {
+                if (typeof Chart !== 'undefined') {
+                    const ctx = document.getElementById('forensicTrendChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: trend.labels,
+                            datasets: [
+                                { label: 'Reported Deficit ($M)', data: trend.reported_deficit_millions, borderColor: '#94a3b8', backgroundColor: 'transparent', borderWidth: 2, tension: 0.2 },
+                                { label: 'Actual Deficit ($M)', data: trend.actual_deficit_millions, borderColor: '#ef4444', backgroundColor: 'transparent', borderWidth: 3, tension: 0.2 }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { labels: { color: '#fff' } } },
+                            scales: {
+                                y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                                x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                            }
+                        }
+                    });
+                }
+            }, 50);
+        }
+    } catch (error) {
+        console.error("❌ Pipeline Bridge Broken:", error);
+    }
+}
+document.addEventListener('DOMContentLoaded', initDashboard);
+</script>
+</body>
+</html>
