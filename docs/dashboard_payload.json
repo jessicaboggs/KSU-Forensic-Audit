@@ -10,6 +10,40 @@
             "days_cash_runway_deficit": -280,
             "state_held_restricted_capital_usd": 25400000,
             "true_operational_runway_days": -8
+        },
+        "historical_trend_data": {
+            "labels": [
+                "2021",
+                "2022",
+                "2023",
+                "2024",
+                "2025",
+                "2026 (Current)"
+            ],
+            "reported_deficit_millions": [
+                2.1,
+                4.5,
+                11.2,
+                18.0,
+                32.4,
+                59.0
+            ],
+            "actual_deficit_millions": [
+                14.8,
+                22.3,
+                35.1,
+                44.8,
+                52.0,
+                59.0
+            ],
+            "days_cash_on_hand_runway": [
+                45,
+                12,
+                -45,
+                -120,
+                -210,
+                -280
+            ]
         }
     },
     "compliance_matrix": [
@@ -36,8 +70,7 @@
             "status": "CRITICAL",
             "vulnerability": "Operational Interruption. Slashing core degree programs unilaterally under Senate Bill 185 before SACSCOC evaluates or authorizes teach-out frameworks, resulting in severe student class-action breach of contract lawsuits.",
             "firewall_strategy": "Mask rapid programmatic shutdowns under standard committee headings to dodge immediate teach-out and enrollment scrutiny."
-        }
-        ,
+        },
         {
             "standard_code": "CR 4.1 & 4.2.b",
             "section": "Governing Board",
@@ -53,8 +86,7 @@
             "status": "CRITICAL",
             "vulnerability": "Oversight Failure. Bypassing Council on Postsecondary Education (CPE) operational boundaries while failing to clearly define local policy and authority lines on the public record.",
             "firewall_strategy": "Hide explicit regulatory restrictions, state fiscal oversight mandates, and takeover mechanics from public-facing board records."
-        }
-        ,
+        },
         {
             "standard_code": "Standard 5.2.b",
             "section": "Administration & Org",
@@ -94,8 +126,7 @@
             "status": "CRITICAL",
             "vulnerability": "Arbitrary Layoffs. Weaponizing statutory exigencies to execute arbitrary non-faculty support staff layoffs; bypassing mandatory performance evaluation protocols; replacing internal oversight personnel with external contractors.",
             "firewall_strategy": "Omit organizational restructuring charts; bundle mid-level staff liquidations under single-line administrative adjustments to avoid open floor debate."
-        }
-        ,
+        },
         {
             "standard_code": "CR 6.1 & 6.2.b",
             "section": "Faculty Chassis",
@@ -135,8 +166,7 @@
             "status": "CRITICAL",
             "vulnerability": "Academic Liquidation. Unilaterally compressing program content, shortening degree lengths, and gutting the general education core below the mandatory 30-hour federal threshold.",
             "firewall_strategy": "Conceal curriculum gaps behind vague headings; avoid open-floor debates on individual credit-hour reductions."
-        }
-        ,
+        },
         {
             "standard_code": "Standard 10.3",
             "section": "Educational Programs",
@@ -176,8 +206,7 @@
             "status": "CRITICAL",
             "vulnerability": "Unvetted Outsourcing. Transcribing student credits through third-party arrangements (Magellan Framework) with zero faculty senate evaluation or quality vetting.",
             "firewall_strategy": "Bundle multi-million dollar vendor renewals under vague, single-line actions; hide partnership evaluations from the open public floor."
-        }
-        ,
+        },
         {
             "standard_code": "Standard 11.1",
             "section": "Library & Learning",
