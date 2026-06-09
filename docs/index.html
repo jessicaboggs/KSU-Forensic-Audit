@@ -307,6 +307,53 @@ async function initDashboard() {
         }
 
 
+        // 📈 Rebuild the 2021 Discrepancy Canvas Chart Loop
+        if (data.meta && data.meta.historical_trend_data) {
+            const trend = data.meta.historical_trend_data;
+            const chartContainer = document.getElementById('2021-discrepancy-chart-container') || document.querySelector('.2021-discrepancy-card') || document.body;
+            
+            // Clear out the hardcoded loading string completely
+            if (chartContainer && chartContainer.innerHTML.includes('Loading financial')) {
+                chartContainer.innerHTML = '<canvas id="forensicTrendChart" style="max-height: 280px; width: 100%;"></canvas>';
+                
+                // Inject the standard Chart.js runtime parameters safely
+                const ctx = document.getElementById('forensicTrendChart').getContext('2d');
+                if (window.Chart) {
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: trend.labels,
+                            datasets: [
+                                {
+                                    label: 'Reported Deficit ($M)',
+                                    data: trend.reported_deficit_millions,
+                                    borderColor: '#64748b',
+                                    borderWidth: 2,
+                                    fill: false
+                                },
+                                {
+                                    label: 'Actual Deficit ($M)',
+                                    data: trend.actual_deficit_millions,
+                                    borderColor: '#ef4444',
+                                    borderWidth: 3,
+                                    fill: false
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: { beginAtZero: true, grid: { color: '#e2e8f0' } },
+                                x: { grid: { display: false } }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+
         // ⏱️ Synchronize configuration evaluation timestamps safely
         const syncTimeEl = document.getElementById('sync-time');
         if (syncTimeEl) syncTimeEl.textContent = data.meta.evaluation_year;
