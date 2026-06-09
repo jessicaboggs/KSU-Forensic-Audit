@@ -15,6 +15,30 @@ def generate_default_json():
         "operational_runway_days": -280,
         "standards": [
             {
+                "code": "KRS 63.080(4)",
+                "title": "Statutory Board Removal Trigger",
+                "status": "CRITICAL",
+                "vulnerability": "Fiduciary Delinquency. Carrying an unmitigated -$59.0M deficit while using closed executive sessions to shield real estate maneuvers (Proposed Farm Purchase) from public tracking.",
+                "strategy": "Governor Beshear holds explicit authority to dissolve the non-compliant Board of Regents for gross neglect of duty, subject to full confirmation by a special session of the Kentucky Senate."
+            },
+
+            {
+                "code": "KRS 63.080(4)",
+                "title": "Statutory Board Removal Trigger",
+                "status": "CRITICAL",
+                "vulnerability": "Fiduciary Delinquency. Carrying an unmitigated -$59.0M deficit while using closed executive sessions to shield real estate maneuvers (Proposed Farm Purchase) from public tracking.",
+                "strategy": "Governor Beshear holds explicit authority to dissolve the non-compliant Board of Regents for gross neglect of duty, subject to full confirmation by a special session of the Kentucky Senate."
+            },
+
+            {
+                "code": "KRS 63.080(4)",
+                "title": "Statutory Board Removal Trigger",
+                "status": "CRITICAL",
+                "vulnerability": "Fiduciary Delinquency. Carrying an unmitigated -$59.0M deficit while using closed executive sessions to shield real estate maneuvers (Proposed Farm Purchase) from public tracking.",
+                "strategy": "Governor Beshear holds explicit authority to dissolve the non-compliant Board of Regents for gross neglect of duty, subject to full confirmation by a special session of the Kentucky Senate."
+            },
+
+            {
                 "code": "Core Requirement 1.1",
                 "title": "Institutional Integrity",
                 "status": "CRITICAL",
