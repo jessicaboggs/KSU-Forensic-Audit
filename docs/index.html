@@ -123,7 +123,9 @@ async function initDashboard() {
                 chartBox.innerHTML = `<h2>2021 Discrepancy: Reported vs Actual Deficit</h2><div style="height:260px; width:100%; position:relative;"><canvas id="forensicTrendChart"></canvas></div>`;
                 
                 const ctx = document.getElementById('forensicTrendChart').getContext('2d');
-                if (window.Chart) {
+                // ⏱️ Add a safety delay to guarantee the Chart.js CDN library is fully defined in memory
+        setTimeout(() => {
+            if (typeof Chart !== 'undefined') {
                     new Chart(ctx, {
                         type: 'line',
                         data: {
@@ -161,7 +163,7 @@ async function initDashboard() {
                     });
                 }
             }
-        }
+        }, 200);
     } catch (error) {
         console.error("❌ Pipeline Bridge Broken:", error);
     }
