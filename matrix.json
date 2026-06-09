@@ -1,0 +1,57 @@
+{
+    "university": "Kentucky State University",
+    "audit_year": "2026",
+    "unrestricted_deficit": "-$59,000,000",
+    "operational_runway_days": -280,
+    "standards": [
+        {
+            "code": "Core Requirement 1.1",
+            "title": "Institutional Integrity",
+            "status": "CRITICAL",
+            "vulnerability": "Systemic Candor Breakdown. Omitting mandatory SACSCOC approval contingencies from official press releases; concealing the April 2026 Academic Referral Report.",
+            "strategy": "Scrub detailed dockets; run a multi-semester blanket agenda scheme to project an illusion of total control."
+        },
+        {
+            "code": "Core Requirement 2.1",
+            "title": "Institutional Mission",
+            "status": "CRITICAL",
+            "vulnerability": "Mission Subversion. Unilaterally abandoning the traditional liberal arts HBCU mandate to force a compressed polytechnic blueprint without a 5-year cyclical evaluation.",
+            "strategy": "Package radical transformations under a generic 'Academic Plan' heading to bypass public mission alteration reviews."
+        },
+        {
+            "code": "Core Requirement 3.1.c",
+            "title": "Continuous Operation",
+            "status": "CRITICAL",
+            "vulnerability": "Operation Interruption. Slashing core degree programs unilaterally under SB 185 before SACSCOC evaluates or authorizes teach-out frameworks.",
+            "strategy": "Mask rapid programmatic shutdowns under standard committee headings to dodge immediate teach-out and enrollment scrutiny."
+        },
+        {
+            "code": "Standard 4.1 & 4.2.b",
+            "title": "Fiduciary Oversight & Distinction",
+            "status": "CRITICAL",
+            "vulnerability": "Fiduciary Abandonment. Authorizing a 'Proposed Farm Purchase' despite a -$59M deficit; stuffing adverse compliance failure audits into non-debatable blocks.",
+            "strategy": "Bury the devastating CLA Single Audit inside the Consent Agenda; approve macro capital expansions via unitemized blanket votes."
+        },
+        {
+            "code": "Standard 5.2.b",
+            "title": "Control of Intercollegiate Athletics",
+            "status": "CRITICAL",
+            "vulnerability": "Athletic Budget Siphoning. Executing unmonitored internal pool raids ($29.5M) to patch baseline operating payroll; siphoning academic dollars to mask overruns.",
+            "strategy": "Omit cost-versus-income athletic ledger comparisons from public files; route asset trace lines behind a closed executive session firewall."
+        },
+        {
+            "code": "Standard 10.3",
+            "title": "Archived Information",
+            "status": "CRITICAL",
+            "vulnerability": "Document Spoliation & Catalog Tampering. Wiping or breaking historical public catalogs and degree tracks to obscure the scale of academic cuts executed under SB 185.",
+            "strategy": "Break digital archive links; let network proxies obscure historical degree tracking structures to stop verification of breached contracts."
+        },
+        {
+            "code": "Standard 11.1",
+            "title": "Library & Information Resources",
+            "status": "CRITICAL",
+            "vulnerability": "Starved Learning Infrastructure. Diverting designated student library and technology fees into central treasury cash flows; allowing core database subscriptions to expire.",
+            "strategy": "Mask severe library resource depletion and expired database subscriptions under generic 'Faculty Workload' and restructuring headings."
+        }
+    ]
+}

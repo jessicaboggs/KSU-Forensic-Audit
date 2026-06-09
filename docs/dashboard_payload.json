@@ -1,158 +1,214 @@
 {
-  "system_status": {
-    "last_updated": "2026-06-06T17:40:16Z",
-    "transparency_gap_months": 18,
-    "active_exigency_status": true
-  },
-  "public_metrics": {
-    "total_emergency_bailout": 23000000.0,
-    "reported_vs_actual_deficit_2021": {
-      "reported": -2700000.0,
-      "actual_carried_forward": -15000000.0
+    "meta": {
+        "institution": "Kentucky State University",
+        "evaluation_year": "2026",
+        "current_sanction": "Probation for Good Cause",
+        "forensic_parameters": {
+            "unrestricted_net_position_deficit": "-$59,000,000",
+            "annual_operating_expenses": "$77,000,000",
+            "daily_burn_rate_usd": 210959,
+            "days_cash_runway_deficit": -280,
+            "state_held_restricted_capital_usd": 25400000,
+            "true_operational_runway_days": -8
+        }
     },
-    "unsupported_procard_spending_annual": 1300000.0,
-    "polytechnic_transition": {
-      "target_degree_sectors": "10",
-      "minimum_gpa_requirement": "2.5"
-    },
-    "compliance_tracking": {
-      "fy_2025_audit": {
-        "statutory_deadline": "2025-12-31",
-        "days_overdue": 157,
-        "status": "NON-EXISTENT",
-        "infraction_type": "Attestation Delay"
-      }
-    },
-    "governance_metrics": {
-      "student_government_association": {
-        "published_agendas_current_cycle": 0,
-        "minutes_availability_rate": 0.0,
-        "oversight_status": "CRITICAL_VOID"
-      }
-    }
-  },
-  "ipeds_aid_summary": {
-    "unduplicated_headcount": 2200,
-    "total_title_iv_aid": 12500000.0,
-    "verification_status": "FEDERALLY_LOCKED",
-    "full_time_staff": 142
-  },
-  "analyst_compliance_flags": {
-    "cpe_independent_spend_limit": true,
-    "active_hcm2_monitoring": true,
-    "flagged_anomalies_count": 0
-  },
-  "sb_185_legal_layer": {
-    "statute": "Kentucky Senate Bill 185",
-    "enactment_date": "2026-04-01",
-    "legal_status": "Active (Challenged in Federal Court)",
-    "governance_phase": "Five-Year Polytechnic Transition",
-    "monitored_metrics": {
-      "financial_exigency_active": true,
-      "max_independent_spend_cap": 20000.0,
-      "max_academic_degree_sectors": 10,
-      "minimum_freshman_gpa": 2.5,
-      "minimum_freshman_act": 18
-    },
-    "active_litigation": {
-      "plaintiffs": "KSU Students and Alumni Class Action",
-      "filing_date": "2026-05-11",
-      "court": "U.S. District Court for the Eastern District of Kentucky",
-      "core_claim": "Violation of Title VI of the Civil Rights Act"
-    }
-  },
-  "historical_trends": [
-    {
-      "fiscal_year": "2005-2010 (Baseline)",
-      "ipeds_enrollment_avg": 2850,
-      "institutional_deficit": 0.0,
-      "audit_status": "Compliant"
-    },
-    {
-      "fiscal_year": "2015-2020 (Pre-Exigency)",
-      "ipeds_enrollment_avg": 2200,
-      "institutional_deficit": -4500000.0,
-      "audit_status": "Delayed"
-    },
-    {
-      "fiscal_year": "2021-2024 (Forensic Horizon)",
-      "ipeds_enrollment_avg": 1700,
-      "institutional_deficit": -15000000.0,
-      "audit_status": "Adverse Opinion"
-    },
-    {
-      "fiscal_year": "2025-2026 (Current Void)",
-      "ipeds_enrollment_avg": 1450,
-      "institutional_deficit": null,
-      "audit_status": "Missing/Overdue"
-    },
-    {
-      "forensic_parameter": "Public Identity Fracturing",
-      "official_state_claim": "Nicole Sergent",
-      "audited_reality_ledger": "Nicole Sergent Biddle",
-      "computed_risk": "236 Days Nomenclature Deception"
-    },
-    {
-      "forensic_parameter": "KBA Rule UPL-67 Intercept",
-      "official_state_claim": "Active D.C. Footprint",
-      "audited_reality_ledger": "Regulatory Null Result",
-      "computed_risk": "Cross-Border Unauthorized Practice"
-    }
-  ],
-  "evidentiary_index": [
-    {
-      "document_id": "REF-2021-AUD",
-      "category": "Financial Audit",
-      "title": "2021 Forensic Carried Forward Variance Analysis",
-      "coverage_period": "FY 2021",
-      "file_target": "EVIDENTIARY_INDEX.md",
-      "verification": "Auditor Verified"
-    },
-    {
-      "document_id": "REF-IPEDS-TREND",
-      "category": "IPEDS Summary",
-      "title": "Historical Enrollment & Operational Cost Core Dataset",
-      "coverage_period": "2005 - 2025",
-      "file_target": "ipeds_federal_comparisons.json",
-      "verification": "NCES Database"
-    },
-    {
-      "document_id": "REF-SB185-COMP",
-      "category": "Legislative Mandate",
-      "title": "Senate Bill 185 Polytechnic Compliance Tracking Log",
-      "coverage_period": "2026 - Horizon",
-      "file_target": "sb_185_compliance.json",
-      "verification": "Statutory Directive"
-    }
-  ],
-  "forensic_risk_register": [
-    {
-      "forensic_parameter": "Public Identity Fracturing",
-      "official_state_claim": "Nicole Sergent",
-      "audited_reality_ledger": "Nicole Sergent Biddle",
-      "computed_risk": "236 Days Nomenclature Deception"
-    },
-    {
-      "forensic_parameter": "KBA Rule UPL-67 Intercept",
-      "official_state_claim": "Active D.C. Footprint",
-      "audited_reality_ledger": "Regulatory Null Result",
-      "computed_risk": "Cross-Border Unauthorized Practice"
-    }
-  ],
-  "media_timeline": [
-    {
-      "date": "2023-03-23",
-      "headline": "Ky. auditor refers KSU findings to prosecutors",
-      "source": "Courier-Journal",
-      "proquest_id": "2789593663",
-      "summary": "Auditor Harmon referred files detailing a 'chaotic' budget process and $4M in unbacked ProCard spending to federal and state prosecutors."
-    },
-    {
-      "date": "2026-04-07",
-      "headline": "60 bills sent to Beshear to sign",
-      "source": "Courier-Journal",
-      "proquest_id": "SB185_Passage",
-      "summary": "Kentucky lawmakers pass SB 185, overhauling KSU and mandating its transition into a polytechnic university."
-    }
-  ]
+    "compliance_matrix": [
+        {
+            "standard_code": "CR 1.1",
+            "section": "Principle of Integrity",
+            "title": "Institutional Integrity",
+            "status": "CRITICAL",
+            "vulnerability": "Systemic Candor Breakdown. Redacting statutory SACSCOC checkpoints from public announcements; burying the April 2026 Academic Referral Report; utilizing local network proxies to block external tracking of internal records.",
+            "firewall_strategy": "Scrub detailed dockets; execute a multi-semester blanket agenda scheme to project an illusion of total administrative control."
+        },
+        {
+            "standard_code": "CR 2.1 & 4.2.a",
+            "section": "Mission & Governance",
+            "title": "Institutional Mission & Review",
+            "status": "CRITICAL",
+            "vulnerability": "Mission Subversion. Unilaterally abandoning the traditional liberal arts HBCU mandate to force a compressed polytechnic layout without a faculty-led, 5-year cyclical mission evaluation.",
+            "firewall_strategy": "Package radical institutional transformations under a generic 'Academic Plan' heading to bypass explicit public mission modification approvals."
+        },
+        {
+            "standard_code": "CR 3.1.c",
+            "section": "Basic Eligibility",
+            "title": "Continuous Operation",
+            "status": "CRITICAL",
+            "vulnerability": "Operational Interruption. Slashing core degree programs unilaterally under Senate Bill 185 before SACSCOC evaluates or authorizes teach-out frameworks, resulting in severe student class-action breach of contract lawsuits.",
+            "firewall_strategy": "Mask rapid programmatic shutdowns under standard committee headings to dodge immediate teach-out and enrollment scrutiny."
+        }
+        ,
+        {
+            "standard_code": "CR 4.1 & 4.2.b",
+            "section": "Governing Board",
+            "title": "Fiduciary Oversight & Distinction",
+            "status": "CRITICAL",
+            "vulnerability": "Fiduciary Abandonment. Fast-tracking a 'Proposed Farm Purchase' on the June 11 Finance docket despite an active -$59M unrestricted deficit; bypassing open floor debate on 100% compliance failure audits.",
+            "firewall_strategy": "Bury the devastating CLA Single Audit inside a non-debatable Consent Agenda; approve macro capital expansions via unitemized blanket votes."
+        },
+        {
+            "standard_code": "Standard 4.3",
+            "section": "Governing Board",
+            "title": "Multi-Level Governance",
+            "status": "CRITICAL",
+            "vulnerability": "Oversight Failure. Bypassing Council on Postsecondary Education (CPE) operational boundaries while failing to clearly define local policy and authority lines on the public record.",
+            "firewall_strategy": "Hide explicit regulatory restrictions, state fiscal oversight mandates, and takeover mechanics from public-facing board records."
+        }
+        ,
+        {
+            "standard_code": "Standard 5.2.b",
+            "section": "Administration & Org",
+            "title": "Control of Intercollegiate Athletics",
+            "status": "CRITICAL",
+            "vulnerability": "Athletic Budget Siphoning. Executing an unmonitored $29.5M internal pool raid to cover baseline payroll; siphoning academic and tuition dollars to mask massive athletic overruns.",
+            "firewall_strategy": "Omit cost-versus-income athletic ledger comparisons from public files; route asset trace lines behind a closed executive session firewall."
+        },
+        {
+            "standard_code": "Standard 5.2.c",
+            "section": "Administration & Org",
+            "title": "Control of Fund-Raising Activities",
+            "status": "CRITICAL",
+            "vulnerability": "Fund-Raising Oversight Exposure. Failure of the Chief Executive Officer to maintain distinct, uncorrupted boundaries over internal donation paths; co-opting advancement networks to mask an operational cash bleed.",
+            "firewall_strategy": "Combine advancement and finance dockets under generic committee headings; hide unitemized donor allocations in closed session lines."
+        },
+        {
+            "standard_code": "Standard 5.3.a",
+            "section": "Administration & Org",
+            "title": "Institution-Related Entities",
+            "status": "CRITICAL",
+            "vulnerability": "Oversight Breach. Failing to maintain independent, written legal authority, formal agreements, and strict liability definitions regarding third-party asset management.",
+            "firewall_strategy": "Omit structural partnership details; fast-track capital agreements via unitemized, blanket committee votes."
+        },
+        {
+            "standard_code": "Standard 5.4",
+            "section": "Administration & Org",
+            "title": "Qualified Academic Officers",
+            "status": "CRITICAL",
+            "vulnerability": "Repeat Qualification Failure. Operating with an active Dean of Arts & Sciences who completely lacks a doctoral degree or the mandatory 5 years of department-chair level administrative experience.",
+            "firewall_strategy": "Route executive qualification reviews and personnel actions directly into a closed executive session under KRS 61.810."
+        },
+        {
+            "standard_code": "Standard 5.5",
+            "section": "Administration & Org",
+            "title": "Personnel Appointment & Evaluation",
+            "status": "CRITICAL",
+            "vulnerability": "Arbitrary Layoffs. Weaponizing statutory exigencies to execute arbitrary non-faculty support staff layoffs; bypassing mandatory performance evaluation protocols; replacing internal oversight personnel with external contractors.",
+            "firewall_strategy": "Omit organizational restructuring charts; bundle mid-level staff liquidations under single-line administrative adjustments to avoid open floor debate."
+        }
+        ,
+        {
+            "standard_code": "CR 6.1 & 6.2.b",
+            "section": "Faculty Chassis",
+            "title": "Faculty Adequacy & Sufficiency",
+            "status": "CRITICAL",
+            "vulnerability": "Hollowed Faculty Chassis. Slicing academic lines to float baseline operations; refusing to provide program-specific faculty metrics to SACSCOC review teams to hide instructional gaps.",
+            "firewall_strategy": "Enforce a permanent public index freeze on Faculty Senate minutes; leave dead committee tracking links active on the web directory."
+        },
+        {
+            "standard_code": "Standard 6.5",
+            "section": "Faculty Chassis",
+            "title": "Faculty Development",
+            "status": "CRITICAL",
+            "vulnerability": "Resource Starvation. Systematically defunding instructional support, professional training, and research development pools to channel remaining cash into central operations.",
+            "firewall_strategy": "Mask line-item operational resource depletion under generic 'Faculty Workload' and campus restructuring titles."
+        },
+        {
+            "standard_code": "CR 7.1",
+            "section": "Institutional Effectiveness",
+            "title": "Institutional Planning",
+            "status": "CRITICAL",
+            "vulnerability": "Planning Collapse. Executing a top-down academic reorganization completely detached from systematic, data-driven institutional research and assessment.",
+            "firewall_strategy": "Bypass institutional effectiveness data; push sweeping academic reductions under standard committee dockets."
+        },
+        {
+            "standard_code": "CR 8.1",
+            "section": "Institutional Effectiveness",
+            "title": "Student Achievement",
+            "status": "CRITICAL",
+            "vulnerability": "Evaluation Blackout. Failing to identify, evaluate, or publish verified student success thresholds and graduation benchmarks to SACSCOC reviewers.",
+            "firewall_strategy": "Hide explicit curriculum rejections noted in the hidden April Referral Report; scrub student outcome data from public view."
+        },
+        {
+            "standard_code": "CR 9.1, 9.2, & 9.3",
+            "section": "Educational Programs",
+            "title": "Program Content, Length, & GenEd",
+            "status": "CRITICAL",
+            "vulnerability": "Academic Liquidation. Unilaterally compressing program content, shortening degree lengths, and gutting the general education core below the mandatory 30-hour federal threshold.",
+            "firewall_strategy": "Conceal curriculum gaps behind vague headings; avoid open-floor debates on individual credit-hour reductions."
+        }
+        ,
+        {
+            "standard_code": "Standard 10.3",
+            "section": "Educational Programs",
+            "title": "Archived Information",
+            "status": "CRITICAL",
+            "vulnerability": "Document Spoliation. Wiping or breaking historical public catalogs and degree tracks to obscure the scale of academic cuts executed under SB 185.",
+            "firewall_strategy": "Break digital archive links; let network proxies obscure historical degree tracking structures to stop students from verifying breached contracts."
+        },
+        {
+            "standard_code": "Standard 10.4",
+            "section": "Educational Programs",
+            "title": "Academic Governance",
+            "status": "CRITICAL",
+            "vulnerability": "Shared Governance Void. Extinguishing faculty legislative authority over the curriculum; using an unconstitutional 'Ghost Senate' to rubber-stamp top-down cuts.",
+            "firewall_strategy": "Terminate public minute indexing; block faculty whistleblowers from flagging accelerating financial aid diversions."
+        },
+        {
+            "standard_code": "Standard 10.5",
+            "section": "Educational Programs",
+            "title": "Admissions Policies",
+            "status": "CRITICAL",
+            "vulnerability": "Recruiter Blindspot. Operating without transparent, published admissions policies or independent contractor recruitment oversight.",
+            "firewall_strategy": "Hide the exact contractual and fiscal linkages connecting admissions pipelines to outsourced, underwater digital frameworks."
+        },
+        {
+            "standard_code": "Standard 10.8",
+            "section": "Educational Programs",
+            "title": "Evaluating Transfer Credit",
+            "status": "CRITICAL",
+            "vulnerability": "Credit Manipulation. Awarding and transcribing external transfer or competency-based credits without verified faculty-led validation.",
+            "firewall_strategy": "Fast-track third-party credit transcription parameters behind closed executive session doors."
+        },
+        {
+            "standard_code": "Standard 10.9",
+            "section": "Educational Programs",
+            "title": "Cooperative Academic Arrangements",
+            "status": "CRITICAL",
+            "vulnerability": "Unvetted Outsourcing. Transcribing student credits through third-party arrangements (Magellan Framework) with zero faculty senate evaluation or quality vetting.",
+            "firewall_strategy": "Bundle multi-million dollar vendor renewals under vague, single-line actions; hide partnership evaluations from the open public floor."
+        }
+        ,
+        {
+            "standard_code": "Standard 11.1",
+            "section": "Library & Learning",
+            "title": "Library & Information Resources",
+            "status": "CRITICAL",
+            "vulnerability": "Starved Learning Infrastructure. Diverting designated student library and technology fees into central treasury cash flows; allowing core database and electronic journal subscriptions to expire.",
+            "firewall_strategy": "Mask severe library resource depletion and expired database subscriptions under generic 'Faculty Workload' and restructuring headings."
+        },
+        {
+            "standard_code": "CR 12.1 & 12.2",
+            "section": "Student Support",
+            "title": "Student Support Services & Complaints",
+            "status": "CRITICAL",
+            "vulnerability": "Support Starvation. Hollowing out student services personnel and hoarding student affairs complaint logs to hide systematic contract breaches from reviewers.",
+            "firewall_strategy": "House student complaints in disconnected administrative offices; keep staff directories unindexed on the public site."
+        },
+        {
+            "standard_code": "CR 13.1 & 13.7",
+            "section": "Financial & Physical",
+            "title": "Financial Resources & Physical Assets",
+            "status": "CRITICAL",
+            "vulnerability": "Operational Cash Collapse. Operating on a negative 280-day operational cash runway; forcing reliance on unmonitored internal inter-fund raids just to float baseline operating payroll.",
+            "firewall_strategy": "Table actual property remediation and acquisition costs to private retreats; mask fiscal freefall behind unitemized consent votes."
+        },
+        {
+            "standard_code": "Standard 14.5",
+            "section": "Policy Compliance",
+            "title": "Policy Compliance Statement",
+            "status": "CRITICAL",
+            "vulnerability": "Policy Defiance. Willfully executing academic cuts and structural reorganizations in direct violation of the Commission's Substantive Change and Public Disclosure policy statements.",
+            "firewall_strategy": "Hide explicit policy requirements; frame major academic alterations as internal administrative procedures detached from external oversight."
+        }
+    ]
 }
