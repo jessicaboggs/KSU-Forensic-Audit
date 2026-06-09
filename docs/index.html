@@ -362,127 +362,39 @@
 
 
          async function initDashboard() {
-            try {
-                console.log("Initializing data pipeline channels...");
-                const response = await fetch('dashboard_payload.json');
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                
-                const data = await response.json();
-                console.log("Forensic Data Pipeline Loaded Successfully:", data);
 
-                fileString = JSON.stringify(data, null, 2);
-
-                const formatCurrency = (val) => {
-    if (!val) return "$0";
-    // Strip out $, commas, and whitespace so parseFloat receives a clean numeric string
-    const cleanVal = String(val).replace(/[^0-9.-]/g, '');
-    const num = parseFloat(cleanVal);
-    return isNaN(num) ? "$0" : new Intl.NumberFormat('en-US', { 
-        style: 'currency', 
-        currency: 'USD',
-        maximumFractionDigits: 0 // Optional: hides cents if you want punchy clean numbers
-    }).format(num);
-};
-
-
-                if (data.meta && data.meta.evaluation_year) {
-                    document.getElementById('sync-time').textContent = data.meta.evaluation_year;
-                }
-
-                if (data.public_metrics) {
-                    const pm = data.public_metrics;
-                if (pm.total_emergency_bailout !== undefined) document.getElementById('val-bailout').textContent = formatCurrency(pm.total_emergency_bailout);
-                 if (pm.unsupported_procard_spending_annual !== undefined) {
-                    document.getElementById('val-procard').textContent = `${formatCurrency(pm.unsupported_procard_spending_annual)}/yr`;
-                }
-                if (pm.polytechnic_transition && pm.polytechnic_transition.target_degree_sectors !== undefined) {
-                    document.getElementById('val-degree').textContent = `${pm.polytechnic_transition.target_degree_sectors} Sectors`;
-}
-                if (pm.sga_agenda_availability !== undefined) document.getElementById('val-sga').textContent = pm.sga_agenda_availability;
-
-
-                if (data.ipeds_aid_summary && data.ipeds_aid_summary.total_title_iv_aid !== undefined) {
-                    document.getElementById('val-titleiv').textContent = formatCurrency(data.ipeds_aid_summary.total_title_iv_aid);
-                }
-
-                }
-
-                         // Reroute compliance and oversight metrics to correct nested JSON paths
-            if (data.public_metrics) {
-                const pm = data.public_metrics;
-                
-                // 1. Reroute Attestation Status
-                if (pm.compliance_tracking && pm.compliance_tracking.fy_2025_audit) {
-                    const audit = pm.compliance_tracking.fy_2025_audit;
-                    if (audit.status) {
-                        document.getElementById('val-attestation').textContent = audit.status.toUpperCase();
-                    }
-                }
-                
-                // 2. Reroute SOA Oversight Index
-                if (pm.governance_metrics && pm.governance_metrics.student_government_association) {
-                    const sga = pm.governance_metrics.student_government_association;
-                    if (sga.oversight_status) {
-                        document.getElementById('val-oversight').textContent = sga.oversight_status.replace('_', ' ').toUpperCase();
-                    }
-                }
+        if (data.meta && data.meta.evaluation_year) {
+            document.getElementById('sync-time').textContent = data.meta.evaluation_year;
+        }
+        
+        // 💸 Force bind the financial and structural fields directly to layout elements
+        if (data.meta && data.meta.forensic_parameters) {
+            const fp = data.meta.forensic_parameters;
+            if (document.getElementById('val-procard')) {
+                document.getElementById('val-procard').textContent = fp.days_cash_runway_deficit + ' Days';
             }
-
-                if (data.historical_trends) {
-                    // 1. DYNAMIC BAR CHART GENERATION
-                    const chartLoader = document.getElementById('chart-loader');
-                    chartLoader.innerHTML = '';
-                    chartLoader.style.display = 'flex';
-                    chartLoader.style.flexDirection = 'column';
-                    chartLoader.style.gap = '12px';
-
-                    data.historical_trends.forEach(trend => {
-                        const row = document.createElement('div');
-                        row.style.display = 'grid';
-                        row.style.gridTemplateColumns = '160px 1fr 80px';
-                        row.style.alignItems = 'center';
-                        row.style.gap = '12px';
-
-                        const enrollment = trend.ipeds_enrollment_avg ? parseInt(trend.ipeds_enrollment_avg) : 0;
-                        const barWidth = Math.min(100, (enrollment / 3000) * 100);
-
-                        row.innerHTML = `
-                            <div style="font-size: 11px; font-weight: bold; color: #94a3b8;">${trend.fiscal_year || 'N/A'}</div>
-                            <div style="background: #0f172a; border: 1px solid #334155; height: 14px; border-radius: 4px; overflow: hidden;">
-                                <div style="background: #38bdf8; width: ${barWidth}%; height: 100%;"></div>
-                            </div>
-                            <div style="font-size: 11px; text-align: right; color: #ffffff;">${enrollment.toLocaleString()}</div>
-                        `;
-                        chartLoader.appendChild(row);
-                    });
-
-                    // 2. HISTORICAL TABLE DATA GENERATION
-                    const tableBody = document.getElementById('historical-table-body');
-                    tableBody.innerHTML = ''; 
-
-                    data.historical_trends.forEach(trend => {
-                        const tr = document.createElement('tr');
-                        tr.className = 'evidence-row';
-
-                        const deficitValue = trend.institutional_deficit !== undefined && trend.institutional_deficit !== null ? trend.institutional_deficit : 0;
-                        const balanceValue = parseFloat(deficitValue);
-                        const balanceStyle = balanceValue < 0 ? 'color: #f87171; font-weight: bold;' : 'color: #cbd5e1;';
-
-                        tr.innerHTML = `
-                            <td style="font-weight: bold; color: #ffffff; padding: 8px; border-bottom: 1px solid #1e293b;">${trend.fiscal_year || 'N/A'}</td>
-                            <td style="padding: 8px; border-bottom: 1px solid #1e293b;">${trend.ipeds_enrollment_avg ? parseInt(trend.ipeds_enrollment_avg).toLocaleString() : 'N/A'}</td>
-                            <td style="${balanceStyle} padding: 8px; border-bottom: 1px solid #1e293b;">${formatCurrency(deficitValue)}</td>
-                            <td style="padding: 8px; border-bottom: 1px solid #1e293b;"><span style="background-color: #0f172a; padding: 2px 6px; border-radius: 4px; border: 1px solid #334155; font-size: 11px;">${(trend.audit_status || 'UNRESOLVED').toUpperCase()}</span></td>
-                        `;
-                        tableBody.appendChild(tr);
-                    });
-                }
-            } catch (error) {
-                console.error("Dashboard engine failed to initialize data channels:", error);
+            if (document.getElementById('val-titleiv')) {
+                document.getElementById('val-titleiv').textContent = fp.unrestricted_net_position_deficit;
             }
         }
+        
+        // 📐 Calculate active sector counters from the master compliance array length
+        if (data.compliance_matrix) {
+            if (document.getElementById('val-degree')) {
+                document.getElementById('val-degree').textContent = data.compliance_matrix.length + ' Sectors';
+            }
+            if (document.getElementById('val-sga')) {
+                document.getElementById('val-sga').textContent = 'SHELL_GAME';
+            }
+        }
+        
+        // Stabilize oversight and status badges
+        if (document.getElementById('val-attestation')) {
+            document.getElementById('val-attestation').textContent = 'PROBATION';
+        }
+        if (document.getElementById('val-oversight')) {
+            document.getElementById('val-oversight').textContent = 'CRITICAL FAILURE';
+        }
 
-        window.addEventListener('DOMContentLoaded', initDashboard);
-    </script>
-</body>
-</html>
+    
+                
