@@ -13,7 +13,8 @@ TARGET_ENDPOINTS = {
     "Faculty_Senate_Minutes": "https://kysu.edu",
     "Digital_Catalog_Archive": "https://kysu.edu",
     "Academic_Referral_Report": "https://kysu.edu",
-    "Board_Meeting_Dockets": "https://kysu.edu"
+    "June_11_Special_Finance_Docket": "https://kysu.edu",
+    "June_12_Full_Board_Docket": "https://kysu.edu"
 }
 
 MAX_WORKERS = 4
