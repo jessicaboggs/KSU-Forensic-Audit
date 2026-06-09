@@ -253,116 +253,7 @@
     
 
         <script>
-                function decodeFsaToken() {
-            const rawToken = document.getElementById('token-input').value.trim();
-            
-            // Extract all 8-digit date sequences dynamically (YYYYMMDD)
-            const dateMatches = rawToken.match(/20\d{6}/g);
-            
-            if (!dateMatches || dateMatches.length < 4) {
-                alert("Invalid Token Structure: Could not locate the required 4-part date compliance sequence inside the data packet.");
-                return;
-            }
-
-            // Slice out the institutional OPE ID prefix (everything up to the first date block)
-            const firstDateIndex = rawToken.search(/20\d{6}/);
-            const prefix = rawToken.substring(0, firstDateIndex);
-
-            const formatDate = (str) => {
-                return `${str.substring(0,4)}-${str.substring(4,6)}-${str.substring(6,8)}`;
-            };
-
-            // Dynamically assign extracted sequence properties from regex array positions
-            document.getElementById('out-prefix').textContent = prefix + " (OPE ID Routing)";
-            document.getElementById('out-lock').textContent = formatDate(dateMatches[0]);
-            document.getElementById('out-upload').textContent = formatDate(dateMatches[1]);
-            document.getElementById('out-settle').textContent = formatDate(dateMatches[2]);
-            document.getElementById('out-sunset').textContent = formatDate(dateMatches[3]);
-
-                    // Scan the remaining string tail for the active federal control ledger codes
-                       // Scan the remaining string tail for the active federal control ledger codes
-                    // Scan the remaining string tail for the active federal control ledger codes
-            const lvlField = document.getElementById('out-level');
-            const isHcm2 = rawToken.includes("141");
-            const isHcm1 = rawToken.includes("132");
-            const isAdvanceAuditTrack = rawToken.includes("107");
-            const isLateAudit = rawToken.includes("SH5");
-            const isZoneAlt = rawToken.includes("SH2");
-
-            if (isHcm2 && isZoneAlt) {
-                lvlField.textContent = "🚨 HCM-2 Zone Alternative Probation (Manual Hold)";
-                lvlField.style.color = "#ef4444";
-            } else if (isHcm2 && isLateAudit) {
-                lvlField.textContent = "🛑 HCM-2 High-Risk Late Compliance Audit Sanction (Manual Pre-Review)";
-                lvlField.style.color = "#f97316";
-            } else if (isHcm1 && isLateAudit) {
-                lvlField.textContent = "💧 HCM-1 Standard Late Compliance Audit Restriction (Automated Cap)";
-                lvlField.style.color = "#38bdf8";
-            } else if (isAdvanceAuditTrack && isLateAudit) {
-                // Map the UPIKE Advance Payment / Late Audit reporting state
-                lvlField.textContent = "⚠️ Advance Draw: Active Late Compliance Audit Reporting Monitor";
-                lvlField.style.color = "#fbbf24"; // Warning amber/yellow
-            } else if (rawToken.includes("142")) {
-                lvlField.textContent = "✅ Resolved: Historical HCM-2 Emergency Relief Hold (CARES/HEERF)";
-                lvlField.style.color = "#10b981";
-            } else {
-                lvlField.textContent = "Active Sub-Ledger Control Code";
-                lvlField.style.color = "#a855f7";
-            }
-
-
-            }
-
-            document.getElementById('decoder-output').style.display = 'block';
-        
-    
-        </script>  
- <script>
-
-        let fileString = "[]";
-
-        function exportTimelineData() {
-            const textBlob = new Blob([fileString], { type: 'application/json' });
-            const downloaderAnchor = document.createElement('a');
-            downloaderAnchor.download = 'ksu_forensic_timeline_export.json';
-            downloaderAnchor.href = window.URL.createObjectURL(textBlob);
-            downloaderAnchor.style.display = 'none';
-            document.body.appendChild(downloaderAnchor);
-            downloaderAnchor.click();
-            document.body.removeChild(downloaderAnchor);
-        }
-
-               function filterEvidenceVault() {
-            const query = document.getElementById('evidence-search').value.toLowerCase();
-            
-            // 1. Filter Table Rows Globally
-            const rows = document.querySelectorAll('.evidence-row');
-            rows.forEach(row => {
-                row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none';
-            });
-
-            // 2. Filter System Tracking Cards and Token Sections Automatically
-            const sections = document.querySelectorAll('main > div, section');
-            sections.forEach(section => {
-                if (query === "") {
-                    section.style.opacity = '1';
-                    section.style.filter = 'none';
-                    section.style.border = '1px solid #334155';
-                } else if (section.innerText.toLowerCase().includes(query)) {
-                    section.style.opacity = '1';
-                    section.style.filter = 'drop-shadow(0 0 6px rgba(56, 189, 248, 0.2))';
-                    section.style.border = '1px solid #38bdf8';
-                } else {
-                    section.style.opacity = '0.25';
-                    section.style.filter = 'grayscale(80%)';
-                    section.style.border = '1px solid #334155';
-                }
-            });
-        }
-
-
-         async function initDashboard() {
-    // Fetch production payload with a cache-busting timestamp query parameter
+async function initDashboard() {
     try {
         const response = await fetch('https://github.io' + Date.now());
         const data = await response.json();
@@ -401,35 +292,8 @@
         console.error("❌ Pipeline Bridge Broken:", error);
     }
 }
-        
-        // 💸 Force bind the financial and structural fields directly to layout elements
-        if (data.meta && data.meta.forensic_parameters) {
-            const fp = data.meta.forensic_parameters;
-            if (document.getElementById('val-procard')) {
-                document.getElementById('val-procard').textContent = fp.days_cash_runway_deficit + ' Days';
-            }
-            if (document.getElementById('val-titleiv')) {
-                document.getElementById('val-titleiv').textContent = fp.unrestricted_net_position_deficit;
-            }
-        }
-        
-        // 📐 Calculate active sector counters from the master compliance array length
-        if (data.compliance_matrix) {
-            if (document.getElementById('val-degree')) {
-                document.getElementById('val-degree').textContent = data.compliance_matrix.length + ' Sectors';
-            }
-            if (document.getElementById('val-sga')) {
-                document.getElementById('val-sga').textContent = 'SHELL_GAME';
-            }
-        }
-        
-        // Stabilize oversight and status badges
-        if (document.getElementById('val-attestation')) {
-            document.getElementById('val-attestation').textContent = 'PROBATION';
-        }
-        if (document.getElementById('val-oversight')) {
-            document.getElementById('val-oversight').textContent = 'CRITICAL FAILURE';
-        }
 
-    
-                
+document.addEventListener('DOMContentLoaded', initDashboard);
+</script>
+</body>
+</html>
