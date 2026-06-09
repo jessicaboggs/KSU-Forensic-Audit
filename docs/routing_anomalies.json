@@ -1,0 +1,9 @@
+[
+    {
+        "endpoint": "Board_Meeting_Dockets",
+        "target_url": "https://kysu.edu",
+        "http_status": "TIMEOUT/EXCEPTION",
+        "detected_at": "2026-06-09T15:54:40.082780",
+        "anomaly_type": "CONNECTION_DROPPED: ReadTimeout"
+    }
+]
