@@ -249,52 +249,49 @@
             </div>
         </section>
 
-    </div>\n<script>
+    </div>
+<script>
 async function initDashboard() {
     try {
-        // Use a production-grade absolute URL pathway with a cache-busting timestamp query parameter
-        const response = await fetch('https://github.io' + Date.now());
+        // Use a relative root path with cache-busting—optimized for GitHub Pages deployment
+        const response = await fetch('dashboard_payload.json?t=' + Date.now());
         if (!response.ok) throw new Error('HTTP Status ' + response.status);
         
         const data = await response.json();
         console.log("🔥 Live Forensic Pipeline Active:", data);
 
         // ⏱️ Synchronize configuration evaluation timestamps safely
-        if (document.getElementById('sync-time')) {
-            document.getElementById('sync-time').textContent = data.meta.evaluation_year;
-        }
+        const syncTimeEl = document.getElementById('sync-time');
+        if (syncTimeEl) syncTimeEl.textContent = data.meta.evaluation_year;
 
         if (data.meta && data.meta.forensic_parameters) {
             const fp = data.meta.forensic_parameters;
             
-            // Wire financial cards directly to verified layout IDs
-            if (document.getElementById('val-procard')) {
-                document.getElementById('val-procard').textContent = fp.days_cash_runway_deficit + ' Days';
-            }
-            if (document.getElementById('val-titleiv')) {
-                document.getElementById('val-titleiv').textContent = fp.unrestricted_net_position_deficit;
-            }
-            if (document.getElementById('val-bailout')) {
-                document.getElementById('val-bailout').textContent = fp.unrestricted_net_position_deficit;
-            }
+            // Wire financial cards directly to every potential layout variant ID to bypass element gaps
+            const procardEl = document.getElementById('val-procard') || document.getElementById('val-procard_spending') || document.getElementById('val-procard_spending_annual');
+            if (procardEl) procardEl.textContent = fp.days_cash_runway_deficit + ' Days';
+            
+            const titleIvEl = document.getElementById('val-titleiv') || document.getElementById('val-title_iv') || document.getElementById('val-title_iv_aid');
+            if (titleIvEl) titleIvEl.textContent = fp.unrestricted_net_position_deficit;
+            
+            const bailoutEl = document.getElementById('val-bailout') || document.getElementById('val-state_bailout') || document.getElementById('val-emergency_bailout');
+            if (bailoutEl) bailoutEl.textContent = fp.unrestricted_net_position_deficit;
         }
 
         if (data.compliance_matrix) {
-            if (document.getElementById('val-degree')) {
-                document.getElementById('val-degree').textContent = data.compliance_matrix.length + ' Sectors';
-            }
-            if (document.getElementById('val-sga')) {
-                document.getElementById('val-sga').textContent = '0 Cycle';
-            }
+            const degreeEl = document.getElementById('val-degree') || document.getElementById('val-mandated_degree_cap') || document.getElementById('val-target_degree_sectors');
+            if (degreeEl) degreeEl.textContent = data.compliance_matrix.length + ' Sectors';
+            
+            const sgaEl = document.getElementById('val-sga') || document.getElementById('val-sga_agenda_availability') || document.getElementById('val-sga_agenda');
+            if (sgaEl) sgaEl.textContent = '0 Cycle';
         }
 
         // Stabilize governance status text badges
-        if (document.getElementById('val-attestation')) {
-            document.getElementById('val-attestation').textContent = 'PROBATION';
-        }
-        if (document.getElementById('val-oversight')) {
-            document.getElementById('val-oversight').textContent = 'CRITICAL VOID';
-        }
+        const attestationEl = document.getElementById('val-attestation') || document.getElementById('val-fy2025_audit');
+        if (attestationEl) attestationEl.textContent = 'PROBATION';
+        
+        const oversightEl = document.getElementById('val-oversight') || document.getElementById('val-soa_oversight') || document.getElementById('val-oversight_index');
+        if (oversightEl) oversightEl.textContent = 'CRITICAL VOID';
         
     } catch (error) {
         console.error("❌ Pipeline Bridge Broken:", error);
@@ -305,4 +302,4 @@ async function initDashboard() {
 document.addEventListener('DOMContentLoaded', initDashboard);
 </script>
 </body>
-</html>\n
+</html>
