@@ -367,7 +367,7 @@
             document.getElementById('sync-time').textContent = data.meta.evaluation_year;
         }
         
-        // 💸 Force bind the financial and structural fields directly to layout elements
+        // 🔥 Direct Force-Binding to New Schema Payload Keys
         if (data.meta && data.meta.forensic_parameters) {
             const fp = data.meta.forensic_parameters;
             if (document.getElementById('val-procard')) {
@@ -378,23 +378,18 @@
             }
         }
         
-        // 📐 Calculate active sector counters from the master compliance array length
         if (data.compliance_matrix) {
             if (document.getElementById('val-degree')) {
                 document.getElementById('val-degree').textContent = data.compliance_matrix.length + ' Sectors';
             }
             if (document.getElementById('val-sga')) {
-                document.getElementById('val-sga').textContent = 'SHELL_GAME';
+                document.getElementById('val-sga').textContent = '0 Cycle';
             }
         }
         
-        // Stabilize oversight and status badges
         if (document.getElementById('val-attestation')) {
             document.getElementById('val-attestation').textContent = 'PROBATION';
         }
         if (document.getElementById('val-oversight')) {
-            document.getElementById('val-oversight').textContent = 'CRITICAL FAILURE';
+            document.getElementById('val-oversight').textContent = 'CRITICAL VOID';
         }
-
-    
-                
