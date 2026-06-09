@@ -385,8 +385,8 @@
 };
 
 
-                if (data.system_status && data.system_status.last_updated) {
-                    document.getElementById('sync-time').textContent = data.system_status.last_updated;
+                if (data.meta && data.meta.evaluation_year) {
+                    document.getElementById('sync-time').textContent = data.meta.evaluation_year;
                 }
 
                 if (data.public_metrics) {
