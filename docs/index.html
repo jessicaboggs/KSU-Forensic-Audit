@@ -59,7 +59,6 @@
             </div>
         </div>
 
-        <!-- Hardcode the explicit ID directly into the chart container chassis -->
         <div class="chart-card" id="discrepancy-chart-card">
             <h2>2021 Discrepancy: Reported vs Actual Deficit</h2>
             <div style="height: 260px; width: 100%; position: relative;">
@@ -114,18 +113,12 @@ async function initDashboard() {
         if (document.getElementById('val-attestation')) document.getElementById('val-attestation').textContent = 'PROBATION';
         if (document.getElementById('val-oversight')) document.getElementById('val-oversight').textContent = 'CRITICAL VOID';
 
-        // 📊 Absolute Data Binding via Straight Element ID Targets
         if (data.meta && data.meta.historical_trend_data) {
             const trend = data.meta.historical_trend_data;
-            const chartBox = document.getElementById('discrepancy-chart-card');
             
-            if (chartBox) {
-                chartBox.innerHTML = `<h2>2021 Discrepancy: Reported vs Actual Deficit</h2><div style="height:260px; width:100%; position:relative;"><canvas id="forensicTrendChart"></canvas></div>`;
-                
-                const ctx = document.getElementById('forensicTrendChart').getContext('2d');
-                // ⏱️ Add a safety delay to guarantee the Chart.js CDN library is fully defined in memory
-        setTimeout(() => {
-            if (typeof Chart !== 'undefined') {
+            setTimeout(() => {
+                if (typeof Chart !== 'undefined') {
+                    const ctx = document.getElementById('forensicTrendChart').getContext('2d');
                     new Chart(ctx, {
                         type: 'line',
                         data: {
@@ -152,9 +145,7 @@ async function initDashboard() {
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
-                            plugins: {
-                                legend: { labels: { color: '#fff' } }
-                            },
+                            plugins: { legend: { labels: { color: '#fff' } } },
                             scales: {
                                 y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
                                 x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
@@ -162,8 +153,8 @@ async function initDashboard() {
                         }
                     });
                 }
-            }
-        }, 200);
+            }, 200);
+        }
     } catch (error) {
         console.error("❌ Pipeline Bridge Broken:", error);
     }
