@@ -92,7 +92,7 @@ This repository hosts the diagnostic scripts and structured data objects documen
 
 
 ---
-### ## 1.1 The Spoliation & Routing Vector (Active Referral Track)
+### 1.1 The Spoliation & Routing Vector (Active Referral Track)
 
 This track isolates programmatic footprints of intentional document spoliation, data alteration, and tactical compliance avoidance across targeted institutional portals. Rather than treating missing files as passive archival gaps, this vector analyzes server-side manipulation as active evidence tampering.
 
